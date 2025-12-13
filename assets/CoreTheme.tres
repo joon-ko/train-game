@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://d0mlg6ed0r4ce"]
+
+[ext_resource type="FontFile" uid="uid://df2txpf351e23" path="res://assets/KiwiSoda.ttf" id="1_4nhdn"]
+
+[resource]
+RichTextLabel/fonts/normal_font = ExtResource("1_4nhdn")
