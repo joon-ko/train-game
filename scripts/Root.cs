@@ -2,21 +2,26 @@ using Godot;
 
 public partial class Root : Control
 {
-    private AnimationManager animationManager;
     private Train testTrain;
-    private Grid grid;
+    private GridManager gridManager;
+    private TileMapLayer grid;
     private RichTextLabel brakeInfoLabel;
 
     private bool scheduled;
 
+    private AnimationManager animationManager;
+    private SwitchManager switchManager;
+
     public override void _Ready()
     {
         animationManager = GetNode<AnimationManager>("/root/AnimationManager");
+        switchManager = GetNode<SwitchManager>("/root/SwitchManager");
 
         testTrain = GetNode<Train>("Train");
         testTrain.FinishedPath += _OnFinishedPath;
 
-        grid = GetNode<Grid>("GridLayers/Ground");
+        gridManager = GetNode<GridManager>("GridManager");
+        grid = GetNode<TileMapLayer>("GridManager/Ground");
 
         brakeInfoLabel = GetNode<RichTextLabel>("UIContainer/BrakeInfoLabel");
         brakeInfoLabel.PivotOffset = brakeInfoLabel.Size / 2f;
@@ -27,11 +32,26 @@ public partial class Root : Control
     private void _AssignTrainPath()
     {
         var coordinate = grid.LocalToMap(testTrain.GetTrainPosition());
-        if (grid.TrainPaths.ContainsKey(coordinate))
+        if (!gridManager.TrainPaths.ContainsKey(coordinate))
         {
-            testTrain.AcceptPath(grid.TrainPaths[coordinate]);
-            scheduled = true;
+            return;
         }
+
+        PathInfo path;
+        var paths = gridManager.TrainPaths[coordinate];
+        if (paths.Count > 1)
+        {
+            // We're at a switch: check the orientation of this switch to determine the right path
+            var orientation = switchManager.GetSwitchOrientation(coordinate);
+            path = paths.Find((path) => path.SwitchOrientation == orientation);
+        }
+        else
+        {
+            path = paths[0];
+        }
+
+        testTrain.AcceptPath(path);
+        scheduled = true;
     }
 
     private void _OnFinishedPath()

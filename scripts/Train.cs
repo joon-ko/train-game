@@ -39,7 +39,7 @@ public partial class Train : Node2D
 
     public override void _Ready()
     {
-        tileMapLayer = GetTree().CurrentScene.GetNode<TileMapLayer>("GridLayers/Ground");
+        tileMapLayer = GetTree().CurrentScene.GetNode<TileMapLayer>("GridManager/Ground");
         path = GetNode<Path2D>("Path2D");
         pathFollow = GetNode<PathFollow2D>("Path2D/PathFollow2D");
         sprite = GetNode<AnimatedSprite2D>("Path2D/PathFollow2D/Sprite");
