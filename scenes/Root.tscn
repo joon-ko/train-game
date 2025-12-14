@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://rxs4kcbrnreu"]
+[gd_scene load_steps=8 format=4 uid="uid://rxs4kcbrnreu"]
 
 [ext_resource type="TileSet" uid="uid://4n3wig1qeiv0" path="res://assets/CoreTileSet.tres" id="1_24d08"]
 [ext_resource type="Script" uid="uid://cd8hls8wvb7nx" path="res://scripts/Root.cs" id="1_ont70"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b5clb7560do2o" path="res://scenes/Train.tscn" id="4_mvcll"]
 [ext_resource type="Texture2D" uid="uid://cxbw8a3mh8a8u" path="res://assets/Compass.png" id="5_3ipfy"]
 [ext_resource type="Theme" uid="uid://d0mlg6ed0r4ce" path="res://assets/CoreTheme.tres" id="6_5npxh"]
+[ext_resource type="Script" uid="uid://cgiobuyldj5je" path="res://scripts/TrainPathVisualizer.cs" id="7_c618l"]
 
 [node name="Root" type="Control"]
 layout_mode = 3
@@ -80,5 +81,15 @@ text = "press [color=LIGHT_PINK][spacebar][/color] to brake/unbrake"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
+
+[node name="TrainPathVisualizer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_c618l")
+metadata/_edit_lock_ = true
 
 [connection signal="timeout" from="Train/Timer" to="Train" method="_OnTimerTimeout"]

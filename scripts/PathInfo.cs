@@ -4,14 +4,14 @@ public class PathInfo
 {
     public Direction Direction;
     public Vector2I StartCoordinate;
-    public Vector2I EndCoordinate;    public bool IsSwitch;
-    public SwitchOrientation SwitchOrientation;
+    public Vector2I EndCoordinate;
+    public SwitchOrientation? SwitchOrientation;
 
     public PathInfo(
         Vector2I start,
         Vector2I end,
         Direction direction,
-        SwitchOrientation switchOrientation = SwitchOrientation.Straight)
+        SwitchOrientation? switchOrientation = null)
     {
         StartCoordinate = start;
         EndCoordinate = end;

@@ -32,4 +32,9 @@ public partial class SwitchManager : Node
         switchLocations.Clear();
         switchStates.Clear();
     }
+
+    public int GetSwitchCount()
+    {
+        return switchLocations.Count;
+    }
 }
