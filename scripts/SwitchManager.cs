@@ -26,4 +26,10 @@ public partial class SwitchManager : Node
     {
         return switchStates[coord];
     }
+
+    public void ClearSwitches()
+    {
+        switchLocations.Clear();
+        switchStates.Clear();
+    }
 }

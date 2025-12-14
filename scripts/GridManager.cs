@@ -1,5 +1,20 @@
 using Godot;
+using System;
 using System.Collections.Generic;
+
+public readonly struct SearchNode
+{
+	public readonly Vector2I Location;
+	public readonly Direction Direction;
+	public readonly SwitchOrientation? Orientation;
+
+	public SearchNode(Vector2I location, Direction direction, SwitchOrientation? orientation = null)
+	{
+		Location = location;
+		Direction = direction;
+		Orientation = orientation;
+	}
+}
 
 [GlobalClass]
 public partial class GridManager : Node
@@ -25,10 +40,60 @@ public partial class GridManager : Node
 
 	private SwitchManager switchManager;
 
+	private Dictionary<Direction, Vector2I> directionDeltas = new Dictionary<Direction, Vector2I>()
+	{
+		{ Direction.PosX, new Vector2I(1, 0) },
+		{ Direction.PosY, new Vector2I(0, 1) },
+		{ Direction.NegX, new Vector2I(-1, 0) },
+		{ Direction.NegY, new Vector2I(0, -1) }
+	};
+
 	public override void _Ready()
 	{
 		switchManager = GetNode<SwitchManager>("/root/SwitchManager");
 		AddHardcodedTrainPaths();
+	}
+
+	private void GenerateTrainPaths(Vector2I startLocation, Direction direction)
+	{
+		// Clear train paths and switch states and start a path from the start location.
+		TrainPaths.Clear();
+		switchManager.ClearSwitches();
+
+		// Initialize the search queue.
+		var queue = new Queue<SearchNode>();
+		queue.Enqueue(new SearchNode(startLocation, direction));
+
+		// On each search step, walk to neighboring tile.
+		// We will walk in a straight line until we reach a corner or a switch.
+		while (queue.Count > 0)
+		{
+			var searchNode = queue.Dequeue();
+		}
+
+		// If we reach a corner:
+		// The corner can either be a pure corner or a corner that merges with another lane.
+		// In either case, end the current path and do nothing if this path already exists in the paths list.
+		// If the path is new, add it to the paths list, and start a new path from the current location.
+		// Update the direction based on the corner and continue walking on the new path.
+
+		// If we reach a switch:
+		// End the current path and do nothing if this path already exists in the paths list.
+		// If the path is new, add it to the paths list, and start two new paths from the current location.
+		// Update the direction of the paths and the switch orientation leading to this path based on the switch.
+		// Add a switch node and add the switch to the switch manager.
+		// Through either DFS or BFS, both paths will eventually be processed by the search queue.
+
+		// The train paths are finished generating when the search queue gets exhausted. Search branches exhaust themselves
+		// naturally upon encountering duplicate paths.
+	}
+
+	private void GetDeltaFromDirection(Direction direction)
+	{
+		switch (direction)
+		{
+
+		}
 	}
 
 	private void AddHardcodedTrainPaths()
@@ -58,31 +123,5 @@ public partial class GridManager : Node
 		// Unified again to get back to start!
 		TrainPaths.Add(LEFT_CORNER, [new PathInfo(LEFT_CORNER, BOTTOM_CORNER, Direction.PosX)]);
 		TrainPaths.Add(BOTTOM_CORNER, [new PathInfo(BOTTOM_CORNER, FIRST_CORNER, Direction.NegY)]);
-	}
-
-	private void GenerateTrainPaths()
-	{
-		// Algorithm overview:
-
-		// Algorithm's input is a start location and a direction.
-		// Clear train paths and switch states and start a path from the start location.
-		// On each search step, walk to neighboring tile.
-		// We will walk in a straight line until we reach a corner or a switch.
-
-		// If we reach a corner:
-		// The corner can either be a pure corner or a corner that merges with another lane.
-		// In either case, end the current path and do nothing if this path already exists in the paths list.
-		// If the path is new, add it to the paths list, and start a new path from the current location.
-		// Update the direction based on the corner and continue walking on the new path.
-
-		// If we reach a switch:
-		// End the current path and do nothing if this path already exists in the paths list.
-		// If the path is new, add it to the paths list, and start two new paths from the current location.
-		// Update the direction of the paths and the switch orientation leading to this path based on the switch.
-		// Add a switch node and add the switch to the switch manager.
-		// Through either DFS or BFS, both paths will eventually be processed by the search queue.
-
-		// The train paths are finished generating when the search queue gets exhausted. Search branches exhaust themselves
-		// naturally upon encountering duplicate paths.
 	}
 }
