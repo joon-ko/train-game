@@ -28,10 +28,10 @@ public partial class GridManager : Node
 	public override void _Ready()
 	{
 		switchManager = GetNode<SwitchManager>("/root/SwitchManager");
-		GenerateTrainPaths();
+		AddHardcodedTrainPaths();
 	}
 
-	private void GenerateTrainPaths()
+	private void AddHardcodedTrainPaths()
 	{
 		// Still hardcoding all paths for test level for now
 		// TODO: Algorithm to read tile map layers and generate train paths automatically
@@ -58,5 +58,31 @@ public partial class GridManager : Node
 		// Unified again to get back to start!
 		TrainPaths.Add(LEFT_CORNER, [new PathInfo(LEFT_CORNER, BOTTOM_CORNER, Direction.PosX)]);
 		TrainPaths.Add(BOTTOM_CORNER, [new PathInfo(BOTTOM_CORNER, FIRST_CORNER, Direction.NegY)]);
+	}
+
+	private void GenerateTrainPaths()
+	{
+		// Algorithm overview:
+
+		// Algorithm's input is a start location and a direction.
+		// Clear train paths and switch states and start a path from the start location.
+		// On each search step, walk to neighboring tile.
+		// We will walk in a straight line until we reach a corner or a switch.
+
+		// If we reach a corner:
+		// The corner can either be a pure corner or a corner that merges with another lane.
+		// In either case, end the current path and do nothing if this path already exists in the paths list.
+		// If the path is new, add it to the paths list, and start a new path from the current location.
+		// Update the direction based on the corner and continue walking on the new path.
+
+		// If we reach a switch:
+		// End the current path and do nothing if this path already exists in the paths list.
+		// If the path is new, add it to the paths list, and start two new paths from the current location.
+		// Update the direction of the paths and the switch orientation leading to this path based on the switch.
+		// Add a switch node and add the switch to the switch manager.
+		// Through either DFS or BFS, both paths will eventually be processed by the search queue.
+
+		// The train paths are finished generating when the search queue gets exhausted. Search branches exhaust themselves
+		// naturally upon encountering duplicate paths.
 	}
 }
