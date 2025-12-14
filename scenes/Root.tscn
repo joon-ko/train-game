@@ -41,7 +41,7 @@ tile_set = ExtResource("1_24d08")
 
 [node name="Train" parent="." instance=ExtResource("4_mvcll")]
 InitialCoordinate = Vector2i(26, 9)
-MaxSpeed = 0.5
+MaxSpeed = 1.0
 
 [node name="DevCompass" type="TextureRect" parent="."]
 visible = false

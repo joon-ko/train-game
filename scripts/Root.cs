@@ -75,8 +75,13 @@ public partial class Root : Control
             if (keyEvent.Keycode == Key.Space && keyEvent.Pressed)
             {
                 testTrain.ToggleBrake();
+                return;
             }
-            return;
+            if (keyEvent.Keycode == Key.Shift && keyEvent.Pressed)
+            {
+                switchManager.ToggleSwitch(0);
+                return;
+            }
         }
     }
 }
