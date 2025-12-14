@@ -20,9 +20,6 @@ public class SearchNode
 [GlobalClass]
 public partial class GridManager : Node
 {
-	[Export] public int Width { get; set; } = 10;
-	[Export] public int Height { get; set; } = 10;
-
 	public Dictionary<Vector2I, List<PathInfo>> TrainPaths = [];
 
 	// Hardcoded start location and direction for now

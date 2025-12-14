@@ -73,14 +73,14 @@ public partial class Root : Control
             _AssignTrainPath();
         }
 
-        // hard coded switch coords for now
-        if (switchManager.GetSwitchOrientation(new Vector2I(23, 0)) == SwitchOrientation.Straight) 
+        var switchCoord = switchManager.GetSwitchCoord(0);
+        if (switchManager.GetSwitchOrientation(switchCoord) == SwitchOrientation.Straight)
         {
-            gridEnv.SetCell(new Vector2I(23,0), 0, new Vector2I(3,8));
+            gridEnv.SetCell(switchCoord, 0, TileManager.GetTileAtlasCoordinate(Tile.StraightArrow));
         }
         else
         {
-            gridEnv.SetCell(new Vector2I(23,0), 0, new Vector2I(3,9));
+            gridEnv.SetCell(switchCoord, 0, TileManager.GetTileAtlasCoordinate(Tile.BentArrow));
         }
     }
 

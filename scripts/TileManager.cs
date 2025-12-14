@@ -21,7 +21,9 @@ public enum Tile
     RailMergeBottomX,
     RailMergeBottomY,
     RailMergeTopX,
-    RailMergeTopY
+    RailMergeTopY,
+    StraightArrow,
+    BentArrow,
 }
 
 public static class TileManager
@@ -46,7 +48,9 @@ public static class TileManager
         { Tile.RailMergeBottomX, new Vector2I(2, 4) },
         { Tile.RailMergeBottomY, new Vector2I(3, 4) },
         { Tile.RailMergeTopX, new Vector2I(4, 4) },
-        { Tile.RailMergeTopY,  new Vector2I(5, 4) }
+        { Tile.RailMergeTopY,  new Vector2I(5, 4) },
+        { Tile.StraightArrow, new Vector2I(3, 8) },
+        { Tile.BentArrow, new Vector2I(3, 9) },
     };
 
     private static Dictionary<Vector2I, Tile> tilesAtCoord = new Dictionary<Vector2I, Tile>()
@@ -68,6 +72,8 @@ public static class TileManager
         { new Vector2I(3, 4), Tile.RailMergeBottomY },
         { new Vector2I(4, 4), Tile.RailMergeTopX },
         { new Vector2I(5, 4), Tile.RailMergeTopY },
+        { new Vector2I(3, 8), Tile.StraightArrow },
+        { new Vector2I(3, 9), Tile.BentArrow },
     };
 
     public static ImmutableHashSet<Tile> CORNER_TILES = [

@@ -22,6 +22,11 @@ public partial class SwitchManager : Node
         switchStates[switchCoord] = newOrientation;
     }
 
+    public Vector2I GetSwitchCoord(int index)
+    {
+        return switchLocations[index];
+    }
+
     public SwitchOrientation GetSwitchOrientation(Vector2I coord)
     {
         return switchStates[coord];
