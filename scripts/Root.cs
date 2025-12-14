@@ -7,6 +7,7 @@ public partial class Root : Control
     private TileMapLayer grid;
     private TileMapLayer gridEnv;
     private RichTextLabel brakeInfoLabel;
+    private Control trainPathVisualizer;
 
     private bool scheduled;
 
@@ -23,13 +24,14 @@ public partial class Root : Control
 
         gridManager = GetNode<GridManager>("GridManager");
         grid = GetNode<TileMapLayer>("GridManager/Ground");
-
         gridEnv = GetNode<TileMapLayer>("GridManager/Environment");
 
         brakeInfoLabel = GetNode<RichTextLabel>("UIContainer/BrakeInfoLabel");
         brakeInfoLabel.PivotOffset = brakeInfoLabel.Size / 2f;
         animationManager.AddSwayAnimation(brakeInfoLabel);
         animationManager.AddBlinkAnimation(brakeInfoLabel);
+
+        trainPathVisualizer = GetNode<Control>("TrainPathVisualizer");
 
         grid.SetCell(new Vector2I(11,9), 0, new Vector2I(0,6));
     }
@@ -96,6 +98,10 @@ public partial class Root : Control
             {
                 switchManager.ToggleSwitch(0);
                 return;
+            }
+            if (keyEvent.Keycode == Key.Tab && keyEvent.Pressed)
+            {
+                trainPathVisualizer.Visible = !trainPathVisualizer.Visible;
             }
         }
     }
