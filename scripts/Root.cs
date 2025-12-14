@@ -5,6 +5,7 @@ public partial class Root : Control
     private Train testTrain;
     private GridManager gridManager;
     private TileMapLayer grid;
+    private TileMapLayer gridEnv;
     private RichTextLabel brakeInfoLabel;
 
     private bool scheduled;
@@ -23,10 +24,14 @@ public partial class Root : Control
         gridManager = GetNode<GridManager>("GridManager");
         grid = GetNode<TileMapLayer>("GridManager/Ground");
 
+        gridEnv = GetNode<TileMapLayer>("GridManager/Environment");
+
         brakeInfoLabel = GetNode<RichTextLabel>("UIContainer/BrakeInfoLabel");
         brakeInfoLabel.PivotOffset = brakeInfoLabel.Size / 2f;
         animationManager.AddSwayAnimation(brakeInfoLabel);
         animationManager.AddBlinkAnimation(brakeInfoLabel);
+
+        grid.SetCell(new Vector2I(11,9), 0, new Vector2I(0,6));
     }
 
     private void _AssignTrainPath()
@@ -64,6 +69,16 @@ public partial class Root : Control
         if (!scheduled)
         {
             _AssignTrainPath();
+        }
+
+        // hard coded switch coords for now
+        if (switchManager.GetSwitchOrientation(new Vector2I(23, 0)) == SwitchOrientation.Straight) 
+        {
+            gridEnv.SetCell(new Vector2I(23,0), 0, new Vector2I(3,8));
+        }
+        else
+        {
+            gridEnv.SetCell(new Vector2I(23,0), 0, new Vector2I(3,9));
         }
     }
 
