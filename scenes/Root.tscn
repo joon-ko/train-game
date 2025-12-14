@@ -43,6 +43,10 @@ tile_set = ExtResource("1_24d08")
 InitialCoordinate = Vector2i(26, 9)
 MaxSpeed = 1.0
 
+[node name="Timer" type="Timer" parent="Train"]
+process_callback = 0
+wait_time = 2.0
+
 [node name="DevCompass" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
@@ -76,3 +80,5 @@ text = "press [color=LIGHT_PINK][spacebar][/color] to brake/unbrake"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
+
+[connection signal="timeout" from="Train/Timer" to="Train" method="_OnTimerTimeout"]
