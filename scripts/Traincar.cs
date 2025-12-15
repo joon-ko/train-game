@@ -7,10 +7,12 @@ public partial class Traincar : Node2D
     public Direction PreviousDirection;
 
     public Path2D currentPath;
+    public PathInfo currentPathInfo;
     public PathFollow2D currentPathFollow;
     public AnimatedSprite2D currentSprite;
 
     public Path2D previousPath;
+    public PathInfo previousPathInfo;
     public PathFollow2D previousPathFollow;
     public AnimatedSprite2D previousSprite;
 

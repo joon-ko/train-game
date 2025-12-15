@@ -42,6 +42,9 @@ public partial class HeadTraincar : Traincar
 
 	public void AcceptPath(PathInfo pathInfo)
 	{
+		previousPathInfo = currentPathInfo;
+		currentPathInfo = pathInfo;
+
 		// Set the orientation of the train
 		var animationMap = IsMoving() ? movingAnimationMap : stillAnimationMap;
 		currentSprite.Animation = animationMap[pathInfo.Direction];

@@ -22,6 +22,8 @@ public partial class Platform : Node2D
     [Export] public Vector2I Location { get; set; }
     [Export] public Vector2I TrainTargetLocation { get; set; }
 
+    public PathInfo PathInfo;
+
     private Color COLOR_ONE = Colors.BlueViolet;
     private Color COLOR_TWO = Colors.PaleVioletRed;
     public Color Color = Colors.BlueViolet;

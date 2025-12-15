@@ -27,4 +27,10 @@ public class PathInfo
         GD.Print($"- end: {EndCoordinate}");
         GD.Print($"- switch orientation: {SwitchOrientation}");
     }
+
+    public bool Equals(PathInfo info)
+    {
+        return StartCoordinate == info.StartCoordinate && EndCoordinate == info.EndCoordinate;
+    }
+
 }
