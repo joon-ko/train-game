@@ -7,6 +7,8 @@ public partial class Root : Control
     private TileMapLayer grid;
     private TileMapLayer gridEnv;
     private RichTextLabel brakeInfoLabel;
+    private RichTextLabel cargoProgressLabel;
+    private RichTextLabel timeRemainingLabel;
     private Control trainPathVisualizer;
 
     private bool scheduled = false;
@@ -16,6 +18,10 @@ public partial class Root : Control
 
     private PackedScene platformScene;
     private Node2D platforms;
+
+    private int CargoDelivered = 0;
+    private int TargetCargoDelivered = 100;
+    private float TimeRemaining = 120f;
 
     // Hardcoded min/max tilemap coordinate bounds for now to scan for platforms """efficiently"""
     private const int MAP_MIN_X = 11;
@@ -39,6 +45,12 @@ public partial class Root : Control
         brakeInfoLabel.PivotOffset = brakeInfoLabel.Size / 2f;
         animationManager.AddSwayAnimation(brakeInfoLabel);
         animationManager.AddBlinkAnimation(brakeInfoLabel);
+
+        cargoProgressLabel = GetNode<RichTextLabel>("UIContainer/VBoxContainer/CargoProgressLabel");
+        cargoProgressLabel.Text = _GetCargoProgressText();
+
+        timeRemainingLabel = GetNode<RichTextLabel>("UIContainer/VBoxContainer/TimeRemainingLabel");
+        timeRemainingLabel.Text = _GetTimeRemainingText();
 
         trainPathVisualizer = GetNode<Control>("TrainPathVisualizer");
 
@@ -80,6 +92,16 @@ public partial class Root : Control
         scheduled = false;
     }
 
+    private string _GetCargoProgressText()
+    {
+        return $"cargo delivered: {CargoDelivered}/{TargetCargoDelivered}";
+    }
+
+    private string _GetTimeRemainingText()
+    {
+        return $"time remaining: {Mathf.RoundToInt(Mathf.Ceil(TimeRemaining))}";
+    }
+
     public override void _Process(double delta)
     {
         if (!scheduled)
@@ -96,6 +118,11 @@ public partial class Root : Control
         {
             gridEnv.SetCell(switchCoord, 0, TileManager.GetTileAtlasCoordinate(Tile.BentArrow));
         }
+
+        cargoProgressLabel.Text = _GetCargoProgressText();
+
+        TimeRemaining -= (float)delta;
+        timeRemainingLabel.Text = _GetTimeRemainingText();
     }
 
     public override void _Input(InputEvent @event)
@@ -116,6 +143,10 @@ public partial class Root : Control
             if (keyEvent.Keycode == Key.Tab && keyEvent.Pressed)
             {
                 trainPathVisualizer.Visible = !trainPathVisualizer.Visible;
+            }
+            if (keyEvent.Keycode == Key.C && keyEvent.Pressed)
+            {
+                CargoDelivered += 1;
             }
         }
     }
