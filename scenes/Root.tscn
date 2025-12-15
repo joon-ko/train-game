@@ -84,6 +84,16 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
+[node name="SpeedLabel" type="RichTextLabel" parent="UIContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("6_5npxh")
+bbcode_enabled = true
+text = "train speed: 0 km/h"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 2
+
 [node name="CargoProgressLabel" type="RichTextLabel" parent="UIContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("6_5npxh")

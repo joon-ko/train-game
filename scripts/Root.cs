@@ -9,6 +9,7 @@ public partial class Root : Control
     private RichTextLabel brakeInfoLabel;
     private RichTextLabel cargoProgressLabel;
     private RichTextLabel timeRemainingLabel;
+    private RichTextLabel speedLabel;
     private Control trainPathVisualizer;
 
     private bool scheduled = false;
@@ -22,12 +23,6 @@ public partial class Root : Control
     private int CargoDelivered = 0;
     private int TargetCargoDelivered = 100;
     private float TimeRemaining = 120f;
-
-    // Hardcoded min/max tilemap coordinate bounds for now to scan for platforms """efficiently"""
-    private const int MAP_MIN_X = 11;
-	private const int MAP_MIN_Y = -8;
-	private const int MAP_MAX_X = 28;
-	private const int MAP_MAX_Y = 9;
 
     public override void _Ready()
     {
@@ -51,6 +46,9 @@ public partial class Root : Control
 
         timeRemainingLabel = GetNode<RichTextLabel>("UIContainer/VBoxContainer/TimeRemainingLabel");
         timeRemainingLabel.Text = _GetTimeRemainingText();
+
+        speedLabel = GetNode<RichTextLabel>("UIContainer/VBoxContainer/SpeedLabel");
+        speedLabel.Text = _GetSpeedLabelText();
 
         trainPathVisualizer = GetNode<Control>("TrainPathVisualizer");
 
@@ -102,6 +100,12 @@ public partial class Root : Control
         return $"time remaining: {Mathf.RoundToInt(Mathf.Ceil(TimeRemaining))}";
     }
 
+    private string _GetSpeedLabelText()
+    {
+        var formattedSpeed = Mathf.RoundToInt(testTrain.Head.Speed * 100f);
+        return $"train speed: {formattedSpeed} km/h";
+    }
+
     public override void _Process(double delta)
     {
         if (!scheduled)
@@ -123,6 +127,8 @@ public partial class Root : Control
 
         TimeRemaining -= (float)delta;
         timeRemainingLabel.Text = _GetTimeRemainingText();
+
+        speedLabel.Text = _GetSpeedLabelText();
     }
 
     public override void _Input(InputEvent @event)
