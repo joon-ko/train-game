@@ -112,16 +112,18 @@ texture = ExtResource("7_0x7h0")
 y_sort_enabled = true
 
 [node name="Platform" parent="Platforms" instance=ExtResource("8_3wcpb")]
-position = Vector2(304, 231.5)
+position = Vector2(304, 233)
 Location = Vector2i(23, 5)
 TrainTargetLocation = Vector2i(23, 6)
 
 [node name="Platform2" parent="Platforms" instance=ExtResource("8_3wcpb")]
-position = Vector2(256, 159.5)
+position = Vector2(256, 161)
+CargoType = 1
 Location = Vector2i(17, 2)
 TrainTargetLocation = Vector2i(15, 3)
 
 [node name="Platform3" parent="Platforms" instance=ExtResource("8_3wcpb")]
-position = Vector2(400, 135.5)
+position = Vector2(400, 137)
+CargoType = 3
 Location = Vector2i(20, -4)
 TrainTargetLocation = Vector2i(18, -5)

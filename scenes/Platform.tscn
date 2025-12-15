@@ -1,19 +1,43 @@
-[gd_scene load_steps=7 format=3 uid="uid://bh24qg80ltx03"]
+[gd_scene load_steps=13 format=3 uid="uid://bh24qg80ltx03"]
 
 [ext_resource type="Texture2D" uid="uid://c3nqw1hmmbm05" path="res://assets/png/Platform.png" id="1_axdvg"]
 [ext_resource type="Script" uid="uid://cl2ht6wgo3j23" path="res://scripts/Platform.cs" id="1_motb6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_motb6"]
 atlas = ExtResource("1_axdvg")
-region = Rect2(0, 0, 32, 37)
+region = Rect2(0, 0, 32, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wwpbi"]
 atlas = ExtResource("1_axdvg")
-region = Rect2(32, 0, 32, 37)
+region = Rect2(32, 0, 32, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o1scf"]
 atlas = ExtResource("1_axdvg")
-region = Rect2(64, 0, 32, 37)
+region = Rect2(64, 0, 32, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpx8l"]
+atlas = ExtResource("1_axdvg")
+region = Rect2(96, 0, 32, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gi0ke"]
+atlas = ExtResource("1_axdvg")
+region = Rect2(128, 0, 32, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t47mu"]
+atlas = ExtResource("1_axdvg")
+region = Rect2(160, 0, 32, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pskx"]
+atlas = ExtResource("1_axdvg")
+region = Rect2(192, 0, 32, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ct0ul"]
+atlas = ExtResource("1_axdvg")
+region = Rect2(224, 0, 32, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uk82f"]
+atlas = ExtResource("1_axdvg")
+region = Rect2(256, 0, 32, 40)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wwpbi"]
 animations = [{
@@ -26,6 +50,24 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_o1scf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hpx8l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gi0ke")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t47mu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pskx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ct0ul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uk82f")
 }],
 "loop": true,
 "name": &"default",
@@ -39,20 +81,20 @@ metadata/_custom_type_script = "uid://cl2ht6wgo3j23"
 
 [node name="Back" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
-position = Vector2(-32, -12)
+position = Vector2(-32, -11)
 sprite_frames = SubResource("SpriteFrames_wwpbi")
-offset = Vector2(0, -8)
+offset = Vector2(0, -9)
 
 [node name="Middle" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
-position = Vector2(-17, -2)
+position = Vector2(-17, -3)
 sprite_frames = SubResource("SpriteFrames_wwpbi")
 frame = 1
-offset = Vector2(0, -8)
+offset = Vector2(0, -7)
 
 [node name="Front" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
-position = Vector2(0, 3)
+position = Vector2(0, 5)
 sprite_frames = SubResource("SpriteFrames_wwpbi")
 frame = 2
-offset = Vector2(0, -8)
+offset = Vector2(0, -10)

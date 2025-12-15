@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 
 public enum PlatformType
@@ -36,9 +37,42 @@ public partial class Platform : Node2D
     private Tween colorTween;
     private Tween heightTween;
 
+    private AnimatedSprite2D back;
+    private AnimatedSprite2D middle;
+    private AnimatedSprite2D front;
+
+    private Dictionary<CargoType, int> backFrameForCargoType = new Dictionary<CargoType, int>()
+    {
+        { CargoType.Purple, 0 },
+        { CargoType.Orange, 3 },
+        { CargoType.Pink, 6 },
+    };
+
+    private Dictionary<CargoType, int> middleFrameForCargoType = new Dictionary<CargoType, int>()
+    {
+        { CargoType.Purple, 1 },
+        { CargoType.Orange, 4 },
+        { CargoType.Pink, 7 },
+    };
+
+    private Dictionary<CargoType, int> frontFrameForCargoType = new Dictionary<CargoType, int>()
+    {
+        { CargoType.Purple, 2 },
+        { CargoType.Orange, 5 },
+        { CargoType.Pink, 8 },
+    };
+
     public override void _Ready()
     {
         groundLayer = GetTree().CurrentScene.GetNode<TileMapLayer>("GridManager/Ground");
+
+        back = GetNode<AnimatedSprite2D>("Back");
+        middle = GetNode<AnimatedSprite2D>("Middle");
+        front = GetNode<AnimatedSprite2D>("Front");
+
+        back.Frame = backFrameForCargoType[CargoType];
+        middle.Frame = middleFrameForCargoType[CargoType];
+        front.Frame = frontFrameForCargoType[CargoType];
 
         colorTween = CreateTween();
         colorTween.SetLoops();
