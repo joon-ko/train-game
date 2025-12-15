@@ -9,7 +9,7 @@ public partial class Root : Control
     private RichTextLabel brakeInfoLabel;
     private Control trainPathVisualizer;
 
-    private bool scheduled;
+    private bool scheduled = false;
 
     private AnimationManager animationManager;
     private SwitchManager switchManager;
@@ -20,7 +20,7 @@ public partial class Root : Control
         switchManager = GetNode<SwitchManager>("/root/SwitchManager");
 
         testTrain = GetNode<Train>("Train");
-        testTrain.FinishedPath += _OnFinishedPath;
+        testTrain.Head.FinishedPath += _OnFinishedPath;
 
         gridManager = GetNode<GridManager>("GridManager");
         grid = GetNode<TileMapLayer>("GridManager/Ground");
@@ -38,7 +38,7 @@ public partial class Root : Control
 
     private void _AssignTrainPath()
     {
-        var coordinate = grid.LocalToMap(testTrain.GetTrainPosition());
+        var coordinate = grid.LocalToMap(testTrain.Head.GetTrainPosition());
         if (!gridManager.TrainPaths.ContainsKey(coordinate))
         {
             return;
@@ -57,7 +57,9 @@ public partial class Root : Control
             path = paths[0];
         }
 
-        testTrain.AcceptPath(path);
+        testTrain.Head.AcceptPath(path);
+        testTrain.Middle.AcceptPath(path);
+        testTrain.Tail.AcceptPath(path);
         scheduled = true;
     }
 
@@ -91,7 +93,7 @@ public partial class Root : Control
             var keyEvent = (InputEventKey)@event;
             if (keyEvent.Keycode == Key.Space && keyEvent.Pressed)
             {
-                testTrain.ToggleBrake();
+                testTrain.Head.ToggleBrake();
                 return;
             }
             if (keyEvent.Keycode == Key.Shift && keyEvent.Pressed)
