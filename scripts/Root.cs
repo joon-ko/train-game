@@ -46,32 +46,6 @@ public partial class Root : Control
         platforms = GetNode<Node2D>("Platforms");
 
         grid.SetCell(new Vector2I(11, 9), 0, new Vector2I(0, 6));
-
-        InitializePlatforms();
-    }
-
-    private void InitializePlatforms()
-    {
-        // The platform tiles in the environment tilemap are blueprints that are replaced by platform scenes.
-        for (int i = MAP_MIN_X; i <= MAP_MAX_X; i++)
-        {
-            for (int j = MAP_MIN_Y; j <= MAP_MAX_Y; j++)
-            {
-                var gridCoord = new Vector2I(i, j);
-                var atlasCoords = gridEnv.GetCellAtlasCoords(gridCoord);
-                var tile = TileManager.GetTileForAtlasCoord(atlasCoords);
-                if (tile == Tile.PlatformPurple)
-                {
-                    gridEnv.EraseCell(gridCoord);
-                    var platform = platformScene.Instantiate<Platform>();
-                    platform.Position = gridEnv.MapToLocal(gridCoord);
-                    platform.Location = gridCoord;
-                    platforms.AddChild(platform);
-                }
-            }
-        }
-
-        GD.Print($"\nInitialized platforms. Platform count: {platforms.GetChildCount()}");
     }
 
     private void _AssignTrainPath()
