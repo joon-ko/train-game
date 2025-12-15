@@ -28,6 +28,7 @@ public partial class GridManager : Node
 
 	private SwitchManager switchManager;
 	private TileMapLayer groundLayer;
+	private TileMapLayer environmentLayer;
 
 	private Dictionary<Direction, Vector2I> directionDeltas = new Dictionary<Direction, Vector2I>()
 	{
@@ -41,6 +42,7 @@ public partial class GridManager : Node
 	{
 		switchManager = GetNode<SwitchManager>("/root/SwitchManager");
 		groundLayer = GetNode<TileMapLayer>("Ground");
+		environmentLayer = GetNode<TileMapLayer>("Environment");
 
 		GenerateTrainPaths(START_LOCATION, START_DIRECTION);
 	}

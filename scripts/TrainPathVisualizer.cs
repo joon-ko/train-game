@@ -5,8 +5,8 @@ public partial class TrainPathVisualizer : Control
     private GridManager gridManager;
     private TileMapLayer groundLayer;
 
-    private const int CIRCLE_RADIUS = 12;
-    private const int CIRCLE_WIDTH = 4;
+    private const int CIRCLE_RADIUS = 8;
+    private const int CIRCLE_WIDTH = 8;
     private Color START_COLOR = Colors.ForestGreen;
     private Color END_COLOR = Colors.OrangeRed;
 

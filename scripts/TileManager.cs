@@ -24,6 +24,8 @@ public enum Tile
     RailMergeTopY,
     StraightArrow,
     BentArrow,
+    PlatformPurple,
+    Invalid,
 }
 
 public static class TileManager
@@ -51,6 +53,7 @@ public static class TileManager
         { Tile.RailMergeTopY,  new Vector2I(5, 4) },
         { Tile.StraightArrow, new Vector2I(3, 8) },
         { Tile.BentArrow, new Vector2I(3, 9) },
+        { Tile.PlatformPurple, new Vector2I(0, 8) },
     };
 
     private static Dictionary<Vector2I, Tile> tilesAtCoord = new Dictionary<Vector2I, Tile>()
@@ -74,6 +77,7 @@ public static class TileManager
         { new Vector2I(5, 4), Tile.RailMergeTopY },
         { new Vector2I(3, 8), Tile.StraightArrow },
         { new Vector2I(3, 9), Tile.BentArrow },
+        { new Vector2I(0, 8), Tile.PlatformPurple }
     };
 
     public static ImmutableHashSet<Tile> CORNER_TILES = [
@@ -182,7 +186,7 @@ public static class TileManager
     {
         if (!tilesAtCoord.ContainsKey(atlasCoord))
         {
-            throw new Exception($"Tile not found for atlas coord {atlasCoord}");
+            return Tile.Invalid;
         }
         return tilesAtCoord[atlasCoord];
     }

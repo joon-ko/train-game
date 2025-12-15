@@ -14,6 +14,15 @@ public partial class Root : Control
     private AnimationManager animationManager;
     private SwitchManager switchManager;
 
+    private PackedScene platformScene;
+    private Node2D platforms;
+
+    // Hardcoded min/max tilemap coordinate bounds for now to scan for platforms """efficiently"""
+    private const int MAP_MIN_X = 11;
+	private const int MAP_MIN_Y = -8;
+	private const int MAP_MAX_X = 28;
+	private const int MAP_MAX_Y = 9;
+
     public override void _Ready()
     {
         animationManager = GetNode<AnimationManager>("/root/AnimationManager");
@@ -33,7 +42,36 @@ public partial class Root : Control
 
         trainPathVisualizer = GetNode<Control>("TrainPathVisualizer");
 
-        grid.SetCell(new Vector2I(11,9), 0, new Vector2I(0,6));
+        platformScene = GD.Load<PackedScene>("res://scenes/Platform.tscn");
+        platforms = GetNode<Node2D>("Platforms");
+
+        grid.SetCell(new Vector2I(11, 9), 0, new Vector2I(0, 6));
+
+        InitializePlatforms();
+    }
+
+    private void InitializePlatforms()
+    {
+        // The platform tiles in the environment tilemap are blueprints that are replaced by platform scenes.
+        for (int i = MAP_MIN_X; i <= MAP_MAX_X; i++)
+        {
+            for (int j = MAP_MIN_Y; j <= MAP_MAX_Y; j++)
+            {
+                var gridCoord = new Vector2I(i, j);
+                var atlasCoords = gridEnv.GetCellAtlasCoords(gridCoord);
+                var tile = TileManager.GetTileForAtlasCoord(atlasCoords);
+                if (tile == Tile.PlatformPurple)
+                {
+                    gridEnv.EraseCell(gridCoord);
+                    var platform = platformScene.Instantiate<Platform>();
+                    platform.Position = gridEnv.MapToLocal(gridCoord);
+                    platform.Location = gridCoord;
+                    platforms.AddChild(platform);
+                }
+            }
+        }
+
+        GD.Print($"\nInitialized platforms. Platform count: {platforms.GetChildCount()}");
     }
 
     private void _AssignTrainPath()
