@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://cd8hls8wvb7nx" path="res://scripts/Root.cs" id="1_ont70"]
 [ext_resource type="Script" uid="uid://jrra8pouey03" path="res://scripts/GridManager.cs" id="2_24d08"]
 [ext_resource type="PackedScene" uid="uid://b5clb7560do2o" path="res://scenes/Train.tscn" id="4_mvcll"]
-[ext_resource type="Texture2D" uid="uid://cxbw8a3mh8a8u" path="res://assets/Compass.png" id="5_3ipfy"]
 [ext_resource type="Theme" uid="uid://d0mlg6ed0r4ce" path="res://assets/CoreTheme.tres" id="6_5npxh"]
+[ext_resource type="Texture2D" uid="uid://cxbw8a3mh8a8u" path="res://assets/png/Compass.png" id="7_0x7h0"]
 [ext_resource type="Script" uid="uid://cgiobuyldj5je" path="res://scripts/TrainPathVisualizer.cs" id="7_c618l"]
 
 [node name="Root" type="Control"]
@@ -39,16 +39,6 @@ y_sort_enabled = true
 rotation = 0.0018889852
 tile_map_data = PackedByteArray("AAALAAgAAAAAAAEAAAAbAPz/AAAAAAEAAAAbAP3/AAAAAAEAAAAbAP7/AAAAAAEAAAAbAP//AAAAAAEAAAAbAAAAAAAAAAEAAAAbAAEAAAAAAAEAAAAbAAIAAAAAAAEAAAAbAAMAAAAAAAEAAAAbAAQAAAAAAAEAAAAbAAUAAAAAAAEAAAAbAAYAAAAAAAEAAAAbAAcAAAAAAAEAAAAbAAgAAAAAAAEAAAAOAPf/AAAAAAEAAAAPAPf/AAAAAAEAAAAQAPf/AAAAAAEAAAARAPf/AAAAAAEAAAASAPf/AAAAAAEAAAATAPf/AAAAAAEAAAAUAPf/AAAAAAEAAAAVAPf/AAAAAAEAAAAWAPf/AAAAAAEAAAAXAPf/AAAAAAEAAAAYAPf/AAAAAAEAAAAZAPf/AAAAAAEAAAAaAPf/AAAAAAEAAAANAAgAAAAAAAEAAAAOAAgAAAAAAAEAAAAPAAgAAAAAAAEAAAAQAAgAAAAAAAEAAAARAAgAAAAAAAEAAAASAAgAAAAAAAEAAAATAAgAAAAAAAEAAAAUAAgAAAAAAAEAAAAVAAgAAAAAAAEAAAAWAAgAAAAAAAEAAAAXAAgAAAAAAAEAAAAKAPj/AAAAAAEAAAAKAPn/AAAAAAEAAAAKAPr/AAAAAAEAAAAKAPv/AAAAAAEAAAAKAPz/AAAAAAEAAAAKAP3/AAAAAAEAAAAKAP7/AAAAAAEAAAAKAP//AAAAAAEAAAAKAAAAAAAAAAEAAAAKAAEAAAAAAAEAAAAKAAIAAAAAAAEAAAAKAAMAAAAAAAEAAAAKAAQAAAAAAAEAAAAKAPf/AAAAAAEAAAAKAAgAAAAAAAEAAAAYAAgAAAAAAAcAAAAaAAgAAAAAAAcAAAANAPf/AAAAAAEAAAALAPf/AAAAAAEAAAAKAAUAAAAAAAEAAAAKAAcAAAAAAAEAAAAKAAYAAAAAAAEAAAAMAAgAAAAAAAEAAAAbAPf/AAAAAAEAAAAbAPj/AAAAAAEAAAAbAPn/AAAAAAEAAAAbAPr/AAAAAAEAAAAbAPv/AAAAAAEAAAAMAPf/AAAAAAEAAAAQAAIAAAABAAgAAAASAPr/AAABAAgAAAAXAAAAAAADAAgAAAAXAAUAAAABAAgAAAA=")
 tile_set = ExtResource("1_24d08")
-
-[node name="DevCompass" type="TextureRect" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 501.0
-offset_top = 9.0
-offset_right = 565.0
-offset_bottom = 73.0
-scale = Vector2(2, 2)
-texture = ExtResource("5_3ipfy")
 
 [node name="TrainPathVisualizer" type="Control" parent="."]
 visible = false
@@ -86,3 +76,8 @@ text = "press [color=LIGHT_PINK][spacebar][/color] to brake/unbrake"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
+
+[node name="Compass" type="Sprite2D" parent="."]
+position = Vector2(83, 297)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("7_0x7h0")

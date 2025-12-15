@@ -1,7 +1,7 @@
 [gd_resource type="TileSet" load_steps=5 format=3 uid="uid://4n3wig1qeiv0"]
 
 [ext_resource type="Texture2D" uid="uid://cu5lm1bojip1h" path="res://assets/isometric-sandbox-32x32/isometric-sandbox-sheet.png" id="1_d307s"]
-[ext_resource type="Texture2D" uid="uid://mxbijfob3u7r" path="res://assets/train-sheet.png" id="2_sr6w4"]
+[ext_resource type="Texture2D" uid="uid://mxbijfob3u7r" path="res://assets/png/train-sheet.png" id="2_sr6w4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_24d08"]
 resource_name = "terrain"

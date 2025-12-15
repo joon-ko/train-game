@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mxbijfob3u7r"
-path="res://.godot/imported/train-sheet.png-e5d014142839ed15297ab0c532b23b9c.ctex"
+uid="uid://cfhrmiuii3xkh"
+path="res://.godot/imported/cargo-sheet.png-7b35ba219e5a5644b7f0b0e2e78c43fc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/png/train-sheet.png"
-dest_files=["res://.godot/imported/train-sheet.png-e5d014142839ed15297ab0c532b23b9c.ctex"]
+source_file="res://assets/png/cargo-sheet.png"
+dest_files=["res://.godot/imported/cargo-sheet.png-7b35ba219e5a5644b7f0b0e2e78c43fc.ctex"]
 
 [params]
 

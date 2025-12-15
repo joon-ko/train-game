@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cxbw8a3mh8a8u"
-path="res://.godot/imported/Compass.png-25126550f6926da87cd7942d57fadcd5.ctex"
+path="res://.godot/imported/Compass.png-1e4e7bc64c7e161019d510346a962e0d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Compass.png"
-dest_files=["res://.godot/imported/Compass.png-25126550f6926da87cd7942d57fadcd5.ctex"]
+source_file="res://assets/png/Compass.png"
+dest_files=["res://.godot/imported/Compass.png-1e4e7bc64c7e161019d510346a962e0d.ctex"]
 
 [params]
 

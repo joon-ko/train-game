@@ -22,29 +22,13 @@ public partial class FollowTraincar : Traincar
 
 	private bool braked = false;
 
-	private Dictionary<Direction, string> movingAnimationMap = new Dictionary<Direction, string>()
+	private Dictionary<Direction, string> animationMap = new Dictionary<Direction, string>()
 	{
-		{ Direction.PosX, "pos_x_move" },
-		{ Direction.PosY, "pos_y_move" },
-		{ Direction.NegX, "neg_x_move" },
-		{ Direction.NegY, "neg_y_move" }
+		{ Direction.PosX, "x" },
+		{ Direction.PosY, "y" },
+		{ Direction.NegX, "x" },
+		{ Direction.NegY, "y" }
 	};
-
-    private Dictionary<Direction, string> stillAnimationMap = new Dictionary<Direction, string>()
-    {
-        { Direction.PosX, "pos_x_still" },
-        { Direction.PosY, "pos_y_still" },
-        { Direction.NegX, "neg_x_still" },
-        { Direction.NegY, "neg_y_still" }
-    };
-
-    private Dictionary<Direction, Vector2I> deltaForDirection = new Dictionary<Direction, Vector2I>()
-    {
-        { Direction.PosX, new Vector2I(-16, -8) },
-        { Direction.NegX, new Vector2I(16, 8) },
-        { Direction.PosY, new Vector2I(16, -8) },
-        { Direction.NegY, new Vector2I(-16, 8) }
-    };
 
     public override void _Ready()
     {
@@ -59,7 +43,6 @@ public partial class FollowTraincar : Traincar
         Direction = pathInfo.Direction;
 
         // Set the orientation of the train
-        var animationMap = IsMoving() ? movingAnimationMap : stillAnimationMap;
         currentSprite.Animation = animationMap[pathInfo.Direction];
         previousSprite.Animation = animationMap[PreviousDirection];
 
@@ -74,19 +57,10 @@ public partial class FollowTraincar : Traincar
 
     public override void _Process(double delta)
     {
-        var inMovingAnimation = currentSprite.Animation.ToString().EndsWith("move");
-        if (IsMoving() && !inMovingAnimation)
-        {
-            currentSprite.Animation = movingAnimationMap[Direction];
-            previousSprite.Animation = movingAnimationMap[PreviousDirection];
-        }
-        else if (!IsMoving() && inMovingAnimation)
-        {
-            currentSprite.Animation = stillAnimationMap[Direction];
-            previousSprite.Animation = stillAnimationMap[PreviousDirection];
-        }
+        currentSprite.Animation = animationMap[Direction];
+        previousSprite.Animation = animationMap[PreviousDirection];
 
-        else if (Head.currentPathFollow.Progress < Separation)
+        if (Head.currentPathFollow.Progress < Separation)
         {
             currentPath.Visible = false;
             previousPath.Visible = true;

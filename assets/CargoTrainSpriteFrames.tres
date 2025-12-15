@@ -1,0 +1,72 @@
+[gd_resource type="SpriteFrames" load_steps=10 format=3 uid="uid://b370bv3nt1vyk"]
+
+[ext_resource type="Texture2D" uid="uid://cfhrmiuii3xkh" path="res://assets/png/cargo-sheet.png" id="1_c1gj6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_que31"]
+atlas = ExtResource("1_c1gj6")
+region = Rect2(0, 31, 32, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xynyk"]
+atlas = ExtResource("1_c1gj6")
+region = Rect2(32, 31, 32, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u1key"]
+atlas = ExtResource("1_c1gj6")
+region = Rect2(64, 31, 32, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6lxrm"]
+atlas = ExtResource("1_c1gj6")
+region = Rect2(96, 31, 32, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0r1b"]
+atlas = ExtResource("1_c1gj6")
+region = Rect2(0, 0, 32, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3q2xy"]
+atlas = ExtResource("1_c1gj6")
+region = Rect2(32, 0, 32, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48wme"]
+atlas = ExtResource("1_c1gj6")
+region = Rect2(64, 0, 32, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tvbtx"]
+atlas = ExtResource("1_c1gj6")
+region = Rect2(96, 0, 32, 31)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_que31")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xynyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u1key")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6lxrm")
+}],
+"loop": true,
+"name": &"x",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e0r1b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3q2xy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48wme")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tvbtx")
+}],
+"loop": true,
+"name": &"y",
+"speed": 5.0
+}]

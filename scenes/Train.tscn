@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://b5clb7560do2o"]
+[gd_scene load_steps=12 format=3 uid="uid://b5clb7560do2o"]
 
 [ext_resource type="Script" uid="uid://bdydso85tpjdw" path="res://scripts/Train.cs" id="2_8tskr"]
 [ext_resource type="SpriteFrames" uid="uid://bgndj2mih7cdv" path="res://assets/TrainSpriteFrames.tres" id="2_426cx"]
 [ext_resource type="Script" uid="uid://ybeqy1c01vn4" path="res://scripts/HeadTraincar.cs" id="2_ggsvn"]
 [ext_resource type="Script" uid="uid://ddom7ydd4x2dv" path="res://scripts/FollowTraincar.cs" id="3_8tskr"]
+[ext_resource type="SpriteFrames" uid="uid://b370bv3nt1vyk" path="res://assets/CargoTrainSpriteFrames.tres" id="5_d1bjs"]
 
 [sub_resource type="Curve2D" id="Curve2D_l18bo"]
 
@@ -63,8 +64,7 @@ loop = false
 [node name="Sprite" type="AnimatedSprite2D" parent="HeadCar/PreviousPath/PathFollow2D"]
 y_sort_enabled = true
 sprite_frames = ExtResource("2_426cx")
-animation = &"neg_y_still"
-autoplay = "neg_y_move"
+animation = &"neg_x_still"
 offset = Vector2(0, -8)
 
 [node name="MiddleCar" type="Node2D" parent="." node_paths=PackedStringArray("Head")]
@@ -86,9 +86,8 @@ loop = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="MiddleCar/CurrentPath/PathFollow2D"]
 y_sort_enabled = true
-sprite_frames = ExtResource("2_426cx")
-animation = &"neg_y_still"
-autoplay = "neg_y_still"
+sprite_frames = ExtResource("5_d1bjs")
+animation = &"y"
 offset = Vector2(0, -8)
 
 [node name="PreviousPath" type="Path2D" parent="MiddleCar"]
@@ -103,9 +102,8 @@ loop = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="MiddleCar/PreviousPath/PathFollow2D"]
 y_sort_enabled = true
-sprite_frames = ExtResource("2_426cx")
-animation = &"neg_y_still"
-autoplay = "neg_y_still"
+sprite_frames = ExtResource("5_d1bjs")
+animation = &"y"
 offset = Vector2(0, -8)
 
 [node name="TailCar" type="Node2D" parent="." node_paths=PackedStringArray("Head")]
@@ -128,9 +126,8 @@ loop = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="TailCar/CurrentPath/PathFollow2D"]
 y_sort_enabled = true
-sprite_frames = ExtResource("2_426cx")
-animation = &"neg_y_still"
-autoplay = "neg_y_still"
+sprite_frames = ExtResource("5_d1bjs")
+animation = &"y"
 offset = Vector2(0, -8)
 
 [node name="PreviousPath" type="Path2D" parent="TailCar"]
@@ -145,7 +142,6 @@ loop = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="TailCar/PreviousPath/PathFollow2D"]
 y_sort_enabled = true
-sprite_frames = ExtResource("2_426cx")
-animation = &"neg_y_still"
-autoplay = "neg_y_still"
+sprite_frames = ExtResource("5_d1bjs")
+animation = &"y"
 offset = Vector2(0, -8)
