@@ -1,291 +1,151 @@
-[gd_scene load_steps=37 format=3 uid="uid://b5clb7560do2o"]
+[gd_scene load_steps=11 format=3 uid="uid://b5clb7560do2o"]
 
-[ext_resource type="Texture2D" uid="uid://mxbijfob3u7r" path="res://assets/train-sheet.png" id="1_426cx"]
-[ext_resource type="Script" uid="uid://ybeqy1c01vn4" path="res://scripts/Train.cs" id="2_8tskr"]
+[ext_resource type="Script" uid="uid://bdydso85tpjdw" path="res://scripts/Train.cs" id="2_8tskr"]
+[ext_resource type="SpriteFrames" uid="uid://bgndj2mih7cdv" path="res://assets/TrainSpriteFrames.tres" id="2_426cx"]
+[ext_resource type="Script" uid="uid://ybeqy1c01vn4" path="res://scripts/HeadTraincar.cs" id="2_ggsvn"]
+[ext_resource type="Script" uid="uid://ddom7ydd4x2dv" path="res://scripts/FollowTraincar.cs" id="3_8tskr"]
 
-[sub_resource type="Curve2D" id="Curve2D_426cx"]
-resource_local_to_scene = true
+[sub_resource type="Curve2D" id="Curve2D_l18bo"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_a2mri"]
-atlas = ExtResource("1_426cx")
-region = Rect2(0, 96, 32, 32)
+[sub_resource type="Curve2D" id="Curve2D_ggsvn"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_chsmv"]
-atlas = ExtResource("1_426cx")
-region = Rect2(32, 96, 32, 32)
+[sub_resource type="Curve2D" id="Curve2D_d1bjs"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vj8xc"]
-atlas = ExtResource("1_426cx")
-region = Rect2(64, 96, 32, 32)
+[sub_resource type="Curve2D" id="Curve2D_a2mri"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l18bo"]
-atlas = ExtResource("1_426cx")
-region = Rect2(96, 96, 32, 32)
+[sub_resource type="Curve2D" id="Curve2D_chsmv"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5s8n3"]
-atlas = ExtResource("1_426cx")
-region = Rect2(0, 224, 32, 32)
+[sub_resource type="Curve2D" id="Curve2D_vj8xc"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bdep1"]
-atlas = ExtResource("1_426cx")
-region = Rect2(32, 224, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u7b18"]
-atlas = ExtResource("1_426cx")
-region = Rect2(64, 224, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vvcao"]
-atlas = ExtResource("1_426cx")
-region = Rect2(96, 224, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_426cx"]
-atlas = ExtResource("1_426cx")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8tskr"]
-atlas = ExtResource("1_426cx")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ggsvn"]
-atlas = ExtResource("1_426cx")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d1bjs"]
-atlas = ExtResource("1_426cx")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xffcl"]
-atlas = ExtResource("1_426cx")
-region = Rect2(0, 128, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ntql0"]
-atlas = ExtResource("1_426cx")
-region = Rect2(32, 128, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jjyvp"]
-atlas = ExtResource("1_426cx")
-region = Rect2(64, 128, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nhojr"]
-atlas = ExtResource("1_426cx")
-region = Rect2(96, 128, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gjrqp"]
-atlas = ExtResource("1_426cx")
-region = Rect2(0, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fxxxj"]
-atlas = ExtResource("1_426cx")
-region = Rect2(32, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k6et1"]
-atlas = ExtResource("1_426cx")
-region = Rect2(64, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_trw8i"]
-atlas = ExtResource("1_426cx")
-region = Rect2(96, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_afsh5"]
-atlas = ExtResource("1_426cx")
-region = Rect2(0, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_adal7"]
-atlas = ExtResource("1_426cx")
-region = Rect2(32, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_13l57"]
-atlas = ExtResource("1_426cx")
-region = Rect2(64, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t0m4l"]
-atlas = ExtResource("1_426cx")
-region = Rect2(96, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lck07"]
-atlas = ExtResource("1_426cx")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uj67e"]
-atlas = ExtResource("1_426cx")
-region = Rect2(32, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hefxk"]
-atlas = ExtResource("1_426cx")
-region = Rect2(64, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_51sxr"]
-atlas = ExtResource("1_426cx")
-region = Rect2(96, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5bt2i"]
-atlas = ExtResource("1_426cx")
-region = Rect2(0, 160, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_liits"]
-atlas = ExtResource("1_426cx")
-region = Rect2(32, 160, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_477ql"]
-atlas = ExtResource("1_426cx")
-region = Rect2(64, 160, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_11abi"]
-atlas = ExtResource("1_426cx")
-region = Rect2(96, 160, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_d1bjs"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_a2mri")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_chsmv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vj8xc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l18bo")
-}],
-"loop": true,
-"name": &"neg_x_move",
-"speed": 7.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5s8n3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bdep1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u7b18")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vvcao")
-}],
-"loop": true,
-"name": &"neg_x_still",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_426cx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8tskr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ggsvn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d1bjs")
-}],
-"loop": true,
-"name": &"neg_y_move",
-"speed": 7.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xffcl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ntql0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jjyvp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nhojr")
-}],
-"loop": true,
-"name": &"neg_y_still",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gjrqp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fxxxj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k6et1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_trw8i")
-}],
-"loop": true,
-"name": &"pos_x_move",
-"speed": 7.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_afsh5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_adal7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_13l57")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t0m4l")
-}],
-"loop": true,
-"name": &"pos_x_still",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lck07")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uj67e")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hefxk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_51sxr")
-}],
-"loop": true,
-"name": &"pos_y_move",
-"speed": 7.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5bt2i")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_liits")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_477ql")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_11abi")
-}],
-"loop": true,
-"name": &"pos_y_still",
-"speed": 5.0
-}]
-
-[node name="Train" type="Node2D"]
+[node name="Train" type="Node2D" node_paths=PackedStringArray("Head", "Middle", "Tail")]
+y_sort_enabled = true
 script = ExtResource("2_8tskr")
+Head = NodePath("HeadCar")
+Middle = NodePath("MiddleCar")
+Tail = NodePath("TailCar")
+metadata/_custom_type_script = "uid://bdydso85tpjdw"
+
+[node name="HeadCar" type="Node2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("2_ggsvn")
+InitialCoordinate = Vector2i(26, 9)
+MaxSpeed = 0.8
 metadata/_custom_type_script = "uid://ybeqy1c01vn4"
 
-[node name="Path2D" type="Path2D" parent="."]
-curve = SubResource("Curve2D_426cx")
+[node name="CurrentPath" type="Path2D" parent="HeadCar"]
+y_sort_enabled = true
+curve = SubResource("Curve2D_l18bo")
 
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+[node name="PathFollow2D" type="PathFollow2D" parent="HeadCar/CurrentPath"]
+y_sort_enabled = true
 rotates = false
 loop = false
 
-[node name="Sprite" type="AnimatedSprite2D" parent="Path2D/PathFollow2D"]
-sprite_frames = SubResource("SpriteFrames_d1bjs")
-animation = &"pos_y_still"
+[node name="Sprite" type="AnimatedSprite2D" parent="HeadCar/CurrentPath/PathFollow2D"]
+y_sort_enabled = true
+sprite_frames = ExtResource("2_426cx")
+animation = &"neg_y_still"
 autoplay = "neg_y_move"
+offset = Vector2(0, -8)
+
+[node name="Timer" type="Timer" parent="HeadCar"]
+
+[node name="PreviousPath" type="Path2D" parent="HeadCar"]
+visible = false
+y_sort_enabled = true
+curve = SubResource("Curve2D_ggsvn")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="HeadCar/PreviousPath"]
+y_sort_enabled = true
+rotates = false
+loop = false
+
+[node name="Sprite" type="AnimatedSprite2D" parent="HeadCar/PreviousPath/PathFollow2D"]
+y_sort_enabled = true
+sprite_frames = ExtResource("2_426cx")
+animation = &"neg_y_still"
+autoplay = "neg_y_move"
+offset = Vector2(0, -8)
+
+[node name="MiddleCar" type="Node2D" parent="." node_paths=PackedStringArray("Head")]
+y_sort_enabled = true
+script = ExtResource("3_8tskr")
+Head = NodePath("../HeadCar")
+InitialCoordinate = Vector2i(26, 10)
+Separation = 18
+metadata/_custom_type_script = "uid://ddom7ydd4x2dv"
+
+[node name="CurrentPath" type="Path2D" parent="MiddleCar"]
+y_sort_enabled = true
+curve = SubResource("Curve2D_d1bjs")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="MiddleCar/CurrentPath"]
+y_sort_enabled = true
+rotates = false
+loop = false
+
+[node name="Sprite" type="AnimatedSprite2D" parent="MiddleCar/CurrentPath/PathFollow2D"]
+y_sort_enabled = true
+sprite_frames = ExtResource("2_426cx")
+animation = &"neg_y_still"
+autoplay = "neg_y_still"
+offset = Vector2(0, -8)
+
+[node name="PreviousPath" type="Path2D" parent="MiddleCar"]
+visible = false
+y_sort_enabled = true
+curve = SubResource("Curve2D_a2mri")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="MiddleCar/PreviousPath"]
+y_sort_enabled = true
+rotates = false
+loop = false
+
+[node name="Sprite" type="AnimatedSprite2D" parent="MiddleCar/PreviousPath/PathFollow2D"]
+y_sort_enabled = true
+sprite_frames = ExtResource("2_426cx")
+animation = &"neg_y_still"
+autoplay = "neg_y_still"
+offset = Vector2(0, -8)
+
+[node name="TailCar" type="Node2D" parent="." node_paths=PackedStringArray("Head")]
+y_sort_enabled = true
+script = ExtResource("3_8tskr")
+FollowType = 1
+Head = NodePath("../HeadCar")
+InitialCoordinate = Vector2i(26, 11)
+Separation = 36
+metadata/_custom_type_script = "uid://ddom7ydd4x2dv"
+
+[node name="CurrentPath" type="Path2D" parent="TailCar"]
+y_sort_enabled = true
+curve = SubResource("Curve2D_chsmv")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="TailCar/CurrentPath"]
+y_sort_enabled = true
+rotates = false
+loop = false
+
+[node name="Sprite" type="AnimatedSprite2D" parent="TailCar/CurrentPath/PathFollow2D"]
+y_sort_enabled = true
+sprite_frames = ExtResource("2_426cx")
+animation = &"neg_y_still"
+autoplay = "neg_y_still"
+offset = Vector2(0, -8)
+
+[node name="PreviousPath" type="Path2D" parent="TailCar"]
+visible = false
+y_sort_enabled = true
+curve = SubResource("Curve2D_vj8xc")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="TailCar/PreviousPath"]
+y_sort_enabled = true
+rotates = false
+loop = false
+
+[node name="Sprite" type="AnimatedSprite2D" parent="TailCar/PreviousPath/PathFollow2D"]
+y_sort_enabled = true
+sprite_frames = ExtResource("2_426cx")
+animation = &"neg_y_still"
+autoplay = "neg_y_still"
 offset = Vector2(0, -8)
