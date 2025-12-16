@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
@@ -36,7 +37,7 @@ public partial class HeadTraincar : Traincar
 
 	private GridManager gridManager;
 	private bool checkedScore = false;
-
+	public float Accuracy = 0f;
 
 	public override void _Ready()
 	{
@@ -45,6 +46,7 @@ public partial class HeadTraincar : Traincar
 		// timer = GetNode<Godot.Timer>("Timer");
 		currentPathFollow.Position = tileMapLayer.MapToLocal(InitialCoordinate);
 		Speed = MaxSpeed;
+		
 	}
 
 	public void AcceptPath(PathInfo pathInfo)
@@ -117,47 +119,16 @@ public partial class HeadTraincar : Traincar
 		if (IsMoving() && !inMovingAnimation)
 		{
 			currentSprite.Animation = movingAnimationMap[Direction];
+			checkedScore = false;
+			Accuracy = 0;
 		}
 		else if (!IsMoving() && inMovingAnimation)
 		{
 			currentSprite.Animation = stillAnimationMap[Direction];
 		}
 		if (IsStopped() && !checkedScore) {
-			var platforms = GetTree().GetNodesInGroup("Platforms");
-			GD.Print("platforms: ", platforms);
-			var targetLocations = new Vector2I[platforms.Count];
-			var targetTileLocations = new Vector2[platforms.Count];
-			for (int i = 0; i < platforms.Count; i++)
-			{
-				GD.Print("heyo");
-				var platform = (Platform)platforms[i];
-				GD.Print("plato", platform);
-				targetLocations[i] = platform.TrainTargetLocation;
-				targetTileLocations[i] = tileMapLayer.MapToLocal(targetLocations[i]);
-				gridManager = GetTree().CurrentScene.GetNode<GridManager>("GridManager");
-				var targetProgress = platform.ProgressRatio * currentPath.Curve.GetBakedLength();
-				GD.Print("currentPath: ", currentPath, "platformPath", platform.PathInfo);
-				if (currentPath.Equals(platform.PathInfo)) {
-					GD.Print("byeo");
-					// calc score
-					// target's progress minus train's progress
-					// get target's progress
-					var trainProgress = currentPathFollow.Progress;
-					var score = targetProgress - trainProgress;
-					GD.Print("Score: ", score);
-				} else if (previousPath.Equals(platform.PathInfo))
-				{
-					// from start of current path to the end of train
-					var score = currentPathFollow.Progress + (previousPathInfo.EndCoordinate.X - targetProgress);
-					GD.Print("Score: ", score);
-				}
-			}
+			Accuracy = CalculateAccuracy();
 			checkedScore = true;
-			// how do i get the path based on the targetlocation?
-			// take the y of the target location and look for paths that have the same y
-			// then get the one with the same x or that falls between the correct xs
-			// for each target check if it's on the same path as the train or the train's previous path
-			// get train's current and previous path
 		}
 
 		if (currentPathFollow.ProgressRatio < 1f)
@@ -170,6 +141,33 @@ public partial class HeadTraincar : Traincar
 	}
 
 
+
+	private float CalculateAccuracy() {
+		var platforms = GetTree().GetNodesInGroup("Platforms");
+		foreach (Platform platform in platforms.Cast<Platform>()) 
+		{
+			var targetProgress = platform.ProgressRatio * currentPath.Curve.GetBakedLength();
+			if (currentPathInfo.Equals(platform.PathInfo)) 
+			{
+				var distance = Math.Abs(targetProgress - currentPathFollow.Progress);
+				if (distance < 54)
+				{
+					GD.Print(distance);
+					return (54-distance)/54*100;
+				}
+			} else if (previousPathInfo.Equals(platform.PathInfo))
+			{	
+				// from start of current path to the end of train
+				var distance = currentPathFollow.Progress + Math.Abs(previousPathInfo.EndCoordinate.X - targetProgress);
+				if (distance < 54)
+				{
+					GD.Print(distance);
+					return (54-distance)/54*100;
+				}
+			}
+		}
+		return 0;
+	}
 
 	private void _OnTimerTimeout()
 	{

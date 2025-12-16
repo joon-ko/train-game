@@ -10,6 +10,8 @@ public partial class Root : Control
     private RichTextLabel cargoProgressLabel;
     private RichTextLabel timeRemainingLabel;
     private RichTextLabel speedLabel;
+    private RichTextLabel accuracyLabel;
+
     private Control trainPathVisualizer;
     private PointLight2D pointLight;
 
@@ -54,6 +56,9 @@ public partial class Root : Control
         speedLabel = GetNode<RichTextLabel>("UIContainer/VBoxContainer/SpeedLabel");
         speedLabel.Text = _GetSpeedLabelText();
         animationManager.AddBobAnimation(speedLabel);
+
+        accuracyLabel = GetNode<RichTextLabel>("UIContainer/VBoxContainer/AccuracyLabel");
+        accuracyLabel.Text = _GetAccuracyText();
 
         trainPathVisualizer = GetNode<Control>("TrainPathVisualizer");
 
@@ -114,6 +119,11 @@ public partial class Root : Control
         return $"train speed: {formattedSpeed} km/h";
     }
 
+    private string _GetAccuracyText()
+    {
+        return $"accuracy: {Mathf.RoundToInt(testTrain.Head.Accuracy)}%";
+    }
+
     public override void _Process(double delta)
     {
         if (!scheduled)
@@ -139,6 +149,7 @@ public partial class Root : Control
         speedLabel.Text = _GetSpeedLabelText();
 
         pointLight.Position = testTrain.Head.GetTrainPosition();
+        accuracyLabel.Text = _GetAccuracyText();
     }
 
     public override void _Input(InputEvent @event)
