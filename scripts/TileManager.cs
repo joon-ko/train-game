@@ -51,8 +51,8 @@ public static class TileManager
         { Tile.RailMergeBottomY, new Vector2I(3, 4) },
         { Tile.RailMergeTopX, new Vector2I(4, 4) },
         { Tile.RailMergeTopY,  new Vector2I(5, 4) },
-        { Tile.StraightArrow, new Vector2I(3, 8) },
-        { Tile.BentArrow, new Vector2I(3, 9) },
+        { Tile.StraightArrow, new Vector2I(2, 11) },
+        { Tile.BentArrow, new Vector2I(2, 10) },
         { Tile.PlatformPurple, new Vector2I(0, 8) },
     };
 

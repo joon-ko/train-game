@@ -114,6 +114,14 @@ texture_region_size = Vector2i(32, 32)
 0:8/size_in_atlas = Vector2i(2, 2)
 0:8/0 = 0
 0:8/0/texture_origin = Vector2i(16, 24)
+0:10/0 = 0
+1:10/0 = 0
+3:10/0 = 0
+3:11/0 = 0
+2:10/0 = 0
+2:11/0 = 0
+1:11/0 = 0
+0:11/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5nvtb"]
 resource_name = "train"
@@ -179,6 +187,14 @@ texture_region_size = Vector2i(32, 32)
 3:2/0/texture_origin = Vector2i(0, -8)
 0:2/0 = 0
 0:2/0/texture_origin = Vector2i(0, -8)
+1:10/0 = 0
+2:10/0 = 0
+3:10/0 = 0
+3:11/0 = 0
+2:11/0 = 0
+1:11/0 = 0
+0:11/0 = 0
+0:10/0 = 0
 
 [resource]
 resource_local_to_scene = true
