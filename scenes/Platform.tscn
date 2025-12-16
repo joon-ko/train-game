@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bh24qg80ltx03"]
+[gd_scene load_steps=14 format=3 uid="uid://bh24qg80ltx03"]
 
 [ext_resource type="Texture2D" uid="uid://c3nqw1hmmbm05" path="res://assets/png/Platform.png" id="1_axdvg"]
 [ext_resource type="Script" uid="uid://cl2ht6wgo3j23" path="res://scripts/Platform.cs" id="1_motb6"]
@@ -74,6 +74,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_motb6"]
+polygon = PackedVector2Array(0, 0, 12, -6, -30, -27, -42, -21)
+
 [node name="Platform" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_motb6")
@@ -98,3 +101,10 @@ position = Vector2(0, 5)
 sprite_frames = SubResource("SpriteFrames_wwpbi")
 frame = 2
 offset = Vector2(0, -10)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+light_mask = 3
+position = Vector2(0, 5)
+occluder = SubResource("OccluderPolygon2D_motb6")
+occluder_light_mask = 3

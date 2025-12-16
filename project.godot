@@ -30,6 +30,11 @@ window/stretch/mode="viewport"
 
 project/assembly_name="train game"
 
+[layer_names]
+
+2d_render/layer_1="Train"
+2d_render/layer_2="Environment"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
