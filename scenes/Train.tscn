@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b5clb7560do2o"]
+[gd_scene load_steps=17 format=3 uid="uid://b5clb7560do2o"]
 
 [ext_resource type="Script" uid="uid://bdydso85tpjdw" path="res://scripts/Train.cs" id="2_8tskr"]
 [ext_resource type="SpriteFrames" uid="uid://bgndj2mih7cdv" path="res://assets/TrainSpriteFrames.tres" id="2_426cx"]
@@ -6,17 +6,6 @@
 [ext_resource type="Script" uid="uid://ybeqy1c01vn4" path="res://scripts/HeadTraincar.cs" id="2_ggsvn"]
 [ext_resource type="Script" uid="uid://ddom7ydd4x2dv" path="res://scripts/FollowTraincar.cs" id="3_8tskr"]
 [ext_resource type="SpriteFrames" uid="uid://b370bv3nt1vyk" path="res://assets/CargoTrainSpriteFrames.tres" id="5_d1bjs"]
-
-[sub_resource type="Gradient" id="Gradient_0x7h0"]
-offsets = PackedFloat32Array(0, 0.5)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_d1bjs"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_0x7h0")
-height = 32
-fill = 1
-fill_from = Vector2(0, 1)
 
 [sub_resource type="Curve2D" id="Curve2D_l18bo"]
 
@@ -30,8 +19,30 @@ fill_from = Vector2(0, 1)
 
 [sub_resource type="Curve2D" id="Curve2D_vj8xc"]
 
+[sub_resource type="Gradient" id="Gradient_a2mri"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.5)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a2mri"]
+gradient = SubResource("Gradient_a2mri")
+width = 128
+fill = 1
+fill_from = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_chsmv"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.5)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vj8xc"]
+gradient = SubResource("Gradient_chsmv")
+width = 128
+fill = 1
+fill_from = Vector2(0, 1)
+
 [node name="Train" type="Node2D" node_paths=PackedStringArray("Head", "Middle", "Tail")]
-light_mask = 2
+light_mask = 6
 y_sort_enabled = true
 script = ExtResource("2_8tskr")
 Head = NodePath("HeadCar")
@@ -39,22 +50,12 @@ Middle = NodePath("MiddleCar")
 Tail = NodePath("TailCar")
 metadata/_custom_type_script = "uid://bdydso85tpjdw"
 
-[node name="TrainLight" type="PointLight2D" parent="." node_paths=PackedStringArray("Head")]
-energy = 0.3
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_d1bjs")
-offset = Vector2(128, -64)
-texture_scale = 4.0
-script = ExtResource("2_a2mri")
-Head = NodePath("../HeadCar")
-metadata/_custom_type_script = "uid://5rt5wjmr4wfa"
-
 [node name="HeadCar" type="Node2D" parent="."]
 light_mask = 2
 y_sort_enabled = true
 script = ExtResource("2_ggsvn")
 InitialCoordinate = Vector2i(26, 9)
-MaxSpeed = 0.8
+MaxSpeed = 1.2
 metadata/_custom_type_script = "uid://ybeqy1c01vn4"
 
 [node name="CurrentPath" type="Path2D" parent="HeadCar"]
@@ -72,7 +73,7 @@ loop = false
 light_mask = 2
 y_sort_enabled = true
 sprite_frames = ExtResource("2_426cx")
-animation = &"neg_y_still"
+animation = &"neg_x_move"
 autoplay = "neg_y_move"
 offset = Vector2(0, -8)
 
@@ -94,11 +95,11 @@ loop = false
 light_mask = 2
 y_sort_enabled = true
 sprite_frames = ExtResource("2_426cx")
-animation = &"neg_x_still"
+animation = &"pos_x_move"
 offset = Vector2(0, -8)
 
 [node name="MiddleCar" type="Node2D" parent="." node_paths=PackedStringArray("Head")]
-light_mask = 2
+light_mask = 6
 y_sort_enabled = true
 script = ExtResource("3_8tskr")
 Head = NodePath("../HeadCar")
@@ -107,12 +108,12 @@ Separation = 18
 metadata/_custom_type_script = "uid://ddom7ydd4x2dv"
 
 [node name="CurrentPath" type="Path2D" parent="MiddleCar"]
-light_mask = 2
+light_mask = 6
 y_sort_enabled = true
 curve = SubResource("Curve2D_d1bjs")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="MiddleCar/CurrentPath"]
-light_mask = 2
+light_mask = 6
 y_sort_enabled = true
 rotates = false
 loop = false
@@ -121,17 +122,17 @@ loop = false
 light_mask = 2
 y_sort_enabled = true
 sprite_frames = ExtResource("5_d1bjs")
-animation = &"y"
+animation = &"x"
 offset = Vector2(0, -8)
 
 [node name="PreviousPath" type="Path2D" parent="MiddleCar"]
 visible = false
-light_mask = 2
+light_mask = 6
 y_sort_enabled = true
 curve = SubResource("Curve2D_a2mri")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="MiddleCar/PreviousPath"]
-light_mask = 2
+light_mask = 6
 y_sort_enabled = true
 rotates = false
 loop = false
@@ -144,7 +145,7 @@ animation = &"y"
 offset = Vector2(0, -8)
 
 [node name="TailCar" type="Node2D" parent="." node_paths=PackedStringArray("Head")]
-light_mask = 2
+light_mask = 6
 y_sort_enabled = true
 script = ExtResource("3_8tskr")
 FollowType = 1
@@ -154,12 +155,12 @@ Separation = 36
 metadata/_custom_type_script = "uid://ddom7ydd4x2dv"
 
 [node name="CurrentPath" type="Path2D" parent="TailCar"]
-light_mask = 2
+light_mask = 6
 y_sort_enabled = true
 curve = SubResource("Curve2D_chsmv")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="TailCar/CurrentPath"]
-light_mask = 2
+light_mask = 6
 y_sort_enabled = true
 rotates = false
 loop = false
@@ -173,12 +174,12 @@ offset = Vector2(0, -8)
 
 [node name="PreviousPath" type="Path2D" parent="TailCar"]
 visible = false
-light_mask = 2
+light_mask = 6
 y_sort_enabled = true
 curve = SubResource("Curve2D_vj8xc")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="TailCar/PreviousPath"]
-light_mask = 2
+light_mask = 6
 y_sort_enabled = true
 rotates = false
 loop = false
@@ -189,3 +190,30 @@ y_sort_enabled = true
 sprite_frames = ExtResource("5_d1bjs")
 animation = &"y"
 offset = Vector2(0, -8)
+
+[node name="TrainLight" type="PointLight2D" parent="." node_paths=PackedStringArray("Head")]
+color = Color(1, 0.7121358, 0.98992926, 1)
+energy = 0.5
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.38431373)
+shadow_filter = 1
+shadow_filter_smooth = 2.0
+texture = SubResource("GradientTexture2D_a2mri")
+offset = Vector2(128, -64)
+texture_scale = 2.0
+height = 60.0
+script = ExtResource("2_a2mri")
+Head = NodePath("../HeadCar")
+metadata/_custom_type_script = "uid://5rt5wjmr4wfa"
+
+[node name="NonShadows" type="PointLight2D" parent="TrainLight"]
+color = Color(1, 0.7121358, 0.98992926, 1)
+energy = 0.8
+range_item_cull_mask = 4
+shadow_color = Color(0, 0, 0, 0.38431373)
+shadow_filter_smooth = 1.0
+texture = SubResource("GradientTexture2D_vj8xc")
+offset = Vector2(128, -64)
+texture_scale = 2.0
+height = 60.0
+metadata/_edit_lock_ = true

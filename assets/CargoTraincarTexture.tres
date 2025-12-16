@@ -1,0 +1,8 @@
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://bptdk8h6inucp"]
+
+[ext_resource type="Texture2D" uid="uid://cfhrmiuii3xkh" path="res://assets/png/cargo-sheet.png" id="1_krhp8"]
+[ext_resource type="Texture2D" uid="uid://cvf4vtkb0tno7" path="res://assets/png/cargo-normal-map.png" id="2_y2aul"]
+
+[resource]
+diffuse_texture = ExtResource("1_krhp8")
+normal_texture = ExtResource("2_y2aul")

@@ -1,0 +1,8 @@
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://bp42onq3rlj0l"]
+
+[ext_resource type="Texture2D" uid="uid://c3nqw1hmmbm05" path="res://assets/png/Platform.png" id="1_ark4i"]
+[ext_resource type="Texture2D" uid="uid://c43kbcfjjwi2f" path="res://assets/png/Platform-normal-map.png" id="2_c2lfo"]
+
+[resource]
+diffuse_texture = ExtResource("1_ark4i")
+normal_texture = ExtResource("2_c2lfo")

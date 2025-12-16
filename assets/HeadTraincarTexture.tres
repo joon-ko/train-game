@@ -1,0 +1,10 @@
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://dftk3my1axqdy"]
+
+[ext_resource type="Texture2D" uid="uid://mxbijfob3u7r" path="res://assets/png/train-sheet.png" id="1_8k8ff"]
+[ext_resource type="Texture2D" uid="uid://dfbm6rjiduyhs" path="res://assets/png/train-normal-map.png" id="2_rrqu1"]
+
+[resource]
+resource_local_to_scene = true
+diffuse_texture = ExtResource("1_8k8ff")
+normal_texture = ExtResource("2_rrqu1")
+texture_filter = 1

@@ -24,7 +24,7 @@ public partial class TrainLight : PointLight2D
 
     public override void _Process(double delta)
     {
-        Position = Head.GetTrainPosition() + offsetForDirection[Head.Direction] / 4;
+        Position = Head.GetTrainPosition() + (offsetForDirection[Head.Direction] / 4);
         Scale = scaleForDirection[Head.Direction];
     }
 }

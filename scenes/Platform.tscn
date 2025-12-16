@@ -1,42 +1,42 @@
 [gd_scene load_steps=14 format=3 uid="uid://bh24qg80ltx03"]
 
-[ext_resource type="Texture2D" uid="uid://c3nqw1hmmbm05" path="res://assets/png/Platform.png" id="1_axdvg"]
 [ext_resource type="Script" uid="uid://cl2ht6wgo3j23" path="res://scripts/Platform.cs" id="1_motb6"]
+[ext_resource type="Texture2D" uid="uid://bp42onq3rlj0l" path="res://assets/PlatformTexture.tres" id="3_wwpbi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_motb6"]
-atlas = ExtResource("1_axdvg")
+atlas = ExtResource("3_wwpbi")
 region = Rect2(0, 0, 32, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wwpbi"]
-atlas = ExtResource("1_axdvg")
+atlas = ExtResource("3_wwpbi")
 region = Rect2(32, 0, 32, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o1scf"]
-atlas = ExtResource("1_axdvg")
+atlas = ExtResource("3_wwpbi")
 region = Rect2(64, 0, 32, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hpx8l"]
-atlas = ExtResource("1_axdvg")
+atlas = ExtResource("3_wwpbi")
 region = Rect2(96, 0, 32, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gi0ke"]
-atlas = ExtResource("1_axdvg")
+atlas = ExtResource("3_wwpbi")
 region = Rect2(128, 0, 32, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t47mu"]
-atlas = ExtResource("1_axdvg")
+atlas = ExtResource("3_wwpbi")
 region = Rect2(160, 0, 32, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3pskx"]
-atlas = ExtResource("1_axdvg")
+atlas = ExtResource("3_wwpbi")
 region = Rect2(192, 0, 32, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ct0ul"]
-atlas = ExtResource("1_axdvg")
+atlas = ExtResource("3_wwpbi")
 region = Rect2(224, 0, 32, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uk82f"]
-atlas = ExtResource("1_axdvg")
+atlas = ExtResource("3_wwpbi")
 region = Rect2(256, 0, 32, 40)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wwpbi"]
@@ -107,6 +107,6 @@ offset = Vector2(0, -10)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 light_mask = 0
+visibility_layer = 0
 position = Vector2(0, 5)
 occluder = SubResource("OccluderPolygon2D_motb6")
-occluder_light_mask = 3

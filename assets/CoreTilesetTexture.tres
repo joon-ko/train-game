@@ -1,0 +1,8 @@
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://cxphkl3frqb8l"]
+
+[ext_resource type="Texture2D" uid="uid://cu5lm1bojip1h" path="res://assets/isometric-sandbox-32x32/isometric-sandbox-sheet.png" id="1_rysi5"]
+[ext_resource type="Texture2D" uid="uid://ccvtrib04sf1x" path="res://assets/png/core-tileset-normal-map.png" id="2_gqpdk"]
+
+[resource]
+diffuse_texture = ExtResource("1_rysi5")
+normal_texture = ExtResource("2_gqpdk")

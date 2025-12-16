@@ -1,10 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
 using System.Linq;
-using System.Threading;
 
 [GlobalClass]
 public partial class HeadTraincar : Traincar
@@ -43,7 +40,6 @@ public partial class HeadTraincar : Traincar
 	{
 		base._Ready();
 
-		// timer = GetNode<Godot.Timer>("Timer");
 		currentPathFollow.Position = tileMapLayer.MapToLocal(InitialCoordinate);
 		Speed = MaxSpeed;
 		
@@ -78,12 +74,6 @@ public partial class HeadTraincar : Traincar
 			_Unbrake();
 			return;
 		}
-		// if (!cooldown)
-		// {
-		// 	_Brake();
-		// 	cooldown = true;
-		// 	timer.Start();
-		// }
 		_Brake();
 	}
 
@@ -113,7 +103,7 @@ public partial class HeadTraincar : Traincar
 		braked = false;
 	}
 
-	public override void _Process(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		var inMovingAnimation = currentSprite.Animation.ToString().EndsWith("move");
 		if (IsMoving() && !inMovingAnimation)
@@ -167,11 +157,6 @@ public partial class HeadTraincar : Traincar
 			}
 		}
 		return 0;
-	}
-
-	private void _OnTimerTimeout()
-	{
-		// cooldown = false;
 	}
 
 	public bool IsMoving()
