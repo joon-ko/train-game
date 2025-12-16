@@ -1,10 +1,22 @@
-[gd_scene load_steps=12 format=3 uid="uid://b5clb7560do2o"]
+[gd_scene load_steps=15 format=3 uid="uid://b5clb7560do2o"]
 
 [ext_resource type="Script" uid="uid://bdydso85tpjdw" path="res://scripts/Train.cs" id="2_8tskr"]
 [ext_resource type="SpriteFrames" uid="uid://bgndj2mih7cdv" path="res://assets/TrainSpriteFrames.tres" id="2_426cx"]
+[ext_resource type="Script" uid="uid://5rt5wjmr4wfa" path="res://scripts/TrainLight.cs" id="2_a2mri"]
 [ext_resource type="Script" uid="uid://ybeqy1c01vn4" path="res://scripts/HeadTraincar.cs" id="2_ggsvn"]
 [ext_resource type="Script" uid="uid://ddom7ydd4x2dv" path="res://scripts/FollowTraincar.cs" id="3_8tskr"]
 [ext_resource type="SpriteFrames" uid="uid://b370bv3nt1vyk" path="res://assets/CargoTrainSpriteFrames.tres" id="5_d1bjs"]
+
+[sub_resource type="Gradient" id="Gradient_0x7h0"]
+offsets = PackedFloat32Array(0, 0.5)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d1bjs"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_0x7h0")
+height = 32
+fill = 1
+fill_from = Vector2(0, 1)
 
 [sub_resource type="Curve2D" id="Curve2D_l18bo"]
 
@@ -25,6 +37,15 @@ Head = NodePath("HeadCar")
 Middle = NodePath("MiddleCar")
 Tail = NodePath("TailCar")
 metadata/_custom_type_script = "uid://bdydso85tpjdw"
+
+[node name="TrainLight" type="PointLight2D" parent="." node_paths=PackedStringArray("Head")]
+energy = 0.5
+texture = SubResource("GradientTexture2D_d1bjs")
+offset = Vector2(96, -48)
+texture_scale = 3.0
+script = ExtResource("2_a2mri")
+Head = NodePath("../HeadCar")
+metadata/_custom_type_script = "uid://5rt5wjmr4wfa"
 
 [node name="HeadCar" type="Node2D" parent="."]
 y_sort_enabled = true

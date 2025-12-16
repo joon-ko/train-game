@@ -13,7 +13,6 @@ public partial class Root : Control
     private RichTextLabel accuracyLabel;
 
     private Control trainPathVisualizer;
-    private PointLight2D pointLight;
 
     private bool scheduled = false;
 
@@ -35,25 +34,22 @@ public partial class Root : Control
         testTrain = GetNode<Train>("Train");
         testTrain.Head.FinishedPath += _OnFinishedPath;
 
-        pointLight = GetNode<PointLight2D>("PointLight2D");
-        pointLight.Position = testTrain.Head.GetTrainPosition();
-
         gridManager = GetNode<GridManager>("GridManager");
         grid = GetNode<TileMapLayer>("GridManager/Ground");
         gridEnv = GetNode<TileMapLayer>("GridManager/Environment");
 
-        brakeInfoLabel = GetNode<RichTextLabel>("UIContainer/BrakeInfoLabel");
+        brakeInfoLabel = GetNode<RichTextLabel>("UILayer/UIContainer/BrakeInfoLabel");
         animationManager.AddBobAnimation(brakeInfoLabel);
 
-        cargoProgressLabel = GetNode<RichTextLabel>("UIContainer/VBoxContainer/CargoProgressLabel");
+        cargoProgressLabel = GetNode<RichTextLabel>("UILayer/UIContainer/VBoxContainer/CargoProgressLabel");
         cargoProgressLabel.Text = _GetCargoProgressText();
         animationManager.AddBobAnimation(cargoProgressLabel);
 
-        timeRemainingLabel = GetNode<RichTextLabel>("UIContainer/VBoxContainer/TimeRemainingLabel");
+        timeRemainingLabel = GetNode<RichTextLabel>("UILayer/UIContainer/VBoxContainer/TimeRemainingLabel");
         timeRemainingLabel.Text = _GetTimeRemainingText();
         animationManager.AddBobAnimation(timeRemainingLabel);
 
-        speedLabel = GetNode<RichTextLabel>("UIContainer/VBoxContainer/SpeedLabel");
+        speedLabel = GetNode<RichTextLabel>("UILayer/UIContainer/VBoxContainer/SpeedLabel");
         speedLabel.Text = _GetSpeedLabelText();
         animationManager.AddBobAnimation(speedLabel);
 
@@ -148,7 +144,6 @@ public partial class Root : Control
 
         speedLabel.Text = _GetSpeedLabelText();
 
-        pointLight.Position = testTrain.Head.GetTrainPosition();
         accuracyLabel.Text = _GetAccuracyText();
     }
 
