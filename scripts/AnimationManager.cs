@@ -26,4 +26,19 @@ public partial class AnimationManager : Node
             .SetTrans(Tween.TransitionType.Sine);
         tween.TweenInterval(1.0);
     }
+
+    public void AddBobAnimation(Node node)
+    {
+        var tween = node.CreateTween();
+        tween.SetLoops();
+        tween.TweenProperty(node, "position:y", -2, 1.6)
+            .AsRelative()
+            .SetEase(Tween.EaseType.InOut)
+            .SetTrans(Tween.TransitionType.Sine);
+        tween.TweenProperty(node, "position:y", 2, 1.6)
+            .AsRelative()
+            .SetEase(Tween.EaseType.InOut)
+            .SetTrans(Tween.TransitionType.Sine);
+        tween.TweenInterval(1.2);
+    }
 }
