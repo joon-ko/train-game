@@ -54,8 +54,6 @@ public partial class Root : Control
 
         platformScene = GD.Load<PackedScene>("res://scenes/Platform.tscn");
         platforms = GetNode<Node2D>("Platforms");
-
-        grid.SetCell(new Vector2I(11, 9), 0, new Vector2I(0, 6));
     }
 
     private void _AssignTrainPath()

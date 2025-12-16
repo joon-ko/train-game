@@ -87,7 +87,7 @@ loop = false
 [node name="Sprite" type="AnimatedSprite2D" parent="MiddleCar/CurrentPath/PathFollow2D"]
 y_sort_enabled = true
 sprite_frames = ExtResource("5_d1bjs")
-animation = &"x"
+animation = &"y"
 offset = Vector2(0, -8)
 
 [node name="PreviousPath" type="Path2D" parent="MiddleCar"]

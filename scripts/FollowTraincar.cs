@@ -18,7 +18,7 @@ public partial class FollowTraincar : Traincar
     [Export] public int Separation { get; set; }
 
 	private Tween brakeTween;
-	private Tween unbrakeTween;
+    private Tween unbrakeTween;
 
 	private bool braked = false;
 
@@ -30,11 +30,22 @@ public partial class FollowTraincar : Traincar
 		{ Direction.NegY, "y" }
 	};
 
+    private Dictionary<CargoType, int> animFrameForCargoType = new Dictionary<CargoType, int>()
+    {
+        { CargoType.Purple, 0 },
+        { CargoType.Orange, 1 },
+        { CargoType.Star, 2 },
+        { CargoType.Pink, 3 },
+    };
+
     public override void _Ready()
     {
         base._Ready();
 
         currentPathFollow.Position = tileMapLayer.MapToLocal(InitialCoordinate);
+
+        currentSprite.Frame = animFrameForCargoType[train.CarriedCargo];
+        previousSprite.Frame = animFrameForCargoType[train.CarriedCargo];
     }
 
     public void AcceptPath(PathInfo pathInfo)
@@ -59,6 +70,9 @@ public partial class FollowTraincar : Traincar
     {
         currentSprite.Animation = animationMap[Direction];
         previousSprite.Animation = animationMap[PreviousDirection];
+
+        currentSprite.Frame = animFrameForCargoType[train.CarriedCargo];
+        previousSprite.Frame = animFrameForCargoType[train.CarriedCargo];
 
         if (Head.currentPathFollow.Progress < Separation)
         {
