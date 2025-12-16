@@ -54,6 +54,15 @@ public partial class Root : Control
 
         platformScene = GD.Load<PackedScene>("res://scenes/Platform.tscn");
         platforms = GetNode<Node2D>("Platforms");
+        
+        foreach (Platform platform in platforms.GetChildren())
+        {
+            platform.Initialize();
+        }
+        // PathInfo = GetPathFromTarget(TrainTargetLocation);
+
+        // ProgressRatio = (TrainTargetLocation.X - PathInfo.StartCoordinate.X) / (PathInfo.EndCoordinate.X - PathInfo.StartCoordinate.X);
+
     }
 
     private void _AssignTrainPath()
