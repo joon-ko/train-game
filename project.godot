@@ -13,8 +13,7 @@ config_version=5
 config/name="train game"
 run/main_scene="uid://rxs4kcbrnreu"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
-boot_splash/image="uid://1q0if1quf783"
-config/icon="res://icon.svg"
+config/icon="uid://1q0if1quf783"
 
 [autoload]
 
