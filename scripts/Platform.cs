@@ -63,6 +63,7 @@ public partial class Platform : Node2D
         { CargoType.Orange, 5 },
         { CargoType.Pink, 8 },
     };
+
     public float ProgressRatio;
 
 
@@ -98,11 +99,8 @@ public partial class Platform : Node2D
 
     public void Initialize()
     {
-		PathInfo = GetPathFromTarget(TrainTargetLocation);
-        PathInfo.PrintInfo();
-        GD.Print($"TrainTargetLocation.X {TrainTargetLocation.X} PathInfo.StartCoordinate.X {PathInfo.StartCoordinate.X} PathInfo.EndCoordinate.X {PathInfo.EndCoordinate.X}");
+        PathInfo = GetPathFromTarget(TrainTargetLocation);
         ProgressRatio = (float)(TrainTargetLocation.X - PathInfo.StartCoordinate.X) / (PathInfo.EndCoordinate.X - PathInfo.StartCoordinate.X);
-        GD.Print($"Path info: {PathInfo}\nProgress Ratio: {ProgressRatio}");
     }
     public override void _PhysicsProcess(double delta)
     {
@@ -118,18 +116,18 @@ public partial class Platform : Node2D
     }
 
     private PathInfo GetPathFromTarget(Vector2I target)
-	{
-        GD.Print(gridManager.TrainPaths.Count);
-		foreach (var paths in gridManager.TrainPaths.Values ) 
+    {
+		foreach (var paths in gridManager.TrainPaths.Values)
 		{
 			foreach (var path in paths)
-			{
+            {
 				if (path.EndCoordinate.Y == target.Y)
-					{
-					if (path.EndCoordinate.X > target.X && path.StartCoordinate.X < target.X)
-					{
-						return path;
-					}
+                {
+                    if ((path.EndCoordinate.X < target.X && path.StartCoordinate.X > target.X)
+                        || (path.EndCoordinate.X > target.X && path.StartCoordinate.X < target.X))
+                    {
+                        return path;
+                    }
 				}
 			}	
 		}
