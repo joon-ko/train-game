@@ -39,10 +39,10 @@ Tail = NodePath("TailCar")
 metadata/_custom_type_script = "uid://bdydso85tpjdw"
 
 [node name="TrainLight" type="PointLight2D" parent="." node_paths=PackedStringArray("Head")]
-energy = 0.5
+energy = 0.3
 texture = SubResource("GradientTexture2D_d1bjs")
-offset = Vector2(96, -48)
-texture_scale = 3.0
+offset = Vector2(48, -24)
+texture_scale = 1.5
 script = ExtResource("2_a2mri")
 Head = NodePath("../HeadCar")
 metadata/_custom_type_script = "uid://5rt5wjmr4wfa"
