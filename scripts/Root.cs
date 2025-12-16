@@ -53,7 +53,7 @@ public partial class Root : Control
         speedLabel.Text = _GetSpeedLabelText();
         animationManager.AddBobAnimation(speedLabel);
 
-        accuracyLabel = GetNode<RichTextLabel>("UIContainer/VBoxContainer/AccuracyLabel");
+        accuracyLabel = GetNode<RichTextLabel>("UILayer/UIContainer/VBoxContainer/AccuracyLabel");
         accuracyLabel.Text = _GetAccuracyText();
 
         trainPathVisualizer = GetNode<Control>("TrainPathVisualizer");

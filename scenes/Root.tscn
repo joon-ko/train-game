@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cxbw8a3mh8a8u" path="res://assets/png/Compass.png" id="7_0x7h0"]
 [ext_resource type="StyleBox" uid="uid://bly1b5r48hawk" path="res://assets/LabelStyle.tres" id="7_3wcpb"]
 [ext_resource type="Script" uid="uid://cgiobuyldj5je" path="res://scripts/TrainPathVisualizer.cs" id="7_c618l"]
-[ext_resource type="PackedScene" path="res://scenes/Platform.tscn" id="8_3wcpb"]
+[ext_resource type="PackedScene" uid="uid://bh24qg80ltx03" path="res://scenes/Platform.tscn" id="8_3wcpb"]
 
 [node name="Root" type="Control"]
 y_sort_enabled = true
@@ -89,6 +89,16 @@ scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 2
 
+[node name="AccuracyLabel" type="RichTextLabel" parent="UILayer/UIContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("6_5npxh")
+bbcode_enabled = true
+text = "accuracy: 0/100"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 2
+
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -125,87 +135,6 @@ script = ExtResource("7_c618l")
 metadata/_edit_lock_ = true
 
 [node name="Train" parent="." instance=ExtResource("4_mvcll")]
-
-[node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(456, 147)
-energy = 0.5
-texture = SubResource("GradientTexture2D_3wcpb")
-texture_scale = 4.0
-
-[node name="UIContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-metadata/_edit_lock_ = true
-
-[node name="BrakeInfoLabel" type="RichTextLabel" parent="UIContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-theme = ExtResource("6_5npxh")
-theme_override_styles/normal = ExtResource("7_3wcpb")
-bbcode_enabled = true
-text = "press [color=LIGHT_PINK][spacebar][/color] to brake/unbrake"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UIContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-
-[node name="SpeedLabel" type="RichTextLabel" parent="UIContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-theme = ExtResource("6_5npxh")
-theme_override_styles/normal = ExtResource("7_3wcpb")
-bbcode_enabled = true
-text = "train speed: 0 km/h"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 2
-
-[node name="CargoProgressLabel" type="RichTextLabel" parent="UIContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-theme = ExtResource("6_5npxh")
-theme_override_styles/normal = ExtResource("7_3wcpb")
-bbcode_enabled = true
-text = "cargo delivered: 0/100"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-
-[node name="TimeRemainingLabel" type="RichTextLabel" parent="UIContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-theme = ExtResource("6_5npxh")
-theme_override_styles/normal = ExtResource("7_3wcpb")
-bbcode_enabled = true
-text = "time remaining: 120"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 2
-
-[node name="AccuracyLabel" type="RichTextLabel" parent="UIContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("6_5npxh")
-bbcode_enabled = true
-text = "accuracy: 0/100"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 2
 
 [node name="Compass" type="Sprite2D" parent="."]
 visible = false
