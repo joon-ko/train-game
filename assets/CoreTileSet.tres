@@ -1,8 +1,11 @@
-[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://4n3wig1qeiv0"]
+[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://4n3wig1qeiv0"]
 
 [ext_resource type="Texture2D" uid="uid://cu5lm1bojip1h" path="res://assets/isometric-sandbox-32x32/isometric-sandbox-sheet.png" id="1_d307s"]
 [ext_resource type="Texture2D" uid="uid://mxbijfob3u7r" path="res://assets/png/train-sheet.png" id="2_sr6w4"]
 [ext_resource type="Texture2D" uid="uid://18fo1kjcwfro" path="res://assets/png/stations.png" id="3_sr6w4"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_sr6w4"]
+polygon = PackedVector2Array(0, 24, -16, 16, 0, 8, 16, 16)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_24d08"]
 resource_name = "terrain"
@@ -38,6 +41,7 @@ texture_region_size = Vector2i(32, 32)
 0:1/0/texture_origin = Vector2i(0, -8)
 0:4/0 = 0
 0:4/0/texture_origin = Vector2i(0, -8)
+0:4/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_sr6w4")
 2:4/0 = 0
 2:4/0/texture_origin = Vector2i(0, -8)
 3:4/0 = 0
@@ -130,6 +134,7 @@ resource_local_to_scene = true
 tile_shape = 1
 tile_layout = 5
 tile_size = Vector2i(32, 16)
+occlusion_layer_0/light_mask = 1
 sources/0 = SubResource("TileSetAtlasSource_24d08")
 sources/1 = SubResource("TileSetAtlasSource_5nvtb")
 sources/2 = SubResource("TileSetAtlasSource_7p1x0")

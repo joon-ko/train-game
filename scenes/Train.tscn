@@ -7,17 +7,6 @@
 [ext_resource type="Script" uid="uid://ddom7ydd4x2dv" path="res://scripts/FollowTraincar.cs" id="3_8tskr"]
 [ext_resource type="SpriteFrames" uid="uid://b370bv3nt1vyk" path="res://assets/CargoTrainSpriteFrames.tres" id="5_d1bjs"]
 
-[sub_resource type="Gradient" id="Gradient_0x7h0"]
-offsets = PackedFloat32Array(0, 0.5)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_d1bjs"]
-resource_local_to_scene = true
-gradient = SubResource("Gradient_0x7h0")
-height = 32
-fill = 1
-fill_from = Vector2(0, 1)
-
 [sub_resource type="Curve2D" id="Curve2D_l18bo"]
 
 [sub_resource type="Curve2D" id="Curve2D_ggsvn"]
@@ -30,6 +19,17 @@ fill_from = Vector2(0, 1)
 
 [sub_resource type="Curve2D" id="Curve2D_vj8xc"]
 
+[sub_resource type="Gradient" id="Gradient_0x7h0"]
+offsets = PackedFloat32Array(0, 0.5)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d1bjs"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_0x7h0")
+height = 32
+fill = 1
+fill_from = Vector2(0, 1)
+
 [node name="Train" type="Node2D" node_paths=PackedStringArray("Head", "Middle", "Tail")]
 y_sort_enabled = true
 script = ExtResource("2_8tskr")
@@ -37,15 +37,6 @@ Head = NodePath("HeadCar")
 Middle = NodePath("MiddleCar")
 Tail = NodePath("TailCar")
 metadata/_custom_type_script = "uid://bdydso85tpjdw"
-
-[node name="TrainLight" type="PointLight2D" parent="." node_paths=PackedStringArray("Head")]
-energy = 0.3
-texture = SubResource("GradientTexture2D_d1bjs")
-offset = Vector2(48, -24)
-texture_scale = 1.5
-script = ExtResource("2_a2mri")
-Head = NodePath("../HeadCar")
-metadata/_custom_type_script = "uid://5rt5wjmr4wfa"
 
 [node name="HeadCar" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -64,6 +55,7 @@ rotates = false
 loop = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="HeadCar/CurrentPath/PathFollow2D"]
+light_mask = 2
 y_sort_enabled = true
 sprite_frames = ExtResource("2_426cx")
 animation = &"neg_y_still"
@@ -83,6 +75,7 @@ rotates = false
 loop = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="HeadCar/PreviousPath/PathFollow2D"]
+light_mask = 2
 y_sort_enabled = true
 sprite_frames = ExtResource("2_426cx")
 animation = &"neg_x_still"
@@ -106,6 +99,7 @@ rotates = false
 loop = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="MiddleCar/CurrentPath/PathFollow2D"]
+light_mask = 2
 y_sort_enabled = true
 sprite_frames = ExtResource("5_d1bjs")
 animation = &"y"
@@ -122,6 +116,7 @@ rotates = false
 loop = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="MiddleCar/PreviousPath/PathFollow2D"]
+light_mask = 2
 y_sort_enabled = true
 sprite_frames = ExtResource("5_d1bjs")
 animation = &"y"
@@ -146,6 +141,7 @@ rotates = false
 loop = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="TailCar/CurrentPath/PathFollow2D"]
+light_mask = 2
 y_sort_enabled = true
 sprite_frames = ExtResource("5_d1bjs")
 animation = &"y"
@@ -162,7 +158,18 @@ rotates = false
 loop = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="TailCar/PreviousPath/PathFollow2D"]
+light_mask = 2
 y_sort_enabled = true
 sprite_frames = ExtResource("5_d1bjs")
 animation = &"y"
 offset = Vector2(0, -8)
+
+[node name="TrainLight" type="PointLight2D" parent="." node_paths=PackedStringArray("Head")]
+energy = 0.3
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_d1bjs")
+offset = Vector2(128, -64)
+texture_scale = 4.0
+script = ExtResource("2_a2mri")
+Head = NodePath("../HeadCar")
+metadata/_custom_type_script = "uid://5rt5wjmr4wfa"
