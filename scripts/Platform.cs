@@ -34,6 +34,8 @@ public partial class Platform : Node2D
 
     private TileMapLayer groundLayer;
 
+	private GridManager gridManager;
+
     private Tween colorTween;
     private Tween heightTween;
 
@@ -61,6 +63,8 @@ public partial class Platform : Node2D
         { CargoType.Orange, 5 },
         { CargoType.Pink, 8 },
     };
+    public float ProgressRatio;
+
 
     public override void _Ready()
     {
@@ -87,8 +91,19 @@ public partial class Platform : Node2D
         heightTween.SetEase(Tween.EaseType.InOut);
         heightTween.TweenProperty(this, "HeightOffset", MAX_HEIGHT_OFFSET, 1.5);
         heightTween.TweenProperty(this, "HeightOffset", 0f, 1.5);
+
+        gridManager = GetTree().CurrentScene.GetNode<GridManager>("GridManager");
+
     }
 
+    public void Initialize()
+    {
+		PathInfo = GetPathFromTarget(TrainTargetLocation);
+        PathInfo.PrintInfo();
+        GD.Print($"TrainTargetLocation.X {TrainTargetLocation.X} PathInfo.StartCoordinate.X {PathInfo.StartCoordinate.X} PathInfo.EndCoordinate.X {PathInfo.EndCoordinate.X}");
+        ProgressRatio = (float)(TrainTargetLocation.X - PathInfo.StartCoordinate.X) / (PathInfo.EndCoordinate.X - PathInfo.StartCoordinate.X);
+        GD.Print($"Path info: {PathInfo}\nProgress Ratio: {ProgressRatio}");
+    }
     public override void _PhysicsProcess(double delta)
     {
         QueueRedraw();
@@ -101,4 +116,23 @@ public partial class Platform : Node2D
         var delta = targetPosition - platformPosition;
         DrawCircle(delta + new Vector2(0, -1 * HeightOffset), 4, Color);
     }
+
+    private PathInfo GetPathFromTarget(Vector2I target)
+	{
+        GD.Print(gridManager.TrainPaths.Count);
+		foreach (var paths in gridManager.TrainPaths.Values ) 
+		{
+			foreach (var path in paths)
+			{
+				if (path.EndCoordinate.Y == target.Y)
+					{
+					if (path.EndCoordinate.X > target.X && path.StartCoordinate.X < target.X)
+					{
+						return path;
+					}
+				}
+			}	
+		}
+		return null;
+	}
 }
