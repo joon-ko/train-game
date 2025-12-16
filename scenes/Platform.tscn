@@ -83,12 +83,14 @@ script = ExtResource("1_motb6")
 metadata/_custom_type_script = "uid://cl2ht6wgo3j23"
 
 [node name="Back" type="AnimatedSprite2D" parent="."]
+light_mask = 4
 y_sort_enabled = true
 position = Vector2(-32, -11)
 sprite_frames = SubResource("SpriteFrames_wwpbi")
 offset = Vector2(0, -9)
 
 [node name="Middle" type="AnimatedSprite2D" parent="."]
+light_mask = 4
 y_sort_enabled = true
 position = Vector2(-17, -3)
 sprite_frames = SubResource("SpriteFrames_wwpbi")
@@ -96,6 +98,7 @@ frame = 1
 offset = Vector2(0, -7)
 
 [node name="Front" type="AnimatedSprite2D" parent="."]
+light_mask = 4
 y_sort_enabled = true
 position = Vector2(0, 5)
 sprite_frames = SubResource("SpriteFrames_wwpbi")
@@ -103,8 +106,7 @@ frame = 2
 offset = Vector2(0, -10)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-modulate = Color(1, 1, 1, 0)
-light_mask = 3
+light_mask = 0
 position = Vector2(0, 5)
 occluder = SubResource("OccluderPolygon2D_motb6")
 occluder_light_mask = 3

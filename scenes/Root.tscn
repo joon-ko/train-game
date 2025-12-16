@@ -35,7 +35,7 @@ script = ExtResource("1_ont70")
 
 [node name="TestLight" type="PointLight2D" parent="."]
 light_mask = 0
-position = Vector2(159, 119)
+position = Vector2(159.00002, 119)
 scale = Vector2(0.9875, 1)
 color = Color(0.6745098, 0.8627451, 0.7058824, 1)
 energy = 0.55
@@ -162,7 +162,7 @@ tile_map_data = PackedByteArray("AAAMAPr/AAAAAAIAAAAMAPv/AAAAAAMAAAAMAPz/AAAAAAM
 tile_set = ExtResource("1_24d08")
 
 [node name="Environment" type="TileMapLayer" parent="GridManager"]
-light_mask = 3
+light_mask = 4
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAAXAAAAAAADAAgAAAAVAAIAAAAAAAQAAAAWAAIAAAAAAAQAAAAVAAEAAAAAAAQAAAAWAAEAAAAAAAQAAAAUAAIAAAAAAAQAAAARAP3/AAAAAAQAAAASAP3/AAAAAAQAAAATAP3/AAAAAAQAAAAUAP3/AAAAAAQAAAAPAP//AAAAAAQAAAAOAP//AAAAAAQAAAATAPj/AgAAAAAAAAA=")
 tile_set = ExtResource("1_24d08")
