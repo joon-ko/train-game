@@ -101,6 +101,8 @@ public partial class HeadTraincar : Traincar
 			.SetEase(Tween.EaseType.Out)
 			.SetTrans(Tween.TransitionType.Quad);
 		braked = false;
+		checkedScore = false;
+		Accuracy = 0f;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -109,8 +111,6 @@ public partial class HeadTraincar : Traincar
 		if (IsMoving() && !inMovingAnimation)
 		{
 			currentSprite.Animation = movingAnimationMap[Direction];
-			checkedScore = false;
-			Accuracy = 0;
 		}
 		else if (!IsMoving() && inMovingAnimation)
 		{
@@ -142,7 +142,7 @@ public partial class HeadTraincar : Traincar
 				var distance = Math.Abs(targetProgress - currentPathFollow.Progress);
 				if (distance < 54)
 				{
-					GD.Print(distance);
+					// GD.Print(distance);
 					return (54-distance)/54*100;
 				}
 			} else if (previousPathInfo.Equals(platform.PathInfo))
@@ -151,7 +151,7 @@ public partial class HeadTraincar : Traincar
 				var distance = currentPathFollow.Progress + Math.Abs(previousPathInfo.EndCoordinate.X - targetProgress);
 				if (distance < 54)
 				{
-					GD.Print(distance);
+					// GD.Print(distance);
 					return (54-distance)/54*100;
 				}
 			}

@@ -102,18 +102,19 @@ public partial class Platform : Node2D
         PathInfo = GetPathFromTarget(TrainTargetLocation);
         ProgressRatio = (float)(TrainTargetLocation.X - PathInfo.StartCoordinate.X) / (PathInfo.EndCoordinate.X - PathInfo.StartCoordinate.X);
     }
-    public override void _PhysicsProcess(double delta)
-    {
-        QueueRedraw();
-    }
 
-    public override void _Draw()
-    {
-        var targetPosition = groundLayer.MapToLocal(TrainTargetLocation);
-        var platformPosition = groundLayer.MapToLocal(Location);
-        var delta = targetPosition - platformPosition;
-        DrawCircle(delta + new Vector2(0, -1 * HeightOffset), 4, Color);
-    }
+    // public override void _PhysicsProcess(double delta)
+    // {
+    //     QueueRedraw();
+    // }
+
+    // public override void _Draw()
+    // {
+    //     var targetPosition = groundLayer.MapToLocal(TrainTargetLocation);
+    //     var platformPosition = groundLayer.MapToLocal(Location);
+    //     var delta = targetPosition - platformPosition;
+    //     DrawCircle(delta + new Vector2(0, -1 * HeightOffset), 4, Color);
+    // }
 
     private PathInfo GetPathFromTarget(Vector2I target)
     {
