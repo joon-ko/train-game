@@ -33,7 +33,7 @@ public partial class FollowTraincar : Traincar
     private Dictionary<CargoType, int> animFrameForCargoType = new Dictionary<CargoType, int>()
     {
         { CargoType.Purple, 0 },
-        { CargoType.Orange, 1 },
+        { CargoType.None, 1 },
         { CargoType.Star, 2 },
         { CargoType.Pink, 3 },
     };

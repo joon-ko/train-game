@@ -9,7 +9,8 @@ public partial class Train : Node2D
     [Export] public FollowTraincar Middle { get; set; }
     [Export] public FollowTraincar Tail { get; set; }
 
-    public CargoType CarriedCargo = CargoType.Orange;
+    public CargoType CarriedCargo = CargoType.None;
+    public int CargoCount = 0;
 
     private TileMapLayer groundLayer;
 }

@@ -10,7 +10,7 @@ public enum PlatformType
 public enum CargoType
 {
     Purple,
-    Orange,
+    None,
     Star,
     Pink
 }
@@ -22,6 +22,7 @@ public partial class Platform : Node2D
     [Export] public CargoType CargoType { get; set; } = CargoType.Purple;
     [Export] public Vector2I Location { get; set; }
     [Export] public Vector2I TrainTargetLocation { get; set; }
+    [Export] public int MaxCargoAwarded { get; set; } = 20;
 
     public PathInfo PathInfo;
 
@@ -46,21 +47,21 @@ public partial class Platform : Node2D
     private Dictionary<CargoType, int> backFrameForCargoType = new Dictionary<CargoType, int>()
     {
         { CargoType.Purple, 0 },
-        { CargoType.Orange, 3 },
+        { CargoType.None, 3 },
         { CargoType.Pink, 6 },
     };
 
     private Dictionary<CargoType, int> middleFrameForCargoType = new Dictionary<CargoType, int>()
     {
         { CargoType.Purple, 1 },
-        { CargoType.Orange, 4 },
+        { CargoType.None, 4 },
         { CargoType.Pink, 7 },
     };
 
     private Dictionary<CargoType, int> frontFrameForCargoType = new Dictionary<CargoType, int>()
     {
         { CargoType.Purple, 2 },
-        { CargoType.Orange, 5 },
+        { CargoType.None, 5 },
         { CargoType.Pink, 8 },
     };
 

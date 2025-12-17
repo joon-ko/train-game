@@ -3,16 +3,21 @@ using Godot;
 public partial class Root : Control
 {
     private Train testTrain;
+
     private GridManager gridManager;
-    private TileMapLayer grid;
-    private TileMapLayer gridEnv;
+    private TileMapLayer groundLayer;
+    private TileMapLayer envLayer;
+    private TileMapLayer switchLayer;
+
     private RichTextLabel brakeInfoLabel;
-    private RichTextLabel cargoProgressLabel;
     private RichTextLabel timeRemainingLabel;
     private RichTextLabel speedLabel;
     private RichTextLabel accuracyLabel;
 
     private Control trainPathVisualizer;
+
+    private LevelState levelState;
+    private CargoPanel cargoPanel;
 
     private bool scheduled = false;
 
@@ -22,8 +27,6 @@ public partial class Root : Control
     private PackedScene platformScene;
     private Node2D platforms;
 
-    private int CargoDelivered = 0;
-    private int TargetCargoDelivered = 100;
     private float TimeRemaining = 120f;
 
     public override void _Ready()
@@ -35,15 +38,12 @@ public partial class Root : Control
         testTrain.Head.FinishedPath += _OnFinishedPath;
 
         gridManager = GetNode<GridManager>("GridManager");
-        grid = GetNode<TileMapLayer>("GridManager/Ground");
-        gridEnv = GetNode<TileMapLayer>("GridManager/Environment");
+        groundLayer = GetNode<TileMapLayer>("GridManager/Ground");
+        envLayer = GetNode<TileMapLayer>("GridManager/Environment");
+        switchLayer = GetNode<TileMapLayer>("SwitchArrowLayer/SwitchArrows");
 
         brakeInfoLabel = GetNode<RichTextLabel>("UILayer/UIContainer/BrakeInfoLabel");
         animationManager.AddBobAnimation(brakeInfoLabel);
-
-        cargoProgressLabel = GetNode<RichTextLabel>("UILayer/UIContainer/VBoxContainer/CargoProgressLabel");
-        cargoProgressLabel.Text = _GetCargoProgressText();
-        animationManager.AddBobAnimation(cargoProgressLabel);
 
         timeRemainingLabel = GetNode<RichTextLabel>("UILayer/UIContainer/VBoxContainer/TimeRemainingLabel");
         timeRemainingLabel.Text = _GetTimeRemainingText();
@@ -53,10 +53,12 @@ public partial class Root : Control
         speedLabel.Text = _GetSpeedLabelText();
         animationManager.AddBobAnimation(speedLabel);
 
-        accuracyLabel = GetNode<RichTextLabel>("UILayer/UIContainer/VBoxContainer/AccuracyLabel");
-        accuracyLabel.Text = _GetAccuracyText();
-
         trainPathVisualizer = GetNode<Control>("TrainPathVisualizer");
+
+        levelState = GetNode<LevelState>("LevelState");
+        cargoPanel = GetNode<CargoPanel>("UILayer/UIContainer/CargoPanel");
+        cargoPanel.PurpleCargoRequired = levelState.PurpleCargoRequired;
+        cargoPanel.PinkCargoRequired = levelState.PinkCargoRequired;
 
         platformScene = GD.Load<PackedScene>("res://scenes/Platform.tscn");
         platforms = GetNode<Node2D>("Platforms");
@@ -69,7 +71,7 @@ public partial class Root : Control
 
     private void _AssignTrainPath()
     {
-        var coordinate = grid.LocalToMap(testTrain.Head.GetTrainPosition());
+        var coordinate = groundLayer.LocalToMap(testTrain.Head.GetTrainPosition());
         if (!gridManager.TrainPaths.ContainsKey(coordinate))
         {
             return;
@@ -99,11 +101,6 @@ public partial class Root : Control
         scheduled = false;
     }
 
-    private string _GetCargoProgressText()
-    {
-        return $"cargo delivered: {CargoDelivered}/{TargetCargoDelivered}";
-    }
-
     private string _GetTimeRemainingText()
     {
         return $"time remaining: {Mathf.RoundToInt(Mathf.Ceil(TimeRemaining))}";
@@ -115,9 +112,17 @@ public partial class Root : Control
         return $"train speed: {formattedSpeed} km/h";
     }
 
-    private string _GetAccuracyText()
+    private void RenderSwitchLayer()
     {
-        return $"accuracy: {Mathf.RoundToInt(testTrain.Head.Accuracy)}%";
+        var switchCoord = switchManager.GetSwitchCoord(0);
+        if (switchManager.GetSwitchOrientation(switchCoord) == SwitchOrientation.Straight)
+        {
+            switchLayer.SetCell(switchCoord, 0, TileManager.GetTileAtlasCoordinate(Tile.StraightArrow));
+        }
+        else
+        {
+            switchLayer.SetCell(switchCoord, 0, TileManager.GetTileAtlasCoordinate(Tile.BentArrow));
+        }
     }
 
     public override void _Process(double delta)
@@ -127,24 +132,15 @@ public partial class Root : Control
             _AssignTrainPath();
         }
 
-        var switchCoord = switchManager.GetSwitchCoord(0);
-        if (switchManager.GetSwitchOrientation(switchCoord) == SwitchOrientation.Straight)
-        {
-            gridEnv.SetCell(switchCoord, 0, TileManager.GetTileAtlasCoordinate(Tile.StraightArrow));
-        }
-        else
-        {
-            gridEnv.SetCell(switchCoord, 0, TileManager.GetTileAtlasCoordinate(Tile.BentArrow));
-        }
-
-        cargoProgressLabel.Text = _GetCargoProgressText();
+        RenderSwitchLayer();
 
         TimeRemaining -= (float)delta;
         timeRemainingLabel.Text = _GetTimeRemainingText();
 
         speedLabel.Text = _GetSpeedLabelText();
 
-        accuracyLabel.Text = _GetAccuracyText();
+        cargoPanel.PinkCargoDelivered = levelState.PinkCargoDelivered;
+        cargoPanel.PurpleCargoDelivered = levelState.PurpleCargoDelivered;
     }
 
     public override void _Input(InputEvent @event)
@@ -165,10 +161,6 @@ public partial class Root : Control
             if (keyEvent.Keycode == Key.Tab && keyEvent.Pressed)
             {
                 trainPathVisualizer.Visible = !trainPathVisualizer.Visible;
-            }
-            if (keyEvent.Keycode == Key.C && keyEvent.Pressed)
-            {
-                CargoDelivered += 1;
             }
         }
     }

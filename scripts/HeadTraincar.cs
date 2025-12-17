@@ -11,10 +11,23 @@ public partial class HeadTraincar : Traincar
 	[Export] public Vector2I InitialCoordinate;
 	[Export] public float MaxSpeed { get; set; } = 0.3f;
 
+	private PackedScene accuracyPopupScene;
+
 	private Tween brakeTween;
 	private Tween unbrakeTween;
+	private LevelState levelState;
+
+	private CanvasLayer uiLayer;
+
+	private Label cargoCountLabel;
 
 	private bool braked = false;
+
+	private float MAX_SCORE_DISTANCE = 54f;
+
+	private GridManager gridManager;
+
+	private bool checkedForAction = false;
 
 	private Dictionary<Direction, string> movingAnimationMap = new Dictionary<Direction, string>()
 	{
@@ -32,17 +45,19 @@ public partial class HeadTraincar : Traincar
 		{ Direction.NegY, "neg_y_still" }
 	};
 
-	private GridManager gridManager;
-	private bool checkedScore = false;
-	public float Accuracy = 0f;
-
 	public override void _Ready()
 	{
 		base._Ready();
 
+		accuracyPopupScene = GD.Load<PackedScene>("res://scenes/AccuracyPopup.tscn");
+
 		currentPathFollow.Position = tileMapLayer.MapToLocal(InitialCoordinate);
 		Speed = MaxSpeed;
-		
+
+		cargoCountLabel = train.GetNode<Label>("CanvasLayer/CargoCount");
+		levelState = GetTree().CurrentScene.GetNode<LevelState>("LevelState");
+
+		uiLayer = GetTree().CurrentScene.GetNode<CanvasLayer>("UILayer");
 	}
 
 	public void AcceptPath(PathInfo pathInfo)
@@ -101,8 +116,25 @@ public partial class HeadTraincar : Traincar
 			.SetEase(Tween.EaseType.Out)
 			.SetTrans(Tween.TransitionType.Quad);
 		braked = false;
-		checkedScore = false;
-		Accuracy = 0f;
+
+		GetTree().CreateTimer(0.5f).Timeout += _ReenableActionCheck;
+	}
+
+	private void _ReenableActionCheck()
+	{
+		checkedForAction = false;
+	}
+
+	public override void _Process(double delta)
+	{
+		UpdateCargoCountLabel();
+	}
+
+	private void UpdateCargoCountLabel()
+	{
+		cargoCountLabel.Position = train.Head.GetTrainPosition() + new Vector2(-12, -38);
+		cargoCountLabel.Visible = train.CargoCount != 0;
+		cargoCountLabel.Text = $"{train.CargoCount}";
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -116,9 +148,11 @@ public partial class HeadTraincar : Traincar
 		{
 			currentSprite.Animation = stillAnimationMap[Direction];
 		}
-		if (IsStopped() && !checkedScore) {
-			Accuracy = CalculateAccuracy();
-			checkedScore = true;
+
+		if (IsStopped() && !checkedForAction)
+		{
+			CheckForPlatformAction();
+			checkedForAction = true;
 		}
 
 		if (currentPathFollow.ProgressRatio < 1f)
@@ -130,33 +164,113 @@ public partial class HeadTraincar : Traincar
 		EmitSignal(SignalName.FinishedPath);
 	}
 
-
-
-	private float CalculateAccuracy() {
-		var platforms = GetTree().GetNodesInGroup("Platforms");
-		foreach (Platform platform in platforms.Cast<Platform>()) 
+	private AccuracyGrade CalculateGradeForAccuracy(float accuracy)
+	{
+		if (accuracy > 95f)
 		{
-			var targetProgress = platform.ProgressRatio * currentPath.Curve.GetBakedLength();
-			if (currentPathInfo.Equals(platform.PathInfo)) 
+			return AccuracyGrade.Perfect;
+		}
+		if (accuracy > 70f)
+		{
+			return AccuracyGrade.Good;
+		}
+		if (accuracy > 20f)
+		{
+			return AccuracyGrade.OK;
+		}
+		return AccuracyGrade.Miss;
+
+	}
+
+	private void HandleDistanceCheckForPlatform(Platform platform, float distance)
+	{
+		if (distance < MAX_SCORE_DISTANCE)
+		{
+			var accuracy = (MAX_SCORE_DISTANCE - distance) / MAX_SCORE_DISTANCE * 100f;
+			var grade = CalculateGradeForAccuracy(accuracy);
+			GD.Print($"Raw accuracy: {accuracy}");
+
+			// If the accuracy grade is a miss, just do nothing.
+			if (grade == AccuracyGrade.Miss)
 			{
-				var distance = Math.Abs(targetProgress - currentPathFollow.Progress);
-				if (distance < 54)
+				return;
+			}
+
+			// If the platform is a pickup platform:
+			if (platform.PlatformType == PlatformType.Pickup)
+			{
+				// The train should not have existing cargo. If it does, do nothing.
+				if (train.CargoCount > 0 || train.CarriedCargo != CargoType.None)
 				{
-					// GD.Print(distance);
-					return (54-distance)/54*100;
+					return;
 				}
-			} else if (previousPathInfo.Equals(platform.PathInfo))
-			{	
-				// from start of current path to the end of train
-				var distance = currentPathFollow.Progress + Math.Abs(previousPathInfo.EndCoordinate.X - targetProgress);
-				if (distance < 54)
+
+				// Award cargo to the train.
+				train.CarriedCargo = platform.CargoType;
+				train.CargoCount = CargoUtils.GetAwardedCargoForGrade(grade);
+
+				// Instantiate a popup of the accuracy grade.
+				var accuracyPopup = accuracyPopupScene.Instantiate<AccuracyPopup>();
+				accuracyPopup.Grade = grade;
+				accuracyPopup.Position = GetTrainPosition() + new Vector2(-36, -12);
+				uiLayer.AddChild(accuracyPopup);
+
+				return;
+			}
+
+			// If the platform is a delivery platform:
+			if (platform.PlatformType == PlatformType.Delivery)
+			{
+				// The train should have existing cargo. If it does not, do nothing.
+				if (train.CargoCount == 0 || train.CarriedCargo == CargoType.None)
 				{
-					// GD.Print(distance);
-					return (54-distance)/54*100;
+					return;
 				}
+
+				// Deliver the cargo, adding it to the total score.
+				var deliveredCargoCount = CargoUtils.GetDeliveredCargoForGrade(grade, train.CargoCount);
+				if (train.CarriedCargo == CargoType.Purple)
+				{
+					levelState.PurpleCargoDelivered += deliveredCargoCount;
+				}
+				else if (train.CarriedCargo == CargoType.Pink)
+				{
+					levelState.PinkCargoDelivered += deliveredCargoCount;
+				}
+				train.CarriedCargo = CargoType.None;
+				train.CargoCount = 0;
+
+				// Instantiate a popup of the accuracy grade.
+				// Instantiate a popup of the accuracy grade.
+				var accuracyPopup = accuracyPopupScene.Instantiate<AccuracyPopup>();
+				accuracyPopup.Grade = grade;
+				accuracyPopup.GlobalPosition = GetTrainPosition() + new Vector2(0, 32);
+				uiLayer.AddChild(accuracyPopup);
+
+				return;
 			}
 		}
-		return 0;
+	}
+
+	private void CheckForPlatformAction()
+	{
+		var platforms = GetTree().GetNodesInGroup("Platforms");
+		foreach (Platform platform in platforms.Cast<Platform>())
+		{
+			var targetProgress = platform.ProgressRatio * currentPath.Curve.GetBakedLength();
+			if (currentPathInfo.Equals(platform.PathInfo))
+			{
+
+				var distance = Math.Abs(targetProgress - currentPathFollow.Progress);
+				HandleDistanceCheckForPlatform(platform, distance);
+			}
+			else if (previousPathInfo.Equals(platform.PathInfo))
+			{
+				// from start of current path to the end of train
+				var distance = currentPathFollow.Progress + Math.Abs(previousPathInfo.EndCoordinate.X - targetProgress);
+				HandleDistanceCheckForPlatform(platform, distance);
+			}
+		}
 	}
 
 	public bool IsMoving()

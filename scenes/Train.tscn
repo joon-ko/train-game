@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://b5clb7560do2o"]
+[gd_scene load_steps=18 format=3 uid="uid://b5clb7560do2o"]
 
 [ext_resource type="Script" uid="uid://bdydso85tpjdw" path="res://scripts/Train.cs" id="2_8tskr"]
 [ext_resource type="SpriteFrames" uid="uid://bgndj2mih7cdv" path="res://assets/TrainSpriteFrames.tres" id="2_426cx"]
 [ext_resource type="Script" uid="uid://5rt5wjmr4wfa" path="res://scripts/TrainLight.cs" id="2_a2mri"]
 [ext_resource type="Script" uid="uid://ybeqy1c01vn4" path="res://scripts/HeadTraincar.cs" id="2_ggsvn"]
 [ext_resource type="Script" uid="uid://ddom7ydd4x2dv" path="res://scripts/FollowTraincar.cs" id="3_8tskr"]
+[ext_resource type="Theme" uid="uid://d0mlg6ed0r4ce" path="res://assets/CoreTheme.tres" id="4_chsmv"]
 [ext_resource type="SpriteFrames" uid="uid://b370bv3nt1vyk" path="res://assets/CargoTrainSpriteFrames.tres" id="5_d1bjs"]
 
 [sub_resource type="Curve2D" id="Curve2D_l18bo"]
@@ -217,3 +218,22 @@ offset = Vector2(128, -64)
 texture_scale = 2.0
 height = 70.0
 metadata/_edit_lock_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+follow_viewport_enabled = true
+
+[node name="CargoCount" type="Label" parent="CanvasLayer"]
+custom_minimum_size = Vector2(24, 16)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -332.0
+offset_top = -38.0
+offset_right = -308.0
+offset_bottom = -22.0
+grow_horizontal = 2
+theme = ExtResource("4_chsmv")
+text = "20"
+horizontal_alignment = 1
+vertical_alignment = 1

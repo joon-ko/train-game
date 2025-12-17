@@ -1,8 +1,10 @@
-[gd_scene load_steps=12 format=4 uid="uid://rxs4kcbrnreu"]
+[gd_scene load_steps=14 format=4 uid="uid://rxs4kcbrnreu"]
 
 [ext_resource type="TileSet" uid="uid://4n3wig1qeiv0" path="res://assets/CoreTileSet.tres" id="1_24d08"]
 [ext_resource type="Script" uid="uid://cd8hls8wvb7nx" path="res://scripts/Root.cs" id="1_ont70"]
 [ext_resource type="Script" uid="uid://jrra8pouey03" path="res://scripts/GridManager.cs" id="2_24d08"]
+[ext_resource type="Script" uid="uid://6g7d45x5aju0" path="res://scripts/LevelState.cs" id="2_85syf"]
+[ext_resource type="PackedScene" uid="uid://j6avrk4kir85" path="res://scenes/CargoPanel.tscn" id="3_6w1so"]
 [ext_resource type="PackedScene" uid="uid://b5clb7560do2o" path="res://scenes/Train.tscn" id="4_mvcll"]
 [ext_resource type="Theme" uid="uid://d0mlg6ed0r4ce" path="res://assets/CoreTheme.tres" id="6_5npxh"]
 [ext_resource type="Texture2D" uid="uid://cxbw8a3mh8a8u" path="res://assets/png/Compass.png" id="7_0x7h0"]
@@ -34,6 +36,12 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ont70")
 
+[node name="LevelState" type="Node" parent="."]
+script = ExtResource("2_85syf")
+PinkCargoRequired = 50
+PurpleCargoRequired = 50
+metadata/_custom_type_script = "uid://6g7d45x5aju0"
+
 [node name="EnvironmentLight" type="PointLight2D" parent="."]
 light_mask = 3
 position = Vector2(327, 158)
@@ -63,10 +71,15 @@ theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 metadata/_edit_lock_ = true
 
+[node name="CargoPanel" parent="UILayer/UIContainer" instance=ExtResource("3_6w1so")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
 [node name="BrakeInfoLabel" type="RichTextLabel" parent="UILayer/UIContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
 theme = ExtResource("6_5npxh")
 theme_override_styles/normal = ExtResource("7_3wcpb")
 bbcode_enabled = true
@@ -92,17 +105,6 @@ scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 2
 
-[node name="CargoProgressLabel" type="RichTextLabel" parent="UILayer/UIContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-theme = ExtResource("6_5npxh")
-theme_override_styles/normal = ExtResource("7_3wcpb")
-bbcode_enabled = true
-text = "cargo delivered: 0/100"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-
 [node name="TimeRemainingLabel" type="RichTextLabel" parent="UILayer/UIContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
@@ -110,16 +112,6 @@ theme = ExtResource("6_5npxh")
 theme_override_styles/normal = ExtResource("7_3wcpb")
 bbcode_enabled = true
 text = "time remaining: 120"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 2
-
-[node name="AccuracyLabel" type="RichTextLabel" parent="UILayer/UIContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("6_5npxh")
-bbcode_enabled = true
-text = "accuracy: 0/100"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -152,7 +144,7 @@ tile_set = ExtResource("1_24d08")
 [node name="Environment" type="TileMapLayer" parent="GridManager"]
 light_mask = 4
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAVAAIABAAAAAQAAAAWAAIABAAAAAQAAAAVAAEABAAAAAQAAAAWAAEABAAAAAQAAAAUAAIABAAAAAQAAAARAP3/BAAAAAQAAAASAP3/BAAAAAQAAAATAP3/BAAAAAQAAAAUAP3/BAAAAAQAAAAPAP//BAAAAAQAAAAOAP//BAAAAAQAAAATAPj/AgAAAAAAAAAXAAAABAACAAoAAAA=")
+tile_map_data = PackedByteArray("AAAVAAIABAAAAAQAAAAWAAIABAAAAAQAAAAVAAEABAAAAAQAAAAWAAEABAAAAAQAAAAUAAIABAAAAAQAAAARAP3/BAAAAAQAAAASAP3/BAAAAAQAAAATAP3/BAAAAAQAAAAUAP3/BAAAAAQAAAAPAP//BAAAAAQAAAAOAP//BAAAAAQAAAAYAP3/BAAAAAQAAAAYAPz/BAAAAAQAAAASAPj/BAAAAAQAAAATAPj/BAAAAAQAAAANAPr/BAAAAAQAAAANAPv/BAAAAAQAAAAMAPv/BAAAAAQAAAAKAP//BAAAAAQAAAAKAAAABAAAAAQAAAAKAAMABAAAAAQAAAAbAP7/BAAAAAQAAAAPAAcABAAAAAQAAAAQAAcABAAAAAQAAAAQAAgABAAAAAQAAAAPAAgABAAAAAQAAAASAAcABAAAAAQAAAA=")
 tile_set = ExtResource("1_24d08")
 
 [node name="TrainPathVisualizer" type="Control" parent="."]
@@ -181,6 +173,7 @@ y_sort_enabled = true
 [node name="Platform" parent="Platforms" groups=["Platforms"] instance=ExtResource("8_3wcpb")]
 light_mask = 4
 position = Vector2(304, 233)
+PlatformType = 1
 CargoType = 1
 Location = Vector2i(23, 5)
 TrainTargetLocation = Vector2i(23, 6)
@@ -197,3 +190,9 @@ light_mask = 4
 position = Vector2(400, 137)
 Location = Vector2i(20, -4)
 TrainTargetLocation = Vector2i(18, -5)
+
+[node name="SwitchArrowLayer" type="CanvasLayer" parent="."]
+
+[node name="SwitchArrows" type="TileMapLayer" parent="SwitchArrowLayer"]
+tile_map_data = PackedByteArray("AAAXAAAABAACAAoAAAA=")
+tile_set = ExtResource("1_24d08")
