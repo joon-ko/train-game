@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://rxs4kcbrnreu"]
+[gd_scene load_steps=15 format=4 uid="uid://rxs4kcbrnreu"]
 
 [ext_resource type="TileSet" uid="uid://4n3wig1qeiv0" path="res://assets/CoreTileSet.tres" id="1_24d08"]
 [ext_resource type="Script" uid="uid://cd8hls8wvb7nx" path="res://scripts/Root.cs" id="1_ont70"]
@@ -11,6 +11,7 @@
 [ext_resource type="StyleBox" uid="uid://bly1b5r48hawk" path="res://assets/LabelStyle.tres" id="7_3wcpb"]
 [ext_resource type="Script" uid="uid://cgiobuyldj5je" path="res://scripts/TrainPathVisualizer.cs" id="7_c618l"]
 [ext_resource type="PackedScene" uid="uid://bh24qg80ltx03" path="res://scenes/Platform.tscn" id="8_3wcpb"]
+[ext_resource type="PackedScene" uid="uid://ds110dmyas284" path="res://scenes/Lamppost.tscn" id="8_q7e4n"]
 
 [sub_resource type="Gradient" id="Gradient_3wcpb"]
 resource_local_to_scene = true
@@ -46,7 +47,7 @@ metadata/_custom_type_script = "uid://6g7d45x5aju0"
 light_mask = 3
 position = Vector2(327, 158)
 energy = 0.4
-range_item_cull_mask = 2
+range_item_cull_mask = 0
 shadow_color = Color(0, 0, 0, 0.13725491)
 shadow_filter = 1
 shadow_filter_smooth = 0.8
@@ -144,7 +145,7 @@ tile_set = ExtResource("1_24d08")
 [node name="Environment" type="TileMapLayer" parent="GridManager"]
 light_mask = 4
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAVAAIABAAAAAQAAAAWAAIABAAAAAQAAAAVAAEABAAAAAQAAAAWAAEABAAAAAQAAAAUAAIABAAAAAQAAAARAP3/BAAAAAQAAAASAP3/BAAAAAQAAAATAP3/BAAAAAQAAAAUAP3/BAAAAAQAAAAPAP//BAAAAAQAAAAOAP//BAAAAAQAAAAYAP3/BAAAAAQAAAAYAPz/BAAAAAQAAAANAPr/BAAAAAQAAAANAPv/BAAAAAQAAAAMAPv/BAAAAAQAAAAKAP//BAAAAAQAAAAKAAAABAAAAAQAAAAKAAMABAAAAAQAAAAbAP7/BAAAAAQAAAAPAAcABAAAAAQAAAAQAAcABAAAAAQAAAAQAAgABAAAAAQAAAAPAAgABAAAAAQAAAASAAcABAAAAAQAAAAOAP3/AwAAAAAAAAAPAPz/AwABAAAAAAASAPr/AwADAAAAAAATAPr/AwACAAAAAAAUAPr/AwACAAAAAAAVAPr/AwADAAAAAAAWAPr/AwAEAAAAAAARAPr/AwAEAAAAAAAPAP3/AwAAAAIAAAASAAIAAwAAAAIAAAAOAAUAAwAAAAIAAAAZAAEAAwAAAAIAAAAWAPz/AwAAAAIAAAAZAAUAAwAAAAIAAAA=")
+tile_map_data = PackedByteArray("AAAVAAIABAAAAAQAAAAWAAIABAAAAAQAAAAVAAEABAAAAAQAAAAWAAEABAAAAAQAAAAUAAIABAAAAAQAAAARAP3/BAAAAAQAAAASAP3/BAAAAAQAAAATAP3/BAAAAAQAAAAUAP3/BAAAAAQAAAAPAP//BAAAAAQAAAAOAP//BAAAAAQAAAAYAP3/BAAAAAQAAAAYAPz/BAAAAAQAAAANAPr/BAAAAAQAAAANAPv/BAAAAAQAAAAMAPv/BAAAAAQAAAAKAP//BAAAAAQAAAAKAAAABAAAAAQAAAAKAAMABAAAAAQAAAAbAP7/BAAAAAQAAAAPAAcABAAAAAQAAAAQAAcABAAAAAQAAAAQAAgABAAAAAQAAAAPAAgABAAAAAQAAAASAAcABAAAAAQAAAAOAP3/AwAAAAAAAAAPAPz/AwABAAAAAAASAPr/AwADAAAAAAATAPr/AwACAAAAAAAUAPr/AwACAAAAAAAVAPr/AwADAAAAAAAWAPr/AwAEAAAAAAARAPr/AwAEAAAAAAA=")
 tile_set = ExtResource("1_24d08")
 
 [node name="TrainPathVisualizer" type="Control" parent="."]
@@ -196,3 +197,21 @@ TrainTargetLocation = Vector2i(18, -5)
 [node name="SwitchArrows" type="TileMapLayer" parent="SwitchArrowLayer"]
 tile_map_data = PackedByteArray("AAAXAAAABAACAAoAAAA=")
 tile_set = ExtResource("1_24d08")
+
+[node name="Lampposts" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Lamppost" parent="Lampposts" instance=ExtResource("8_q7e4n")]
+position = Vector2(336, 249)
+
+[node name="Lamppost2" parent="Lampposts" instance=ExtResource("8_q7e4n")]
+position = Vector2(416, 193)
+
+[node name="Lamppost3" parent="Lampposts" instance=ExtResource("8_q7e4n")]
+position = Vector2(304, 105)
+
+[node name="Lamppost4" parent="Lampposts" instance=ExtResource("8_q7e4n")]
+position = Vector2(160, 161)
+
+[node name="Lamppost5" parent="Lampposts" instance=ExtResource("8_q7e4n")]
+position = Vector2(272, 169)

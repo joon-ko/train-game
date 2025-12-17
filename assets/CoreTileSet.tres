@@ -172,6 +172,9 @@ texture_region_size = Vector2i(32, 32)
 4:0/size_in_atlas = Vector2i(2, 2)
 4:0/0 = 0
 4:0/0/texture_origin = Vector2i(0, 28)
+6:0/size_in_atlas = Vector2i(1, 2)
+6:0/0 = 0
+6:0/0/texture_origin = Vector2i(0, 20)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7p1x0"]
 polygon = PackedVector2Array(0, 24, 16, 16, 0, 8, -16, 16)

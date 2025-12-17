@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://ds110dmyas284"]
+
+[ext_resource type="Texture2D" uid="uid://iwar8d3y2ofu" path="res://assets/png/decor.png" id="1_lfeu6"]
+
+[sub_resource type="Gradient" id="Gradient_lfeu6"]
+offsets = PackedFloat32Array(0, 0.5432331)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_oab1a"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_lfeu6")
+width = 256
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oab1a"]
+atlas = ExtResource("1_lfeu6")
+region = Rect2(197, 0, 22, 60)
+
+[node name="Lamppost" type="Node2D"]
+y_sort_enabled = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+y_sort_enabled = true
+color = Color(0.82, 0.8118, 0.32799998, 1)
+energy = 0.65
+range_item_cull_mask = 21
+texture = SubResource("GradientTexture2D_oab1a")
+height = 100.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 4
+y_sort_enabled = true
+texture = SubResource("AtlasTexture_oab1a")
+offset = Vector2(0, -24)

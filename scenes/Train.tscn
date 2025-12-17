@@ -71,7 +71,7 @@ rotates = false
 loop = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="HeadCar/CurrentPath/PathFollow2D"]
-light_mask = 2
+light_mask = 18
 y_sort_enabled = true
 sprite_frames = ExtResource("2_426cx")
 animation = &"neg_x_move"
@@ -93,7 +93,7 @@ rotates = false
 loop = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="HeadCar/PreviousPath/PathFollow2D"]
-light_mask = 2
+light_mask = 18
 y_sort_enabled = true
 sprite_frames = ExtResource("2_426cx")
 animation = &"pos_x_move"
@@ -120,7 +120,7 @@ rotates = false
 loop = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="MiddleCar/CurrentPath/PathFollow2D"]
-light_mask = 2
+light_mask = 18
 y_sort_enabled = true
 sprite_frames = ExtResource("5_d1bjs")
 animation = &"x"
@@ -139,7 +139,7 @@ rotates = false
 loop = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="MiddleCar/PreviousPath/PathFollow2D"]
-light_mask = 2
+light_mask = 18
 y_sort_enabled = true
 sprite_frames = ExtResource("5_d1bjs")
 animation = &"y"
@@ -167,7 +167,7 @@ rotates = false
 loop = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="TailCar/CurrentPath/PathFollow2D"]
-light_mask = 2
+light_mask = 18
 y_sort_enabled = true
 sprite_frames = ExtResource("5_d1bjs")
 animation = &"y"
@@ -186,7 +186,7 @@ rotates = false
 loop = false
 
 [node name="Sprite" type="AnimatedSprite2D" parent="TailCar/PreviousPath/PathFollow2D"]
-light_mask = 2
+light_mask = 18
 y_sort_enabled = true
 sprite_frames = ExtResource("5_d1bjs")
 animation = &"y"
