@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class Root : Control
+public partial class LevelTwo : Control
 {
     private Train testTrain;
 
@@ -27,7 +27,7 @@ public partial class Root : Control
 
     private Node2D platforms;
 
-    private float TimeRemaining = 120f;
+    private float TimeRemaining = 125f;
 
     public override void _Ready()
     {
@@ -74,6 +74,7 @@ public partial class Root : Control
     private void _AssignTrainPath()
     {
         var coordinate = groundLayer.LocalToMap(testTrain.Head.GetTrainPosition());
+
         if (!gridManager.TrainPaths.ContainsKey(coordinate))
         {
             return;
@@ -141,8 +142,7 @@ public partial class Root : Control
         }
 
         RenderSwitchLayer();
-        
-        
+
         if (TimeRemaining <= 0) 
         {
             GetTree().Paused = true;

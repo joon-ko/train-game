@@ -22,9 +22,8 @@ public partial class GridManager : Node
 {
 	public Dictionary<Vector2I, List<PathInfo>> TrainPaths = [];
 
-	// Hardcoded start location and direction for now
-	private Vector2I START_LOCATION = new Vector2I(26, 9);
-	private Direction START_DIRECTION = Direction.NegY;
+	[Export] Vector2I StartLocation { get; set; }
+	[Export] Direction StartDirection { get; set; }
 
 	private SwitchManager switchManager;
 	private TileMapLayer groundLayer;
@@ -44,7 +43,7 @@ public partial class GridManager : Node
 		groundLayer = GetNode<TileMapLayer>("Ground");
 		environmentLayer = GetNode<TileMapLayer>("Environment");
 
-		GenerateTrainPaths(START_LOCATION, START_DIRECTION);
+		GenerateTrainPaths(StartLocation, StartDirection);
 	}
 
 	private void GenerateTrainPaths(Vector2I startLocation, Direction direction)

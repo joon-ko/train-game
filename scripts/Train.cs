@@ -3,7 +3,9 @@ using Godot;
 [GlobalClass]
 public partial class Train : Node2D
 {
-    [Export] public Direction InitialDirection { get; set; } = Direction.NegY;
+    [Export] public Vector2I StartCoordinate { get; set; }
+    [Export] public Direction StartDirection { get; set; } = Direction.NegY;
+    [Export] public float MaxSpeed { get; set; } = 1.5f;
 
     [Export] public HeadTraincar Head { get; set; }
     [Export] public FollowTraincar Middle { get; set; }

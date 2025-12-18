@@ -8,8 +8,8 @@ public partial class HeadTraincar : Traincar
 {
 	[Signal] public delegate void FinishedPathEventHandler();
 
-	[Export] public Vector2I InitialCoordinate;
-	[Export] public float MaxSpeed { get; set; } = 0.3f;
+	public Vector2I StartCoordinate;
+	public float MaxSpeed { get; set; } = 0.3f;
 
 	private PackedScene accuracyPopupScene;
 
@@ -48,10 +48,12 @@ public partial class HeadTraincar : Traincar
 	public override void _Ready()
 	{
 		base._Ready();
+		StartCoordinate = train.StartCoordinate;
+		MaxSpeed = train.MaxSpeed;
 
 		accuracyPopupScene = GD.Load<PackedScene>("res://scenes/AccuracyPopup.tscn");
 
-		currentPathFollow.Position = tileMapLayer.MapToLocal(InitialCoordinate);
+		currentPathFollow.Position = tileMapLayer.MapToLocal(StartCoordinate);
 		Speed = MaxSpeed;
 
 		cargoCountLabel = train.GetNode<Label>("CanvasLayer/CargoCount");
