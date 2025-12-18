@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://dpsthd1xp5j8s"]
+
+[ext_resource type="Texture2D" uid="uid://161hv7ul301v" path="res://assets/png/ChristmasTree.png" id="1_psawt"]
+[ext_resource type="Texture2D" uid="uid://bc77qrwtaoh58" path="res://assets/png/ChristmasTreeNormal.png" id="2_702xm"]
+
+[sub_resource type="Gradient" id="Gradient_lfeu6"]
+offsets = PackedFloat32Array(0, 0.5582707)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_oab1a"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_lfeu6")
+width = 28
+height = 28
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lfeu6"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_lfeu6")
+width = 256
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_48tlr"]
+diffuse_texture = ExtResource("1_psawt")
+normal_texture = ExtResource("2_702xm")
+
+[node name="ChristmasTree" type="Node2D"]
+y_sort_enabled = true
+
+[node name="LocalLight" type="PointLight2D" parent="."]
+position = Vector2(0, -51)
+color = Color(0.99999994, 0.9478317, 0.67354333, 1)
+energy = 0.45
+range_item_cull_mask = 21
+texture = SubResource("GradientTexture2D_oab1a")
+height = 300.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+y_sort_enabled = true
+color = Color(0.88605917, 0.8814202, 0.44951278, 1)
+energy = 0.6
+range_item_cull_mask = 21
+texture = SubResource("GradientTexture2D_lfeu6")
+height = 150.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 4
+y_sort_enabled = true
+texture = SubResource("CanvasTexture_48tlr")
+offset = Vector2(0, -26)
