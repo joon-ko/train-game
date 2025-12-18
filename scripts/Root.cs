@@ -25,11 +25,9 @@ public partial class Root : Control
     private AnimationManager animationManager;
     private SwitchManager switchManager;
 
-    private PackedScene platformScene;
     private Node2D platforms;
 
     private float TimeRemaining = 120f;
-
 
     public override void _Ready()
     {
@@ -65,7 +63,6 @@ public partial class Root : Control
         cargoPanel.PurpleCargoRequired = levelState.PurpleCargoRequired;
         cargoPanel.PinkCargoRequired = levelState.PinkCargoRequired;
 
-        platformScene = GD.Load<PackedScene>("res://scenes/Platform.tscn");
         platforms = GetNode<Node2D>("Platforms");
 
         foreach (Platform platform in platforms.GetChildren())

@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://daqkimvdqs6m0"]
+
+[ext_resource type="Script" uid="uid://cl2ht6wgo3j23" path="res://scripts/Platform.cs" id="1_u5kvp"]
+[ext_resource type="Texture2D" uid="uid://bp42onq3rlj0l" path="res://assets/PlatformTexture.tres" id="2_fadis"]
+[ext_resource type="PackedScene" uid="uid://biy12pj6i8ccv" path="res://scenes/PurplePresent.tscn" id="3_u5kvp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdn1d"]
+atlas = ExtResource("2_fadis")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36ukb"]
+atlas = ExtResource("2_fadis")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sb42g"]
+atlas = ExtResource("2_fadis")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xwe8w"]
+polygon = PackedVector2Array(0, 0, 12, -6, -30, -27, -42, -21)
+
+[node name="PurplePlatform" type="Node2D"]
+script = ExtResource("1_u5kvp")
+metadata/_custom_type_script = "uid://cl2ht6wgo3j23"
+
+[node name="Back" type="Sprite2D" parent="."]
+light_mask = 4
+y_sort_enabled = true
+position = Vector2(-32, -16)
+texture = SubResource("AtlasTexture_bdn1d")
+offset = Vector2(0, -9)
+
+[node name="Middle" type="Sprite2D" parent="."]
+light_mask = 4
+y_sort_enabled = true
+position = Vector2(-17, -8)
+texture = SubResource("AtlasTexture_36ukb")
+offset = Vector2(0, -7)
+
+[node name="Front" type="Sprite2D" parent="."]
+light_mask = 4
+y_sort_enabled = true
+texture = SubResource("AtlasTexture_sb42g")
+offset = Vector2(0, -10)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+light_mask = 0
+visibility_layer = 0
+position = Vector2(0, 4)
+occluder = SubResource("OccluderPolygon2D_xwe8w")
+
+[node name="Presents" type="Node2D" parent="."]
+y_sort_enabled = true
+position = Vector2(0, -5)
+
+[node name="PurplePresent" parent="Presents" instance=ExtResource("3_u5kvp")]
+position = Vector2(-26, -18)
+
+[node name="PurplePresent2" parent="Presents" instance=ExtResource("3_u5kvp")]
+position = Vector2(-14, -12)
+
+[node name="PurplePresent3" parent="Presents" instance=ExtResource("3_u5kvp")]
+position = Vector2(-2, -6)

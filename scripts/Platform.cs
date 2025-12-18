@@ -23,6 +23,7 @@ public partial class Platform : Node2D
     [Export] public Vector2I Location { get; set; }
     [Export] public Vector2I TrainTargetLocation { get; set; }
     [Export] public int MaxCargoAwarded { get; set; } = 20;
+    [Export] public Train Train;
 
     public PathInfo PathInfo;
 
@@ -33,52 +34,26 @@ public partial class Platform : Node2D
     public float HeightOffset = 0f;
     private const float MAX_HEIGHT_OFFSET = 3f;
 
+    private GridManager gridManager;
     private TileMapLayer groundLayer;
-
-	private GridManager gridManager;
+    private Node2D presents;
 
     private Tween colorTween;
     private Tween heightTween;
 
-    private AnimatedSprite2D back;
-    private AnimatedSprite2D middle;
-    private AnimatedSprite2D front;
-
-    private Dictionary<CargoType, int> backFrameForCargoType = new Dictionary<CargoType, int>()
-    {
-        { CargoType.Purple, 0 },
-        { CargoType.None, 3 },
-        { CargoType.Pink, 6 },
-    };
-
-    private Dictionary<CargoType, int> middleFrameForCargoType = new Dictionary<CargoType, int>()
-    {
-        { CargoType.Purple, 1 },
-        { CargoType.None, 4 },
-        { CargoType.Pink, 7 },
-    };
-
-    private Dictionary<CargoType, int> frontFrameForCargoType = new Dictionary<CargoType, int>()
-    {
-        { CargoType.Purple, 2 },
-        { CargoType.None, 5 },
-        { CargoType.Pink, 8 },
-    };
+    private Sprite2D back;
+    private Sprite2D middle;
+    private Sprite2D front;
 
     public float ProgressRatio;
-
 
     public override void _Ready()
     {
         groundLayer = GetTree().CurrentScene.GetNode<TileMapLayer>("GridManager/Ground");
 
-        back = GetNode<AnimatedSprite2D>("Back");
-        middle = GetNode<AnimatedSprite2D>("Middle");
-        front = GetNode<AnimatedSprite2D>("Front");
-
-        back.Frame = backFrameForCargoType[CargoType];
-        middle.Frame = middleFrameForCargoType[CargoType];
-        front.Frame = frontFrameForCargoType[CargoType];
+        back = GetNode<Sprite2D>("Back");
+        middle = GetNode<Sprite2D>("Middle");
+        front = GetNode<Sprite2D>("Front");
 
         colorTween = CreateTween();
         colorTween.SetLoops();
@@ -96,12 +71,25 @@ public partial class Platform : Node2D
 
         gridManager = GetTree().CurrentScene.GetNode<GridManager>("GridManager");
 
+        if (CargoType != CargoType.None)
+        {
+            presents = GetNode<Node2D>("Presents");
+        }
     }
 
     public void Initialize()
     {
         PathInfo = GetPathFromTarget(TrainTargetLocation);
         ProgressRatio = (float)(TrainTargetLocation.X - PathInfo.StartCoordinate.X) / (PathInfo.EndCoordinate.X - PathInfo.StartCoordinate.X);
+    }
+
+    public override void _Process(double delta)
+    {
+        if (CargoType != CargoType.None)
+        {
+            // Don't show presents if the train picked them up
+            presents.Visible = Train.CarriedCargo != CargoType;
+        }
     }
 
     // public override void _PhysicsProcess(double delta)
@@ -119,20 +107,20 @@ public partial class Platform : Node2D
 
     private PathInfo GetPathFromTarget(Vector2I target)
     {
-		foreach (var paths in gridManager.TrainPaths.Values)
-		{
-			foreach (var path in paths)
+        foreach (var paths in gridManager.TrainPaths.Values)
+        {
+            foreach (var path in paths)
             {
-				if (path.EndCoordinate.Y == target.Y)
+                if (path.EndCoordinate.Y == target.Y)
                 {
                     if ((path.EndCoordinate.X < target.X && path.StartCoordinate.X > target.X)
                         || (path.EndCoordinate.X > target.X && path.StartCoordinate.X < target.X))
                     {
                         return path;
                     }
-				}
-			}	
-		}
-		return null;
-	}
+                }
+            }
+        }
+        return null;
+    }
 }

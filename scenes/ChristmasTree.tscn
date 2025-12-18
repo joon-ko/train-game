@@ -44,7 +44,7 @@ color = Color(0.88605917, 0.8814202, 0.44951278, 1)
 energy = 0.6
 range_item_cull_mask = 21
 texture = SubResource("GradientTexture2D_lfeu6")
-height = 150.0
+height = 100.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 4

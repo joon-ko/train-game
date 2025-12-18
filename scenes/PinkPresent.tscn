@@ -1,9 +1,9 @@
 [gd_scene load_steps=4 format=3 uid="uid://b4cj88b0aq27k"]
 
-[ext_resource type="Texture2D" uid="uid://buywhysopwb2k" path="res://assets/png/PinkPresent.png" id="1_4stu1"]
-[ext_resource type="Texture2D" uid="uid://u583p66winnh" path="res://assets/png/present-normal-map.png" id="2_jm25r"]
+[ext_resource type="Texture2D" uid="uid://b281w8uwid8nn" path="res://assets/png/SmallPinkPresent.png" id="1_4stu1"]
+[ext_resource type="Texture2D" uid="uid://br4gitytg1ktq" path="res://assets/png/SmallPresentNormalMap.png" id="2_jm25r"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_5ylp3"]
+[sub_resource type="CanvasTexture" id="CanvasTexture_jkv7b"]
 diffuse_texture = ExtResource("1_4stu1")
 normal_texture = ExtResource("2_jm25r")
 
@@ -12,5 +12,5 @@ y_sort_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
-texture = SubResource("CanvasTexture_5ylp3")
-offset = Vector2(0, -8)
+texture = SubResource("CanvasTexture_jkv7b")
+offset = Vector2(0, -4)
