@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://rxs4kcbrnreu"]
+[gd_scene load_steps=25 format=4 uid="uid://rxs4kcbrnreu"]
 
 [ext_resource type="TileSet" uid="uid://4n3wig1qeiv0" path="res://assets/CoreTileSet.tres" id="1_24d08"]
 [ext_resource type="Script" uid="uid://cd8hls8wvb7nx" path="res://scripts/Root.cs" id="1_ont70"]
@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://ds110dmyas284" path="res://scenes/Lamppost.tscn" id="8_q7e4n"]
 [ext_resource type="PackedScene" uid="uid://dpsthd1xp5j8s" path="res://scenes/ChristmasTree.tscn" id="12_6k1mm"]
 [ext_resource type="Shader" uid="uid://cac1fp5lc1c65" path="res://scenes/Snowfall.gdshader" id="14_r7xkj"]
+[ext_resource type="PackedScene" uid="uid://b4cj88b0aq27k" path="res://scenes/PinkPresent.tscn" id="16_q0jrj"]
+[ext_resource type="PackedScene" uid="uid://biy12pj6i8ccv" path="res://scenes/PurplePresent.tscn" id="17_gxtkc"]
 
 [sub_resource type="Gradient" id="Gradient_3wcpb"]
 resource_local_to_scene = true
@@ -175,7 +177,7 @@ tile_set = ExtResource("1_24d08")
 [node name="Environment" type="TileMapLayer" parent="GridManager"]
 light_mask = 4
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAVAAIABAAAAAQAAAAWAAIABAAAAAQAAAAVAAEABAAAAAQAAAAWAAEABAAAAAQAAAAUAAIABAAAAAQAAAARAP3/BAAAAAQAAAASAP3/BAAAAAQAAAATAP3/BAAAAAQAAAAUAP3/BAAAAAQAAAAPAP//BAAAAAQAAAAOAP//BAAAAAQAAAAYAP3/BAAAAAQAAAAYAPz/BAAAAAQAAAANAPr/BAAAAAQAAAANAPv/BAAAAAQAAAAMAPv/BAAAAAQAAAAKAP//BAAAAAQAAAAKAAAABAAAAAQAAAAKAAMABAAAAAQAAAAbAP7/BAAAAAQAAAAPAAcABAAAAAQAAAAQAAcABAAAAAQAAAAQAAgABAAAAAQAAAAPAAgABAAAAAQAAAASAAcABAAAAAQAAAAOAP3/AwAAAAAAAAAPAPz/AwABAAAAAAASAPr/AwADAAAAAAATAPr/AwACAAAAAAAUAPr/AwACAAAAAAAVAPr/AwADAAAAAAA=")
+tile_map_data = PackedByteArray("AAAVAAIABAAAAAQAAAAWAAIABAAAAAQAAAAVAAEABAAAAAQAAAAWAAEABAAAAAQAAAAUAAIABAAAAAQAAAASAP3/BAAAAAQAAAATAP3/BAAAAAQAAAAUAP3/BAAAAAQAAAAPAP//BAAAAAQAAAAOAP//BAAAAAQAAAAYAP3/BAAAAAQAAAAYAPz/BAAAAAQAAAANAPr/BAAAAAQAAAANAPv/BAAAAAQAAAAMAPv/BAAAAAQAAAAKAP//BAAAAAQAAAAKAAAABAAAAAQAAAAKAAMABAAAAAQAAAAbAP7/BAAAAAQAAAAPAAcABAAAAAQAAAAQAAcABAAAAAQAAAAQAAgABAAAAAQAAAAPAAgABAAAAAQAAAASAAcABAAAAAQAAAAOAP3/AwAAAAAAAAAPAPz/AwABAAAAAAASAPr/AwADAAAAAAATAPr/AwACAAAAAAAUAPr/AwACAAAAAAAVAPr/AwADAAAAAAAPAAQABAAAAAQAAAARAAQABAAAAAQAAAAQAAQABAAAAAQAAAASAAQABAAAAAQAAAA=")
 tile_set = ExtResource("1_24d08")
 
 [node name="TrainPathVisualizer" type="Control" parent="."]
@@ -263,3 +265,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_q0jrj")
+
+[node name="Presents" type="Node2D" parent="."]
+
+[node name="PinkPresent" parent="." instance=ExtResource("16_q0jrj")]
+position = Vector2(208, 135)
+
+[node name="PurplePresent" parent="." instance=ExtResource("17_gxtkc")]
+position = Vector2(416, 143)
