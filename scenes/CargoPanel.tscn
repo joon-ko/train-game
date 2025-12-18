@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://j6avrk4kir85"]
+[gd_scene load_steps=6 format=3 uid="uid://j6avrk4kir85"]
 
 [ext_resource type="Script" uid="uid://u1ucisrgk2fv" path="res://scripts/CargoPanel.cs" id="1_8t5fj"]
-[ext_resource type="Texture2D" uid="uid://c261tif2bukcq" path="res://assets/png/CargoIcons.png" id="1_sit8u"]
+[ext_resource type="Texture2D" uid="uid://gfx2qwsdqa31" path="res://assets/png/PurplePresent.png" id="2_20id3"]
 [ext_resource type="Theme" uid="uid://d0mlg6ed0r4ce" path="res://assets/CoreTheme.tres" id="2_vvpld"]
+[ext_resource type="Texture2D" uid="uid://buywhysopwb2k" path="res://assets/png/PinkPresent.png" id="4_20id3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sit8u"]
 bg_color = Color(0, 0, 0, 0.11764706)
@@ -10,14 +11,6 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_carng"]
-atlas = ExtResource("1_sit8u")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sit8u"]
-atlas = ExtResource("1_sit8u")
-region = Rect2(32, 0, 32, 32)
 
 [node name="CargoPanel" type="Control"]
 layout_mode = 3
@@ -47,15 +40,21 @@ theme_override_constants/separation = 12
 
 [node name="PurpleCargoContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer/PurpleCargoContainer"]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 10
 
 [node name="PurpleCargoIcon" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/PurpleCargoContainer/HBoxContainer"]
 layout_mode = 2
-texture = SubResource("AtlasTexture_carng")
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_20id3")
+stretch_mode = 4
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/PurpleCargoContainer/HBoxContainer"]
 layout_mode = 2
@@ -68,11 +67,14 @@ theme_override_constants/margin_right = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer/PinkCargoContainer"]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 10
 
 [node name="PinkCargoIcon" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/PinkCargoContainer/HBoxContainer"]
 layout_mode = 2
-texture = SubResource("AtlasTexture_sit8u")
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_20id3")
+stretch_mode = 4
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/PinkCargoContainer/HBoxContainer"]
 layout_mode = 2
