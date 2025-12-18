@@ -27,7 +27,8 @@ public partial class Root : Control
     private PackedScene platformScene;
     private Node2D platforms;
 
-    private float TimeRemaining = 120f;
+    private float TimeRemaining = 2f;
+
 
     public override void _Ready()
     {
@@ -133,9 +134,19 @@ public partial class Root : Control
         }
 
         RenderSwitchLayer();
-
-        TimeRemaining -= (float)delta;
-        timeRemainingLabel.Text = _GetTimeRemainingText();
+        
+        
+        if (TimeRemaining <= 0) 
+        {
+            // GetTree().Paused = true;
+            GameOverScreen GameOver = GetTree().CurrentScene.GetNode<GameOverScreen>("GameOverScreen");
+            GameOver.Show();
+        } 
+        else
+        {
+            TimeRemaining -= (float)delta;
+            timeRemainingLabel.Text = _GetTimeRemainingText();
+        }
 
         speedLabel.Text = _GetSpeedLabelText();
 
