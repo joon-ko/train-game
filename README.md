@@ -1,2 +1,5 @@
-# train-game-godot-jam-temp
-some kinda train game for the godot wild jam -- temporary repo for preliminary sketches
+# ho ho haulin'
+
+a game by joon ko, casey tin, and bumsoo kim
+
+made for godot wild jam dec. 2025

@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://chebac57yglyv"]
+
+[ext_resource type="Script" uid="uid://cl2ht6wgo3j23" path="res://scripts/Platform.cs" id="1_36ukb"]
+[ext_resource type="Texture2D" uid="uid://bp42onq3rlj0l" path="res://assets/PlatformTexture.tres" id="1_erxeo"]
+[ext_resource type="PackedScene" uid="uid://b4cj88b0aq27k" path="res://scenes/PinkPresent.tscn" id="2_bdn1d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdn1d"]
+atlas = ExtResource("1_erxeo")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36ukb"]
+atlas = ExtResource("1_erxeo")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sb42g"]
+atlas = ExtResource("1_erxeo")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xwe8w"]
+polygon = PackedVector2Array(0, 0, 12, -6, -30, -27, -42, -21)
+
+[node name="PinkPlatform" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_36ukb")
+CargoType = 3
+metadata/_custom_type_script = "uid://cl2ht6wgo3j23"
+
+[node name="Back" type="Sprite2D" parent="."]
+light_mask = 4
+y_sort_enabled = true
+position = Vector2(-32, -7)
+texture = SubResource("AtlasTexture_bdn1d")
+offset = Vector2(0, -13)
+
+[node name="Middle" type="Sprite2D" parent="."]
+light_mask = 4
+y_sort_enabled = true
+position = Vector2(-17, 1)
+texture = SubResource("AtlasTexture_36ukb")
+offset = Vector2(0, -11)
+
+[node name="Front" type="Sprite2D" parent="."]
+light_mask = 4
+y_sort_enabled = true
+position = Vector2(0, 9)
+texture = SubResource("AtlasTexture_sb42g")
+offset = Vector2(0, -14)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+light_mask = 0
+visibility_layer = 0
+position = Vector2(0, 4)
+occluder = SubResource("OccluderPolygon2D_xwe8w")
+
+[node name="Presents" type="Node2D" parent="."]
+position = Vector2(0, 12)
+
+[node name="PinkPresent" parent="Presents" instance=ExtResource("2_bdn1d")]
+y_sort_enabled = false
+position = Vector2(-26, -30)
+
+[node name="PinkPresent2" parent="Presents" instance=ExtResource("2_bdn1d")]
+y_sort_enabled = false
+position = Vector2(-14, -24)
+
+[node name="PinkPresent3" parent="Presents" instance=ExtResource("2_bdn1d")]
+y_sort_enabled = false
+position = Vector2(-2, -18)

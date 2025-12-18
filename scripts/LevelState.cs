@@ -8,4 +8,13 @@ public partial class LevelState : Node
 
     public int PinkCargoDelivered = 0;
     public int PurpleCargoDelivered = 0;
+
+    public bool QuotaMet()
+    {
+        if (PinkCargoDelivered >= PinkCargoRequired && PurpleCargoDelivered >= PurpleCargoRequired)
+        {
+            return true;
+        }
+        return false;
+    }
 }

@@ -55,8 +55,6 @@ metadata/_custom_type_script = "uid://bdydso85tpjdw"
 light_mask = 2
 y_sort_enabled = true
 script = ExtResource("2_ggsvn")
-InitialCoordinate = Vector2i(26, 9)
-MaxSpeed = 1.2
 metadata/_custom_type_script = "uid://ybeqy1c01vn4"
 
 [node name="CurrentPath" type="Path2D" parent="HeadCar"]
@@ -202,7 +200,7 @@ shadow_filter_smooth = 2.0
 texture = SubResource("GradientTexture2D_a2mri")
 offset = Vector2(128, -64)
 texture_scale = 2.0
-height = 70.0
+height = 120.0
 script = ExtResource("2_a2mri")
 Head = NodePath("../HeadCar")
 metadata/_custom_type_script = "uid://5rt5wjmr4wfa"

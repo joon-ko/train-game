@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://bh24qg80ltx03"]
+
+[ext_resource type="Script" uid="uid://cl2ht6wgo3j23" path="res://scripts/Platform.cs" id="1_motb6"]
+[ext_resource type="Texture2D" uid="uid://bp42onq3rlj0l" path="res://assets/PlatformTexture.tres" id="3_wwpbi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbt67"]
+atlas = ExtResource("3_wwpbi")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mxtf"]
+atlas = ExtResource("3_wwpbi")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sksae"]
+atlas = ExtResource("3_wwpbi")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_motb6"]
+polygon = PackedVector2Array(0, 0, 12, -6, -30, -27, -42, -21)
+
+[node name="DeliveryPlatform" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_motb6")
+PlatformType = 1
+CargoType = 1
+metadata/_custom_type_script = "uid://cl2ht6wgo3j23"
+
+[node name="Back" type="Sprite2D" parent="."]
+light_mask = 4
+y_sort_enabled = true
+position = Vector2(-32, -16)
+texture = SubResource("AtlasTexture_pbt67")
+offset = Vector2(0, -9)
+
+[node name="Middle" type="Sprite2D" parent="."]
+light_mask = 4
+y_sort_enabled = true
+position = Vector2(-17, -8)
+texture = SubResource("AtlasTexture_8mxtf")
+offset = Vector2(0, -7)
+
+[node name="Front" type="Sprite2D" parent="."]
+light_mask = 4
+y_sort_enabled = true
+texture = SubResource("AtlasTexture_sksae")
+offset = Vector2(0, -10)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+light_mask = 0
+visibility_layer = 0
+position = Vector2(0, 4)
+occluder = SubResource("OccluderPolygon2D_motb6")

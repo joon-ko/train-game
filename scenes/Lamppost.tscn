@@ -36,7 +36,6 @@ range_item_cull_mask = 21
 texture = SubResource("GradientTexture2D_oab1a")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-y_sort_enabled = true
 position = Vector2(-1, 0)
 color = Color(0.88605917, 0.8814202, 0.44951278, 1)
 energy = 0.7
@@ -46,6 +45,5 @@ height = 100.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 4
-y_sort_enabled = true
 texture = SubResource("AtlasTexture_oab1a")
 offset = Vector2(0, -24)

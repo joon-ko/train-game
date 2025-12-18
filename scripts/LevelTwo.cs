@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class Root : Control
+public partial class LevelTwo : Control
 {
     private Train testTrain;
 
@@ -9,10 +9,10 @@ public partial class Root : Control
     private TileMapLayer envLayer;
     private TileMapLayer switchLayer;
 
-    private RichTextLabel brakeInfoLabel;
     private RichTextLabel timeRemainingLabel;
     private RichTextLabel speedLabel;
     private RichTextLabel accuracyLabel;
+    private RichTextLabel gameEndLabel;
 
     private Control trainPathVisualizer;
 
@@ -24,10 +24,9 @@ public partial class Root : Control
     private AnimationManager animationManager;
     private SwitchManager switchManager;
 
-    private PackedScene platformScene;
     private Node2D platforms;
 
-    private float TimeRemaining = 120f;
+    private float TimeRemaining = 123f;
 
     public override void _Ready()
     {
@@ -42,9 +41,6 @@ public partial class Root : Control
         envLayer = GetNode<TileMapLayer>("GridManager/Environment");
         switchLayer = GetNode<TileMapLayer>("SwitchArrowLayer/SwitchArrows");
 
-        brakeInfoLabel = GetNode<RichTextLabel>("UILayer/UIContainer/BrakeInfoLabel");
-        animationManager.AddBobAnimation(brakeInfoLabel);
-
         timeRemainingLabel = GetNode<RichTextLabel>("UILayer/UIContainer/VBoxContainer/TimeRemainingLabel");
         timeRemainingLabel.Text = _GetTimeRemainingText();
         animationManager.AddBobAnimation(timeRemainingLabel);
@@ -53,6 +49,9 @@ public partial class Root : Control
         speedLabel.Text = _GetSpeedLabelText();
         animationManager.AddBobAnimation(speedLabel);
 
+        gameEndLabel = GetNode<RichTextLabel>("GameOverScreen/ColorRect/CenterContainer/GameEndLabel");
+        gameEndLabel.Text = "Game Over";
+
         trainPathVisualizer = GetNode<Control>("TrainPathVisualizer");
 
         levelState = GetNode<LevelState>("LevelState");
@@ -60,7 +59,6 @@ public partial class Root : Control
         cargoPanel.PurpleCargoRequired = levelState.PurpleCargoRequired;
         cargoPanel.PinkCargoRequired = levelState.PinkCargoRequired;
 
-        platformScene = GD.Load<PackedScene>("res://scenes/Platform.tscn");
         platforms = GetNode<Node2D>("Platforms");
 
         foreach (Platform platform in platforms.GetChildren())
@@ -72,6 +70,7 @@ public partial class Root : Control
     private void _AssignTrainPath()
     {
         var coordinate = groundLayer.LocalToMap(testTrain.Head.GetTrainPosition());
+
         if (!gridManager.TrainPaths.ContainsKey(coordinate))
         {
             return;
@@ -112,6 +111,12 @@ public partial class Root : Control
         return $"train speed: {formattedSpeed} km/h";
     }
 
+    private void OnRestartButtonPressed()
+    {
+        GetTree().ReloadCurrentScene();
+        // TODO: Fix null GetTree()
+        GetTree().Paused = false;
+    }
     private void RenderSwitchLayer()
     {
         var switchCoord = switchManager.GetSwitchCoord(0);
@@ -134,14 +139,37 @@ public partial class Root : Control
 
         RenderSwitchLayer();
 
-        TimeRemaining -= (float)delta;
-        timeRemainingLabel.Text = _GetTimeRemainingText();
+        if (TimeRemaining <= 0) 
+        {
+            GetTree().Paused = true;
+            GameOverScreen GameOver = GetTree().CurrentScene.GetNode<GameOverScreen>("GameOverScreen");
+            AnimationPlayer GameOverFadeIn = GetTree().CurrentScene.GetNode<AnimationPlayer>("GameOverScreen/AnimationPlayer");
+            GameOverFadeIn.Play("gameOver");
+            GameOverFadeIn.Advance(0);
+            GameOver.Show();
+
+        } else if (levelState.QuotaMet())
+        {
+            gameEndLabel.Text = "You Won!";
+            GetTree().Paused = true;
+            GameOverScreen GameOver = GetTree().CurrentScene.GetNode<GameOverScreen>("GameOverScreen");
+            AnimationPlayer GameOverFadeIn = GetTree().CurrentScene.GetNode<AnimationPlayer>("GameOverScreen/AnimationPlayer");
+            GameOverFadeIn.Play("gameOver");
+            GameOverFadeIn.Advance(0);
+            GameOver.Show();
+        }
+        else
+        {
+            TimeRemaining -= (float)delta;
+            timeRemainingLabel.Text = _GetTimeRemainingText();
+        }
 
         speedLabel.Text = _GetSpeedLabelText();
 
         cargoPanel.PinkCargoDelivered = levelState.PinkCargoDelivered;
         cargoPanel.PurpleCargoDelivered = levelState.PurpleCargoDelivered;
     }
+
 
     public override void _Input(InputEvent @event)
     {
