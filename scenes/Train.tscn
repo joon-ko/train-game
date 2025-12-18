@@ -56,7 +56,7 @@ light_mask = 2
 y_sort_enabled = true
 script = ExtResource("2_ggsvn")
 InitialCoordinate = Vector2i(26, 9)
-MaxSpeed = 1.2
+MaxSpeed = 1.5
 metadata/_custom_type_script = "uid://ybeqy1c01vn4"
 
 [node name="CurrentPath" type="Path2D" parent="HeadCar"]
