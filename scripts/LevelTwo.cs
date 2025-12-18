@@ -9,7 +9,6 @@ public partial class LevelTwo : Control
     private TileMapLayer envLayer;
     private TileMapLayer switchLayer;
 
-    private RichTextLabel brakeInfoLabel;
     private RichTextLabel timeRemainingLabel;
     private RichTextLabel speedLabel;
     private RichTextLabel accuracyLabel;
@@ -27,7 +26,7 @@ public partial class LevelTwo : Control
 
     private Node2D platforms;
 
-    private float TimeRemaining = 125f;
+    private float TimeRemaining = 123f;
 
     public override void _Ready()
     {
@@ -41,9 +40,6 @@ public partial class LevelTwo : Control
         groundLayer = GetNode<TileMapLayer>("GridManager/Ground");
         envLayer = GetNode<TileMapLayer>("GridManager/Environment");
         switchLayer = GetNode<TileMapLayer>("SwitchArrowLayer/SwitchArrows");
-
-        brakeInfoLabel = GetNode<RichTextLabel>("UILayer/UIContainer/BrakeInfoLabel");
-        animationManager.AddBobAnimation(brakeInfoLabel);
 
         timeRemainingLabel = GetNode<RichTextLabel>("UILayer/UIContainer/VBoxContainer/TimeRemainingLabel");
         timeRemainingLabel.Text = _GetTimeRemainingText();

@@ -95,9 +95,25 @@ PinkCargoRequired = 50
 PurpleCargoRequired = 50
 metadata/_custom_type_script = "uid://6g7d45x5aju0"
 
+[node name="Background" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6k1mm")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -69.0
+offset_top = -23.0
+offset_right = -69.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.2, 1.2)
+color = Color(0.5042886, 0.4128526, 1, 1)
+metadata/_edit_lock_ = true
+
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 light_mask = 3
-color = Color(0.6715576, 0.67673576, 1, 1)
+color = Color(0.51879126, 0.623332, 0.90567863, 1)
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
@@ -116,18 +132,6 @@ metadata/_edit_lock_ = true
 [node name="CargoPanel" parent="UILayer/UIContainer" instance=ExtResource("4_uf163")]
 layout_mode = 2
 size_flags_vertical = 0
-
-[node name="BrakeInfoLabel" type="RichTextLabel" parent="UILayer/UIContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme = ExtResource("5_2biqm")
-theme_override_styles/normal = ExtResource("6_djvk4")
-bbcode_enabled = true
-text = "press [color=LIGHT_PINK][spacebar][/color] to brake/unbrake"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UILayer/UIContainer"]
 layout_mode = 2
@@ -157,22 +161,6 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 2
-
-[node name="Background" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_6k1mm")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -69.0
-offset_top = -23.0
-offset_right = -69.0
-offset_bottom = -23.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1.2, 1.2)
-color = Color(0.29038724, 0.61217946, 0.97808295, 1)
-metadata/_edit_lock_ = true
 
 [node name="GridManager" type="Node2D" parent="."]
 light_mask = 3
