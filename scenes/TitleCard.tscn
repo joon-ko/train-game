@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://brnml1qvreeuu"]
+
+[ext_resource type="Theme" uid="uid://d0mlg6ed0r4ce" path="res://assets/CoreTheme.tres" id="1_ahxyd"]
+[ext_resource type="Script" uid="uid://bnv2y1iumj4ov" path="res://scripts/TitleCard.cs" id="1_cpw5s"]
+[ext_resource type="Texture2D" uid="uid://dcjqdl7tuwn6f" path="res://assets/png/santa hat.png" id="2_3id3n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ow34m"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.14117648)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="TitleCard" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_cpw5s")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_right = 87.0
+offset_bottom = 24.0
+scale = Vector2(2, 2)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_ahxyd")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ow34m")
+bbcode_enabled = true
+text = "ho ho haulin'"
+fit_content = true
+autowrap_mode = 0
+
+[node name="SantaHat" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 141.00002
+offset_top = -33.999992
+offset_right = 186.00002
+offset_bottom = -1.9999924
+rotation = 0.25342956
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_3id3n")
+stretch_mode = 4
