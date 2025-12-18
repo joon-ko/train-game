@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://rxs4kcbrnreu"]
+[gd_scene load_steps=26 format=4 uid="uid://rxs4kcbrnreu"]
 
 [ext_resource type="TileSet" uid="uid://4n3wig1qeiv0" path="res://assets/CoreTileSet.tres" id="1_24d08"]
 [ext_resource type="Script" uid="uid://cd8hls8wvb7nx" path="res://scripts/Root.cs" id="1_ont70"]
@@ -12,13 +12,12 @@
 [ext_resource type="StyleBox" uid="uid://bly1b5r48hawk" path="res://assets/LabelStyle.tres" id="7_3wcpb"]
 [ext_resource type="Script" uid="uid://cgiobuyldj5je" path="res://scripts/TrainPathVisualizer.cs" id="7_c618l"]
 [ext_resource type="PackedScene" uid="uid://bh24qg80ltx03" path="res://scenes/Platform.tscn" id="8_3wcpb"]
-[ext_resource type="PackedScene" path="res://scenes/Lamppost.tscn" id="8_q7e4n"]
-[ext_resource type="Script" uid="uid://bfejdu52ok5rw" path="res://scenes/GameOverScreen.cs" id="12_6k1mm"]
-[ext_resource type="PackedScene" path="res://scenes/ChristmasTree.tscn" id="13_l8qho"]
+[ext_resource type="PackedScene" uid="uid://ds110dmyas284" path="res://scenes/Lamppost.tscn" id="8_q7e4n"]
+[ext_resource type="PackedScene" uid="uid://dpsthd1xp5j8s" path="res://scenes/ChristmasTree.tscn" id="13_l8qho"]
 [ext_resource type="FontFile" uid="uid://df2txpf351e23" path="res://assets/KiwiSoda.ttf" id="13_r7xkj"]
 [ext_resource type="Shader" path="res://scenes/Snowfall.gdshader" id="14_r7xkj"]
-[ext_resource type="PackedScene" path="res://scenes/PinkPresent.tscn" id="16_q0jrj"]
-[ext_resource type="PackedScene" path="res://scenes/PurplePresent.tscn" id="17_gxtkc"]
+[ext_resource type="PackedScene" uid="uid://b4cj88b0aq27k" path="res://scenes/PinkPresent.tscn" id="16_q0jrj"]
+[ext_resource type="PackedScene" uid="uid://biy12pj6i8ccv" path="res://scenes/PurplePresent.tscn" id="17_gxtkc"]
 
 [sub_resource type="Gradient" id="Gradient_3wcpb"]
 resource_local_to_scene = true
@@ -45,6 +44,42 @@ shader_parameter/snow_transparency = 1.0
 shader_parameter/speed = 0.50000002375
 shader_parameter/wind = 0.5000001187500001
 shader_parameter/num_of_layers = 10
+
+[sub_resource type="Animation" id="Animation_nklbr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_l8qho"]
+resource_name = "gameOver"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.78039217)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4b7nl"]
+_data = {
+&"RESET": SubResource("Animation_nklbr"),
+&"gameOver": SubResource("Animation_l8qho")
+}
 
 [node name="Root" type="Control"]
 y_sort_enabled = true
@@ -254,8 +289,8 @@ layer = 2
 material = SubResource("ShaderMaterial_r7xkj")
 
 [node name="GameOverScreen" type="CanvasLayer" parent="."]
+process_mode = 3
 visible = false
-script = ExtResource("12_6k1mm")
 
 [node name="ColorRect" type="ColorRect" parent="GameOverScreen"]
 anchors_preset = 15
@@ -263,7 +298,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.2901961, 0.6117647, 0.9764706, 1)
+color = Color(0.2901961, 0.6117647, 0.9764706, 0.5019608)
 
 [node name="CenterContainer" type="CenterContainer" parent="GameOverScreen/ColorRect"]
 layout_mode = 1
@@ -273,7 +308,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="GameOverScreen/ColorRect/CenterContainer"]
+[node name="GameEndLabel" type="RichTextLabel" parent="GameOverScreen/ColorRect/CenterContainer"]
 layout_mode = 2
 theme = ExtResource("6_5npxh")
 theme_override_font_sizes/normal_font_size = 32
@@ -292,6 +327,11 @@ theme = ExtResource("6_5npxh")
 theme_override_fonts/font = ExtResource("13_r7xkj")
 text = "Restart"
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameOverScreen"]
+libraries = {
+&"": SubResource("AnimationLibrary_4b7nl")
+}
+
 [node name="Presents" type="Node2D" parent="."]
 
 [node name="PinkPresent" parent="." instance=ExtResource("16_q0jrj")]
@@ -299,3 +339,5 @@ position = Vector2(208, 135)
 
 [node name="PurplePresent" parent="." instance=ExtResource("17_gxtkc")]
 position = Vector2(416, 143)
+
+[connection signal="pressed" from="GameOverScreen/ColorRect/RestartButton" to="." method="OnRestartButtonPressed"]

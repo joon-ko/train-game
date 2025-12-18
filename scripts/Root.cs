@@ -13,6 +13,7 @@ public partial class Root : Control
     private RichTextLabel timeRemainingLabel;
     private RichTextLabel speedLabel;
     private RichTextLabel accuracyLabel;
+    private RichTextLabel gameEndLabel;
 
     private Control trainPathVisualizer;
 
@@ -27,7 +28,7 @@ public partial class Root : Control
     private PackedScene platformScene;
     private Node2D platforms;
 
-    private float TimeRemaining = 2f;
+    private float TimeRemaining = 120f;
 
 
     public override void _Ready()
@@ -53,6 +54,9 @@ public partial class Root : Control
         speedLabel = GetNode<RichTextLabel>("UILayer/UIContainer/VBoxContainer/SpeedLabel");
         speedLabel.Text = _GetSpeedLabelText();
         animationManager.AddBobAnimation(speedLabel);
+
+        gameEndLabel = GetNode<RichTextLabel>("GameOverScreen/ColorRect/CenterContainer/GameEndLabel");
+        gameEndLabel.Text = "Game Over";
 
         trainPathVisualizer = GetNode<Control>("TrainPathVisualizer");
 
@@ -113,6 +117,12 @@ public partial class Root : Control
         return $"train speed: {formattedSpeed} km/h";
     }
 
+    private void OnRestartButtonPressed()
+    {
+        GetTree().ReloadCurrentScene();
+        // TODO: Fix null GetTree()
+        GetTree().Paused = false;
+    }
     private void RenderSwitchLayer()
     {
         var switchCoord = switchManager.GetSwitchCoord(0);
@@ -138,10 +148,23 @@ public partial class Root : Control
         
         if (TimeRemaining <= 0) 
         {
-            // GetTree().Paused = true;
+            GetTree().Paused = true;
             GameOverScreen GameOver = GetTree().CurrentScene.GetNode<GameOverScreen>("GameOverScreen");
+            AnimationPlayer GameOverFadeIn = GetTree().CurrentScene.GetNode<AnimationPlayer>("GameOverScreen/AnimationPlayer");
+            GameOverFadeIn.Play("gameOver");
+            GameOverFadeIn.Advance(0);
             GameOver.Show();
-        } 
+
+        } else if (levelState.QuotaMet())
+        {
+            gameEndLabel.Text = "You Won!";
+            GetTree().Paused = true;
+            GameOverScreen GameOver = GetTree().CurrentScene.GetNode<GameOverScreen>("GameOverScreen");
+            AnimationPlayer GameOverFadeIn = GetTree().CurrentScene.GetNode<AnimationPlayer>("GameOverScreen/AnimationPlayer");
+            GameOverFadeIn.Play("gameOver");
+            GameOverFadeIn.Advance(0);
+            GameOver.Show();
+        }
         else
         {
             TimeRemaining -= (float)delta;
@@ -153,6 +176,7 @@ public partial class Root : Control
         cargoPanel.PinkCargoDelivered = levelState.PinkCargoDelivered;
         cargoPanel.PurpleCargoDelivered = levelState.PurpleCargoDelivered;
     }
+
 
     public override void _Input(InputEvent @event)
     {
