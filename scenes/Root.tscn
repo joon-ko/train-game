@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://rxs4kcbrnreu"]
+[gd_scene load_steps=22 format=4 uid="uid://rxs4kcbrnreu"]
 
 [ext_resource type="TileSet" uid="uid://4n3wig1qeiv0" path="res://assets/CoreTileSet.tres" id="1_24d08"]
 [ext_resource type="Script" uid="uid://cd8hls8wvb7nx" path="res://scripts/Root.cs" id="1_ont70"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bh24qg80ltx03" path="res://scenes/Platform.tscn" id="8_3wcpb"]
 [ext_resource type="PackedScene" uid="uid://ds110dmyas284" path="res://scenes/Lamppost.tscn" id="8_q7e4n"]
 [ext_resource type="PackedScene" uid="uid://dpsthd1xp5j8s" path="res://scenes/ChristmasTree.tscn" id="12_6k1mm"]
+[ext_resource type="Shader" uid="uid://cac1fp5lc1c65" path="res://scenes/Snowfall.gdshader" id="14_r7xkj"]
 
 [sub_resource type="Gradient" id="Gradient_3wcpb"]
 resource_local_to_scene = true
@@ -27,6 +28,27 @@ height = 320
 use_hdr = true
 fill = 1
 fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6k1mm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7xkj"]
+shader = ExtResource("14_r7xkj")
+shader_parameter/spread = 0.4230000200925
+shader_parameter/size = 0.42000001925148
+shader_parameter/snow_color = Color(1, 1, 1, 1)
+shader_parameter/snow_transparency = 1.0
+shader_parameter/speed = 0.50000002375
+shader_parameter/wind = 0.5000001187500001
+shader_parameter/num_of_layers = 10
+
+[sub_resource type="Gradient" id="Gradient_eajee"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d38gw"]
+gradient = SubResource("Gradient_eajee")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_q0jrj"]
+diffuse_texture = SubResource("GradientTexture2D_d38gw")
 
 [node name="Root" type="Control"]
 y_sort_enabled = true
@@ -120,6 +142,7 @@ autowrap_mode = 0
 horizontal_alignment = 2
 
 [node name="Background" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6k1mm")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -222,3 +245,15 @@ position = Vector2(160, 161)
 
 [node name="Lamppost5" parent="Lights" instance=ExtResource("8_q7e4n")]
 position = Vector2(272, 169)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Snowfall" type="TextureRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_r7xkj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_q0jrj")
