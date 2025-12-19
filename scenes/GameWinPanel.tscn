@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://djo0lfmsg043b"]
+
+[ext_resource type="Theme" uid="uid://d0mlg6ed0r4ce" path="res://assets/CoreTheme.tres" id="1_1bfgy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_di641"]
+bg_color = Color(0, 0, 0, 0.20784314)
+border_blend = true
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="GameWinPanel" type="PanelContainer"]
+offset_right = 94.0
+offset_bottom = 73.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_di641")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 48
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_1bfgy")
+text = "presents successfully delivered! ^-^
+
+[r]: retry level
+[q]: main menu"
+horizontal_alignment = 1

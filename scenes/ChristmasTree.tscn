@@ -39,7 +39,7 @@ offset = Vector2(0, -28)
 [node name="PointLight2D" type="PointLight2D" parent="."]
 visibility_layer = 0
 y_sort_enabled = true
-color = Color(0.9940879, 0.8052015, 0.8971541, 1)
+color = Color(0.9858089, 0.5824437, 0.80253756, 1)
 energy = 0.55
 range_item_cull_mask = 5
 texture = SubResource("GradientTexture2D_lfeu6")

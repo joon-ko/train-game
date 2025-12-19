@@ -3,5 +3,7 @@
 [ext_resource type="FontFile" uid="uid://df2txpf351e23" path="res://assets/KiwiSoda.ttf" id="1_4nhdn"]
 
 [resource]
+Label/colors/font_shadow_color = Color(0, 0, 0, 0.8509804)
 Label/fonts/font = ExtResource("1_4nhdn")
+RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 0.85882354)
 RichTextLabel/fonts/normal_font = ExtResource("1_4nhdn")

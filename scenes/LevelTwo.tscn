@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://rxs4kcbrnreu"]
+[gd_scene load_steps=31 format=4 uid="uid://rxs4kcbrnreu"]
 
 [ext_resource type="Script" uid="uid://cd8hls8wvb7nx" path="res://scripts/LevelTwo.cs" id="1_bhef0"]
 [ext_resource type="AudioStream" uid="uid://ds7y84mumg2wv" path="res://assets/sounds/train game theme.mp3" id="2_pvlfk"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" uid="uid://jrra8pouey03" path="res://scripts/GridManager.cs" id="7_snpld"]
 [ext_resource type="TileSet" uid="uid://4n3wig1qeiv0" path="res://assets/CoreTileSet.tres" id="8_1tjc5"]
 [ext_resource type="Script" uid="uid://cgiobuyldj5je" path="res://scripts/TrainPathVisualizer.cs" id="9_85d4f"]
+[ext_resource type="PackedScene" uid="uid://sgmgpmtbcjhb" path="res://scenes/GameOverPanel.tscn" id="9_uf163"]
+[ext_resource type="PackedScene" uid="uid://djo0lfmsg043b" path="res://scenes/GameWinPanel.tscn" id="10_2biqm"]
 [ext_resource type="PackedScene" uid="uid://b5clb7560do2o" path="res://scenes/Train.tscn" id="10_dwk5w"]
 [ext_resource type="Texture2D" uid="uid://cxbw8a3mh8a8u" path="res://assets/png/Compass.png" id="11_0dy6b"]
 [ext_resource type="PackedScene" uid="uid://chebac57yglyv" path="res://scenes/PinkPlatform.tscn" id="12_la46f"]
@@ -132,6 +134,14 @@ color = Color(0.51879126, 0.623332, 0.90567863, 1)
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
+[node name="SwitchLabel1" type="Label" parent="UILayer"]
+offset_left = 373.0
+offset_top = 163.0
+offset_right = 394.0
+offset_bottom = 179.0
+theme = ExtResource("5_2biqm")
+text = "[Z]"
+
 [node name="UIContainer" type="MarginContainer" parent="UILayer"]
 anchors_preset = 15
 anchor_right = 1.0
@@ -177,13 +187,17 @@ scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 2
 
-[node name="SwitchLabel1" type="Label" parent="UILayer"]
-offset_left = 373.0
-offset_top = 163.0
-offset_right = 394.0
-offset_bottom = 179.0
-theme = ExtResource("5_2biqm")
-text = "[Z]"
+[node name="GameOverPanel" parent="UILayer/UIContainer" instance=ExtResource("9_uf163")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="GameWinPanel" parent="UILayer/UIContainer" instance=ExtResource("10_2biqm")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
 
 [node name="GridManager" type="Node2D" parent="." node_paths=PackedStringArray("LevelPortals")]
 light_mask = 3
