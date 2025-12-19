@@ -30,14 +30,24 @@ public partial class LevelTwo : Control
 
     private AudioStreamPlayer choochooPlayerOne;
     private AudioStreamPlayer choochooPlayerTwo;
+    private AudioStreamPlayer winPlayer;
+    private AudioStreamPlayer losePlayer;
+    private AudioStreamPlayer bgmPlayer;
 
-    private float TimeRemaining = 123f;
+    private PanelContainer gameOverPanel;
+    private PanelContainer gameWinPanel;
+
+    private const float MAX_TIME_REMAINING = 123;
+    private float TimeRemaining = MAX_TIME_REMAINING;
+
+    private bool levelOver = false;
+
+    private PackedScene mainMenuScene;
 
     public override void _Ready()
     {
         animationManager = GetNode<AnimationManager>("/root/AnimationManager");
         switchManager = GetNode<SwitchManager>("/root/SwitchManager");
-
 
         gridManager = GetNode<GridManager>("GridManager");
         groundLayer = GetNode<TileMapLayer>("GridManager/Ground");
@@ -49,11 +59,9 @@ public partial class LevelTwo : Control
 
         timeRemainingLabel = GetNode<RichTextLabel>("UILayer/UIContainer/VBoxContainer/TimeRemainingLabel");
         timeRemainingLabel.Text = _GetTimeRemainingText();
-        animationManager.AddBobAnimation(timeRemainingLabel);
 
         speedLabel = GetNode<RichTextLabel>("UILayer/UIContainer/VBoxContainer/SpeedLabel");
         speedLabel.Text = _GetSpeedLabelText();
-        animationManager.AddBobAnimation(speedLabel);
 
         gameEndLabel = GetNode<RichTextLabel>("GameOverScreen/ColorRect/CenterContainer/GameEndLabel");
         gameEndLabel.Text = "Game Over";
@@ -74,6 +82,14 @@ public partial class LevelTwo : Control
 
         choochooPlayerOne = GetNode<AudioStreamPlayer>("Sounds/Choochoo1");
         choochooPlayerTwo = GetNode<AudioStreamPlayer>("Sounds/Choochoo2");
+        winPlayer = GetNode<AudioStreamPlayer>("Sounds/Win");
+        losePlayer = GetNode<AudioStreamPlayer>("Sounds/Lose");
+        bgmPlayer = GetNode<AudioStreamPlayer>("Sounds/BGM");
+
+        gameOverPanel = GetNode<PanelContainer>("UILayer/UIContainer/GameOverPanel");
+        gameWinPanel = GetNode<PanelContainer>("UILayer/UIContainer/GameWinPanel");
+
+        mainMenuScene = GD.Load<PackedScene>("res://scenes/MainMenu.tscn");
     }
 
     private void _AssignTrainPath()
@@ -115,7 +131,7 @@ public partial class LevelTwo : Control
 
     private string _GetTimeRemainingText()
     {
-        return $"time remaining: {Mathf.RoundToInt(Mathf.Ceil(TimeRemaining))}";
+        return $"time remaining: {Mathf.Max(0, Mathf.RoundToInt(Mathf.Ceil(TimeRemaining)))}";
     }
 
     private string _GetSpeedLabelText()
@@ -124,12 +140,6 @@ public partial class LevelTwo : Control
         return $"train speed: {formattedSpeed} km/h";
     }
 
-    private void OnRestartButtonPressed()
-    {
-        GetTree().ReloadCurrentScene();
-        // TODO: Fix null GetTree()
-        GetTree().Paused = false;
-    }
     private void RenderSwitchLayer()
     {
         var switchCoord = switchManager.GetSwitchCoord(0);
@@ -152,25 +162,23 @@ public partial class LevelTwo : Control
 
         RenderSwitchLayer();
 
-        if (TimeRemaining <= 0)
+        if (TimeRemaining <= 0 && !levelOver)
         {
-            GetTree().Paused = true;
-            GameOverScreen GameOver = GetTree().CurrentScene.GetNode<GameOverScreen>("GameOverScreen");
-            AnimationPlayer GameOverFadeIn = GetTree().CurrentScene.GetNode<AnimationPlayer>("GameOverScreen/AnimationPlayer");
-            GameOverFadeIn.Play("gameOver");
-            GameOverFadeIn.Advance(0);
-            GameOver.Show();
+            bgmPlayer.Stop();
+            GetTree().CreateTimer(7f).Timeout += () => bgmPlayer.Play();
 
+            losePlayer.Play();
+            levelOver = true;
+            gameOverPanel.Visible = true;
         }
-        else if (levelState.QuotaMet())
+        else if (levelState.QuotaMet() && !levelOver)
         {
-            gameEndLabel.Text = "You Won!";
-            GetTree().Paused = true;
-            GameOverScreen GameOver = GetTree().CurrentScene.GetNode<GameOverScreen>("GameOverScreen");
-            AnimationPlayer GameOverFadeIn = GetTree().CurrentScene.GetNode<AnimationPlayer>("GameOverScreen/AnimationPlayer");
-            GameOverFadeIn.Play("gameOver");
-            GameOverFadeIn.Advance(0);
-            GameOver.Show();
+            bgmPlayer.Stop();
+            GetTree().CreateTimer(8f).Timeout += () => bgmPlayer.Play();
+
+            winPlayer.Play();
+            levelOver = true;
+            gameWinPanel.Visible = true;
         }
         else
         {
@@ -184,6 +192,25 @@ public partial class LevelTwo : Control
         cargoPanel.PurpleCargoDelivered = levelState.PurpleCargoDelivered;
     }
 
+    public void RestartLevel()
+    {
+        GD.Print("Restarting level");
+        cargoPanel.PurpleCargoRequired = levelState.PurpleCargoRequired;
+        cargoPanel.PinkCargoRequired = levelState.PinkCargoRequired;
+        madeInitialAssignment = false;
+        scheduled = false;
+        gameOverPanel.Visible = false;
+        testTrain.CarriedCargo = CargoType.None;
+        testTrain.CargoCount = 0;
+        TimeRemaining = MAX_TIME_REMAINING;
+        levelOver = false;
+    }
+
+    public void ReturnToMainMenu()
+    {
+        GD.Print("Returning to main menu");
+        GetTree().ChangeSceneToPacked(mainMenuScene);
+    }
 
     public override void _Input(InputEvent @event)
     {
@@ -211,6 +238,17 @@ public partial class LevelTwo : Control
                 var randomBit = Random.Shared.Next(2);
                 var player = randomBit == 0 ? choochooPlayerOne : choochooPlayerTwo;
                 player.Play();
+                return;
+            }
+            if (keyEvent.Keycode == Key.R && keyEvent.Pressed)
+            {
+                RestartLevel();
+                return;
+            }
+            if (keyEvent.Keycode == Key.Q && keyEvent.Pressed)
+            {
+                ReturnToMainMenu();
+                return;
             }
         }
     }

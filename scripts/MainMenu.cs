@@ -15,6 +15,7 @@ public partial class MainMenu : Control
     private RichTextLabel brakeInfoLabel;
     private RichTextLabel switchInfoLabel;
 
+    private bool madeInitialAssignment = false;
     private bool scheduled = false;
 
     private AnimationManager animationManager;
@@ -44,10 +45,7 @@ public partial class MainMenu : Control
         animationManager.AddBobAnimation(titleCard);
 
         brakeInfoLabel = GetNode<RichTextLabel>("UILayer/MarginContainer/VBoxContainer/BrakeInfoLabel");
-        animationManager.AddBobAnimation(brakeInfoLabel);
-
         switchInfoLabel = GetNode<RichTextLabel>("UILayer/MarginContainer/VBoxContainer/SwitchInfoLabel");
-        animationManager.AddBobAnimation(switchInfoLabel);
 
         choochooPlayerOne = GetNode<AudioStreamPlayer>("Sounds/Choochoo1");
         choochooPlayerTwo = GetNode<AudioStreamPlayer>("Sounds/Choochoo2");
@@ -55,7 +53,11 @@ public partial class MainMenu : Control
 
     private void _AssignTrainPath()
     {
-        var coordinate = groundLayer.LocalToMap(train.Head.GetTrainPosition());
+        var coordinate = madeInitialAssignment ? groundLayer.LocalToMap(train.Head.GetTrainPosition()) : train.StartCoordinate;
+        if (!madeInitialAssignment)
+        {
+            madeInitialAssignment = true;
+        }
 
         if (!gridManager.TrainPaths.ContainsKey(coordinate))
         {

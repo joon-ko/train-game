@@ -96,6 +96,7 @@ public partial class HeadTraincar : Traincar
 
 	private void _Brake()
 	{
+		train.PlayBrakeSound();
 		if (unbrakeTween != null && unbrakeTween.IsValid())
 		{
 			unbrakeTween.Kill(); // rip
@@ -135,7 +136,7 @@ public partial class HeadTraincar : Traincar
 		{
 			train.StopChugging();
 		}
-		else if (IsMoving() && !train.IsChugging())
+		else if (IsMoving() && !train.IsChugging() && !train.IsBraking())
 		{
 			train.StartChugging();
 		}
@@ -205,6 +206,12 @@ public partial class HeadTraincar : Traincar
 			if (grade == AccuracyGrade.Miss)
 			{
 				return;
+			}
+
+			// If it was a perfect, increase the max speed.
+			if (grade == AccuracyGrade.Perfect)
+			{
+				MaxSpeed += 0.2f;
 			}
 
 			// If the platform is a pickup platform:
