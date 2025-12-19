@@ -118,8 +118,8 @@ volume_db = -3.0
 
 [node name="LevelState" type="Node" parent="."]
 script = ExtResource("3_qoyn8")
-PinkCargoRequired = 4
-PurpleCargoRequired = 4
+PinkCargoRequired = 50
+PurpleCargoRequired = 50
 metadata/_custom_type_script = "uid://6g7d45x5aju0"
 
 [node name="Background" type="ColorRect" parent="."]
