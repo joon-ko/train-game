@@ -19,6 +19,7 @@ public partial class LevelTwo : Control
     private LevelState levelState;
     private CargoPanel cargoPanel;
 
+    private bool madeInitialAssignment = false;
     private bool scheduled = false;
 
     private AnimationManager animationManager;
@@ -41,7 +42,6 @@ public partial class LevelTwo : Control
 
         testTrain = GetNode<Train>("Train");
         testTrain.Head.FinishedPath += _OnFinishedPath;
-        testTrain.Head.currentPathFollow.Position = groundLayer.MapToLocal(testTrain.StartCoordinate);
 
         timeRemainingLabel = GetNode<RichTextLabel>("UILayer/UIContainer/VBoxContainer/TimeRemainingLabel");
         timeRemainingLabel.Text = _GetTimeRemainingText();
@@ -71,7 +71,11 @@ public partial class LevelTwo : Control
 
     private void _AssignTrainPath()
     {
-        var coordinate = groundLayer.LocalToMap(testTrain.Head.GetTrainPosition());
+        var coordinate = madeInitialAssignment ? groundLayer.LocalToMap(testTrain.Head.GetTrainPosition()) : testTrain.StartCoordinate;
+        if (!madeInitialAssignment)
+        {
+            madeInitialAssignment = true;
+        }
 
         if (!gridManager.TrainPaths.ContainsKey(coordinate))
         {
