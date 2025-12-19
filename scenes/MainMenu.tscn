@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://do63v86sabwoc"]
+[gd_scene load_steps=20 format=4 uid="uid://do63v86sabwoc"]
 
 [ext_resource type="Script" uid="uid://jrra8pouey03" path="res://scripts/GridManager.cs" id="1_0ykhv"]
 [ext_resource type="Script" uid="uid://b5ydvjnenxe1" path="res://scripts/MainMenu.cs" id="1_ucygd"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dpsthd1xp5j8s" path="res://scenes/ChristmasTree.tscn" id="11_2nypq"]
 [ext_resource type="PackedScene" uid="uid://dwsjy0c2bsn1" path="res://scenes/Snowman.tscn" id="12_bky6r"]
 [ext_resource type="Shader" uid="uid://cac1fp5lc1c65" path="res://scenes/Snowfall.gdshader" id="13_l4mxc"]
+[ext_resource type="Script" uid="uid://cht4galnghiif" path="res://scripts/LevelPortal.cs" id="14_ptake"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ucygd"]
 
@@ -129,7 +130,12 @@ metadata/_edit_lock_ = true
 [node name="TitleCard" parent="UILayer/MarginContainer" instance=ExtResource("5_5faoh")]
 layout_mode = 2
 
-[node name="BrakeInfoLabel" type="RichTextLabel" parent="UILayer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="BrakeInfoLabel" type="RichTextLabel" parent="UILayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
@@ -141,10 +147,24 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="GridManager" type="Node2D" parent="."]
+[node name="SwitchInfoLabel" type="RichTextLabel" parent="UILayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme = ExtResource("3_2wh52")
+theme_override_styles/normal = ExtResource("5_mipys")
+bbcode_enabled = true
+text = "press [color=LIGHT_PINK][KEY][/color] above switch to toggle"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="GridManager" type="Node2D" parent="." node_paths=PackedStringArray("LevelPortals")]
 light_mask = 3
+position = Vector2(0, -1)
 script = ExtResource("1_0ykhv")
 StartLocation = Vector2i(2, 9)
+LevelPortals = NodePath("../LevelPortals")
 
 [node name="Ground" type="TileMapLayer" parent="GridManager"]
 y_sort_enabled = true
@@ -178,6 +198,30 @@ metadata/_edit_lock_ = true
 light_mask = 0
 tile_map_data = PackedByteArray("AAAdAPz/BAACAAsAAAAWAPz/BAACAAsAAAAPAPz/BAACAAsAAAA=")
 tile_set = ExtResource("2_2wh52")
+
+[node name="SwitchLabel1" type="Label" parent="SwitchArrowLayer"]
+offset_left = 535.0
+offset_top = 178.0
+offset_right = 556.0
+offset_bottom = 194.0
+theme = ExtResource("3_2wh52")
+text = "[Z]"
+
+[node name="SwitchLabel2" type="Label" parent="SwitchArrowLayer"]
+offset_left = 422.0
+offset_top = 123.0
+offset_right = 443.0
+offset_bottom = 139.0
+theme = ExtResource("3_2wh52")
+text = "[X]"
+
+[node name="SwitchLabel3" type="Label" parent="SwitchArrowLayer"]
+offset_left = 311.0
+offset_top = 70.0
+offset_right = 332.0
+offset_bottom = 86.0
+theme = ExtResource("3_2wh52")
+text = "[C]"
 
 [node name="Lights" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -254,6 +298,31 @@ position = Vector2(288, 112)
 [node name="Snowman4" parent="Snowmen" instance=ExtResource("12_bky6r")]
 position = Vector2(368, 296)
 
+[node name="LevelPortals" type="Node2D" parent="."]
+
+[node name="LevelPortal" type="Node2D" parent="LevelPortals" node_paths=PackedStringArray("Train")]
+position = Vector2(656, 152)
+script = ExtResource("14_ptake")
+PortalCoordinate = Vector2i(29, -11)
+Train = NodePath("../../Train")
+metadata/_custom_type_script = "uid://cht4galnghiif"
+
+[node name="LevelPortal2" type="Node2D" parent="LevelPortals" node_paths=PackedStringArray("Train")]
+position = Vector2(656, 40)
+script = ExtResource("14_ptake")
+PortalCoordinate = Vector2i(22, -18)
+Level = 1
+Train = NodePath("../../Train")
+metadata/_custom_type_script = "uid://cht4galnghiif"
+
+[node name="LevelPortal3" type="Node2D" parent="LevelPortals" node_paths=PackedStringArray("Train")]
+position = Vector2(528, -8)
+script = ExtResource("14_ptake")
+PortalCoordinate = Vector2i(15, -17)
+Level = 2
+Train = NodePath("../../Train")
+metadata/_custom_type_script = "uid://cht4galnghiif"
+
 [node name="SnowLayer" type="CanvasLayer" parent="."]
 layer = 2
 
@@ -266,3 +335,4 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_ptake")
 metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true

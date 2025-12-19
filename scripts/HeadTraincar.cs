@@ -260,7 +260,7 @@ public partial class HeadTraincar : Traincar
 		foreach (Platform platform in platforms.Cast<Platform>())
 		{
 			var targetProgress = platform.ProgressRatio * currentPath.Curve.GetBakedLength();
-			if (currentPathInfo.Equals(platform.PathInfo))
+		if (currentPathInfo.Equals(platform.PathInfo))
 			{
 
 				var distance = Math.Abs(targetProgress - currentPathFollow.Progress);

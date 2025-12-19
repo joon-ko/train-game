@@ -7,11 +7,12 @@ public partial class MainMenu : Control
     private GridManager gridManager;
     private TileMapLayer groundLayer;
     private TileMapLayer envLayer;
-    // private TileMapLayer switchLayer;
+    private TileMapLayer switchLayer;
 
     private Control trainPathVisualizer;
 
     private RichTextLabel brakeInfoLabel;
+    private RichTextLabel switchInfoLabel;
 
     private bool scheduled = false;
 
@@ -31,15 +32,18 @@ public partial class MainMenu : Control
         gridManager = GetNode<GridManager>("GridManager");
         groundLayer = GetNode<TileMapLayer>("GridManager/Ground");
         envLayer = GetNode<TileMapLayer>("GridManager/Environment");
-        // switchLayer = GetNode<TileMapLayer>("SwitchArrowLayer/SwitchArrows");
+        switchLayer = GetNode<TileMapLayer>("SwitchArrowLayer/SwitchArrows");
 
         trainPathVisualizer = GetNode<Control>("TrainPathVisualizer");
 
         titleCard = GetNode<RichTextLabel>("UILayer/MarginContainer/TitleCard/RichTextLabel");
         animationManager.AddBobAnimation(titleCard);
 
-        brakeInfoLabel = GetNode<RichTextLabel>("UILayer/MarginContainer/BrakeInfoLabel");
+        brakeInfoLabel = GetNode<RichTextLabel>("UILayer/MarginContainer/VBoxContainer/BrakeInfoLabel");
         animationManager.AddBobAnimation(brakeInfoLabel);
+
+        switchInfoLabel = GetNode<RichTextLabel>("UILayer/MarginContainer/VBoxContainer/SwitchInfoLabel");
+        animationManager.AddBobAnimation(switchInfoLabel);
     }
 
     private void _AssignTrainPath()
@@ -75,18 +79,38 @@ public partial class MainMenu : Control
         scheduled = false;
     }
 
-    // private void RenderSwitchLayer()
-    // {
-    //     var switchCoord = switchManager.GetSwitchCoord(0);
-    //     if (switchManager.GetSwitchOrientation(switchCoord) == SwitchOrientation.Straight)
-    //     {
-    //         switchLayer.SetCell(switchCoord, 0, TileManager.GetTileAtlasCoordinate(Tile.StraightArrow));
-    //     }
-    //     else
-    //     {
-    //         switchLayer.SetCell(switchCoord, 0, TileManager.GetTileAtlasCoordinate(Tile.BentArrow));
-    //     }
-    // }
+    private void RenderSwitchLayer()
+    {
+        var switchOne = switchManager.GetSwitchCoord(0);
+        if (switchManager.GetSwitchOrientation(switchOne) == SwitchOrientation.Straight)
+        {
+            switchLayer.SetCell(switchOne, 0, TileManager.GetTileAtlasCoordinate(Tile.StraightArrow));
+        }
+        else
+        {
+            switchLayer.SetCell(switchOne, 0, TileManager.GetTileAtlasCoordinate(Tile.BentArrow));
+        }
+
+        var switchTwo = switchManager.GetSwitchCoord(1);
+        if (switchManager.GetSwitchOrientation(switchTwo) == SwitchOrientation.Straight)
+        {
+            switchLayer.SetCell(switchTwo, 0, TileManager.GetTileAtlasCoordinate(Tile.StraightArrow));
+        }
+        else
+        {
+            switchLayer.SetCell(switchTwo, 0, TileManager.GetTileAtlasCoordinate(Tile.BentArrow));
+        }
+
+        var switchThree = switchManager.GetSwitchCoord(2);
+        if (switchManager.GetSwitchOrientation(switchThree) == SwitchOrientation.Straight)
+        {
+            switchLayer.SetCell(switchThree, 0, TileManager.GetTileAtlasCoordinate(Tile.StraightArrow));
+        }
+        else
+        {
+            switchLayer.SetCell(switchThree, 0, TileManager.GetTileAtlasCoordinate(Tile.BentArrow));
+        }
+    }
 
     public override void _Process(double delta)
     {
@@ -95,7 +119,7 @@ public partial class MainMenu : Control
             _AssignTrainPath();
         }
 
-        // RenderSwitchLayer();
+        RenderSwitchLayer();
     }
 
 
@@ -109,9 +133,19 @@ public partial class MainMenu : Control
                 train.Head.ToggleBrake();
                 return;
             }
-            if (keyEvent.Keycode == Key.Shift && keyEvent.Pressed)
+            if (keyEvent.Keycode == Key.Z && keyEvent.Pressed)
             {
                 switchManager.ToggleSwitch(0);
+                return;
+            }
+            if (keyEvent.Keycode == Key.X && keyEvent.Pressed)
+            {
+                switchManager.ToggleSwitch(1);
+                return;
+            }
+            if (keyEvent.Keycode == Key.C && keyEvent.Pressed)
+            {
+                switchManager.ToggleSwitch(2);
                 return;
             }
             if (keyEvent.Keycode == Key.Tab && keyEvent.Pressed)

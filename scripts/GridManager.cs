@@ -24,10 +24,13 @@ public partial class GridManager : Node
 
 	[Export] Vector2I StartLocation { get; set; }
 	[Export] Direction StartDirection { get; set; }
+	[Export] Node2D LevelPortals { get; set; }
 
 	private SwitchManager switchManager;
 	private TileMapLayer groundLayer;
 	private TileMapLayer environmentLayer;
+
+	private List<Vector2I> levelPortalCoords = new List<Vector2I>();
 
 	private Dictionary<Direction, Vector2I> directionDeltas = new Dictionary<Direction, Vector2I>()
 	{
@@ -43,11 +46,22 @@ public partial class GridManager : Node
 		groundLayer = GetNode<TileMapLayer>("Ground");
 		environmentLayer = GetNode<TileMapLayer>("Environment");
 
+		SetLevelPortalCoords();
 		GenerateTrainPaths(StartLocation, StartDirection);
+	}
+
+	public void SetLevelPortalCoords()
+	{
+		foreach (LevelPortal portal in LevelPortals.GetChildren())
+		{
+			levelPortalCoords.Add(portal.PortalCoordinate);
+		}
 	}
 
 	private void GenerateTrainPaths(Vector2I startLocation, Direction direction)
 	{
+		var levelPortalCount = 0;
+
 		// Clear train paths and switch states and start a path from the start location.
 		TrainPaths.Clear();
 		switchManager.ClearSwitches();
@@ -72,8 +86,19 @@ public partial class GridManager : Node
 			var tile = TileManager.GetTileForAtlasCoord(atlasCoord);
 			var isCorner = TileManager.IsCornerForDirection(tile, node.Direction);
 			var isSwitch = TileManager.IsSwitchForDirection(tile, node.Direction);
+			var isLevelPortal = levelPortalCoords.Contains(newLocation);
 
-			if (isCorner)
+			if (isLevelPortal)
+			{
+				if (DoesTrainPathExist(node.Start, newLocation))
+				{
+					continue;
+				}
+				AddPath(new PathInfo(node.Start, newLocation, node.Direction, node.Orientation));
+				levelPortalCount++;
+				continue;
+			}
+			else if (isCorner)
 			{
 				// If we reach a corner:
 				// The corner can either be a pure corner or a corner that merges with another lane.
@@ -122,7 +147,7 @@ public partial class GridManager : Node
 		// The train paths are finished generating when the search queue gets exhausted. Search branches exhaust themselves
 		// naturally upon encountering duplicate paths.
 		GD.Print("Finished processing train paths.");
-		GD.Print($"Total path segments: {TrainPaths.Count}. Total switches: {switchManager.GetSwitchCount()}");
+		GD.Print($"Total path segments: {TrainPaths.Count}. Total switches: {switchManager.GetSwitchCount()}. Total level portals: {levelPortalCount}");
 	}
 
 	/// <summary>

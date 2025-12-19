@@ -162,11 +162,12 @@ scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 2
 
-[node name="GridManager" type="Node2D" parent="."]
+[node name="GridManager" type="Node2D" parent="." node_paths=PackedStringArray("LevelPortals")]
 light_mask = 3
 script = ExtResource("7_snpld")
 StartLocation = Vector2i(26, 24)
 StartDirection = 3
+LevelPortals = NodePath("../LevelPortals")
 
 [node name="Ground" type="TileMapLayer" parent="GridManager"]
 y_sort_enabled = true
@@ -309,5 +310,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_nklbr")
+
+[node name="LevelPortals" type="Node2D" parent="."]
 
 [connection signal="pressed" from="GameOverScreen/ColorRect/RestartButton" to="." method="OnRestartButtonPressed"]

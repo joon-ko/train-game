@@ -33,13 +33,15 @@ public partial class LevelTwo : Control
         animationManager = GetNode<AnimationManager>("/root/AnimationManager");
         switchManager = GetNode<SwitchManager>("/root/SwitchManager");
 
-        testTrain = GetNode<Train>("Train");
-        testTrain.Head.FinishedPath += _OnFinishedPath;
 
         gridManager = GetNode<GridManager>("GridManager");
         groundLayer = GetNode<TileMapLayer>("GridManager/Ground");
         envLayer = GetNode<TileMapLayer>("GridManager/Environment");
         switchLayer = GetNode<TileMapLayer>("SwitchArrowLayer/SwitchArrows");
+
+        testTrain = GetNode<Train>("Train");
+        testTrain.Head.FinishedPath += _OnFinishedPath;
+        testTrain.Head.currentPathFollow.Position = groundLayer.MapToLocal(testTrain.StartCoordinate);
 
         timeRemainingLabel = GetNode<RichTextLabel>("UILayer/UIContainer/VBoxContainer/TimeRemainingLabel");
         timeRemainingLabel.Text = _GetTimeRemainingText();
