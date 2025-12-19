@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public partial class MainMenu : Control
@@ -20,6 +21,9 @@ public partial class MainMenu : Control
     private SwitchManager switchManager;
 
     private RichTextLabel titleCard;
+
+    private AudioStreamPlayer choochooPlayerOne;
+    private AudioStreamPlayer choochooPlayerTwo;
 
     public override void _Ready()
     {
@@ -44,6 +48,9 @@ public partial class MainMenu : Control
 
         switchInfoLabel = GetNode<RichTextLabel>("UILayer/MarginContainer/VBoxContainer/SwitchInfoLabel");
         animationManager.AddBobAnimation(switchInfoLabel);
+
+        choochooPlayerOne = GetNode<AudioStreamPlayer>("Sounds/Choochoo1");
+        choochooPlayerTwo = GetNode<AudioStreamPlayer>("Sounds/Choochoo2");
     }
 
     private void _AssignTrainPath()
@@ -151,6 +158,14 @@ public partial class MainMenu : Control
             if (keyEvent.Keycode == Key.Tab && keyEvent.Pressed)
             {
                 trainPathVisualizer.Visible = !trainPathVisualizer.Visible;
+                return;
+            }
+            if (keyEvent.Keycode == Key.Shift && keyEvent.Pressed)
+            {
+                // Sound the train horn, choo choo!
+                var randomBit = Random.Shared.Next(2);
+                var player = randomBit == 0 ? choochooPlayerOne : choochooPlayerTwo;
+                player.Play();
             }
         }
     }

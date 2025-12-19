@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public partial class LevelTwo : Control
@@ -26,6 +27,9 @@ public partial class LevelTwo : Control
     private SwitchManager switchManager;
 
     private Node2D platforms;
+
+    private AudioStreamPlayer choochooPlayerOne;
+    private AudioStreamPlayer choochooPlayerTwo;
 
     private float TimeRemaining = 123f;
 
@@ -67,6 +71,9 @@ public partial class LevelTwo : Control
         {
             platform.Initialize();
         }
+
+        choochooPlayerOne = GetNode<AudioStreamPlayer>("Sounds/Choochoo1");
+        choochooPlayerTwo = GetNode<AudioStreamPlayer>("Sounds/Choochoo2");
     }
 
     private void _AssignTrainPath()
@@ -145,7 +152,7 @@ public partial class LevelTwo : Control
 
         RenderSwitchLayer();
 
-        if (TimeRemaining <= 0) 
+        if (TimeRemaining <= 0)
         {
             GetTree().Paused = true;
             GameOverScreen GameOver = GetTree().CurrentScene.GetNode<GameOverScreen>("GameOverScreen");
@@ -154,7 +161,8 @@ public partial class LevelTwo : Control
             GameOverFadeIn.Advance(0);
             GameOver.Show();
 
-        } else if (levelState.QuotaMet())
+        }
+        else if (levelState.QuotaMet())
         {
             gameEndLabel.Text = "You Won!";
             GetTree().Paused = true;
@@ -187,7 +195,7 @@ public partial class LevelTwo : Control
                 testTrain.Head.ToggleBrake();
                 return;
             }
-            if (keyEvent.Keycode == Key.Shift && keyEvent.Pressed)
+            if (keyEvent.Keycode == Key.Z && keyEvent.Pressed)
             {
                 switchManager.ToggleSwitch(0);
                 return;
@@ -195,6 +203,14 @@ public partial class LevelTwo : Control
             if (keyEvent.Keycode == Key.Tab && keyEvent.Pressed)
             {
                 trainPathVisualizer.Visible = !trainPathVisualizer.Visible;
+                return;
+            }
+            if (keyEvent.Keycode == Key.Shift && keyEvent.Pressed)
+            {
+                // Sound the train horn, choo choo!
+                var randomBit = Random.Shared.Next(2);
+                var player = randomBit == 0 ? choochooPlayerOne : choochooPlayerTwo;
+                player.Play();
             }
         }
     }

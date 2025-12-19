@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://chebac57yglyv"]
+[gd_scene load_steps=10 format=3 uid="uid://chebac57yglyv"]
 
 [ext_resource type="Script" uid="uid://cl2ht6wgo3j23" path="res://scripts/Platform.cs" id="1_36ukb"]
 [ext_resource type="Texture2D" uid="uid://bp42onq3rlj0l" path="res://assets/PlatformTexture.tres" id="1_erxeo"]
 [ext_resource type="PackedScene" uid="uid://b4cj88b0aq27k" path="res://scenes/PinkPresent.tscn" id="2_bdn1d"]
+[ext_resource type="AudioStream" uid="uid://bjfi34nl2htt8" path="res://assets/sounds/cargo pickup.ogg" id="4_xwe8w"]
+[ext_resource type="AudioStream" uid="uid://dy4mg0gseuxmk" path="res://assets/sounds/cargo dropoff.ogg" id="5_av750"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bdn1d"]
 atlas = ExtResource("1_erxeo")
@@ -66,3 +68,9 @@ position = Vector2(-14, -24)
 [node name="PinkPresent3" parent="Presents" instance=ExtResource("2_bdn1d")]
 y_sort_enabled = false
 position = Vector2(-2, -18)
+
+[node name="CargoPickup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_xwe8w")
+
+[node name="CargoDropoff" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_av750")

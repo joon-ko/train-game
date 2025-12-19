@@ -130,6 +130,15 @@ public partial class HeadTraincar : Traincar
 	public override void _Process(double delta)
 	{
 		UpdateCargoCountLabel();
+
+		if (!IsMoving() && train.IsChugging())
+		{
+			train.StopChugging();
+		}
+		else if (IsMoving() && !train.IsChugging())
+		{
+			train.StartChugging();
+		}
 	}
 
 	private void UpdateCargoCountLabel()
@@ -210,6 +219,7 @@ public partial class HeadTraincar : Traincar
 				// Award cargo to the train.
 				train.CarriedCargo = platform.CargoType;
 				train.CargoCount = CargoUtils.GetAwardedCargoForGrade(grade);
+				train.PlayCargoPickupSound();
 
 				// Instantiate a popup of the accuracy grade.
 				var accuracyPopup = accuracyPopupScene.Instantiate<AccuracyPopup>();
@@ -241,8 +251,8 @@ public partial class HeadTraincar : Traincar
 				}
 				train.CarriedCargo = CargoType.None;
 				train.CargoCount = 0;
+				train.PlayCargoDropoffSound();
 
-				// Instantiate a popup of the accuracy grade.
 				// Instantiate a popup of the accuracy grade.
 				var accuracyPopup = accuracyPopupScene.Instantiate<AccuracyPopup>();
 				accuracyPopup.Grade = grade;

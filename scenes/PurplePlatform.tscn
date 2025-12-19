@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://daqkimvdqs6m0"]
+[gd_scene load_steps=10 format=3 uid="uid://daqkimvdqs6m0"]
 
 [ext_resource type="Script" uid="uid://cl2ht6wgo3j23" path="res://scripts/Platform.cs" id="1_u5kvp"]
 [ext_resource type="Texture2D" uid="uid://bp42onq3rlj0l" path="res://assets/PlatformTexture.tres" id="2_fadis"]
 [ext_resource type="PackedScene" uid="uid://biy12pj6i8ccv" path="res://scenes/PurplePresent.tscn" id="3_u5kvp"]
+[ext_resource type="AudioStream" uid="uid://bjfi34nl2htt8" path="res://assets/sounds/cargo pickup.ogg" id="4_haexh"]
+[ext_resource type="AudioStream" uid="uid://dy4mg0gseuxmk" path="res://assets/sounds/cargo dropoff.ogg" id="5_ocst1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bdn1d"]
 atlas = ExtResource("2_fadis")
@@ -61,3 +63,9 @@ position = Vector2(-14, -12)
 
 [node name="PurplePresent3" parent="Presents" instance=ExtResource("3_u5kvp")]
 position = Vector2(-2, -6)
+
+[node name="CargoPickup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_haexh")
+
+[node name="CargoDropoff" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_ocst1")

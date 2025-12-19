@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bh24qg80ltx03"]
+[gd_scene load_steps=9 format=3 uid="uid://bh24qg80ltx03"]
 
 [ext_resource type="Script" uid="uid://cl2ht6wgo3j23" path="res://scripts/Platform.cs" id="1_motb6"]
+[ext_resource type="AudioStream" uid="uid://bjfi34nl2htt8" path="res://assets/sounds/cargo pickup.ogg" id="3_sksae"]
 [ext_resource type="Texture2D" uid="uid://bp42onq3rlj0l" path="res://assets/PlatformTexture.tres" id="3_wwpbi"]
+[ext_resource type="AudioStream" uid="uid://dy4mg0gseuxmk" path="res://assets/sounds/cargo dropoff.ogg" id="4_ki18p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pbt67"]
 atlas = ExtResource("3_wwpbi")
@@ -50,3 +52,9 @@ light_mask = 0
 visibility_layer = 0
 position = Vector2(0, 4)
 occluder = SubResource("OccluderPolygon2D_motb6")
+
+[node name="CargoPickup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_sksae")
+
+[node name="CargoDropoff" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ki18p")

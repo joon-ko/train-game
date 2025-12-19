@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bjfi34nl2htt8"
+path="res://.godot/imported/cargo pickup.ogg-03f010defb14ad6073c1776b999daa2c.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/sounds/cargo pickup.ogg"
+dest_files=["res://.godot/imported/cargo pickup.ogg-03f010defb14ad6073c1776b999daa2c.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

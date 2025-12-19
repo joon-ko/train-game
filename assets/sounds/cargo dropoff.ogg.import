@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dy4mg0gseuxmk"
+path="res://.godot/imported/cargo dropoff.ogg-c4e62d0e268ec6032dd555a83c3afe0f.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/sounds/cargo dropoff.ogg"
+dest_files=["res://.godot/imported/cargo dropoff.ogg-c4e62d0e268ec6032dd555a83c3afe0f.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
