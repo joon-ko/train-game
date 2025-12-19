@@ -207,6 +207,12 @@ public partial class HeadTraincar : Traincar
 				return;
 			}
 
+			// If it was a perfect, increase the max speed.
+			if (grade == AccuracyGrade.Perfect)
+			{
+				MaxSpeed += 0.2f;
+			}
+
 			// If the platform is a pickup platform:
 			if (platform.PlatformType == PlatformType.Pickup)
 			{

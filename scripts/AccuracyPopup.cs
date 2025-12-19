@@ -16,6 +16,7 @@ public partial class AccuracyPopup : Control
     };
 
     private Tween tween;
+    private Tween maxSpeedTween;
 
     public override void _Ready()
     {
@@ -23,15 +24,30 @@ public partial class AccuracyPopup : Control
         label.Text = textForGrade[Grade];
 
         tween = CreateTween();
-        tween.TweenProperty(this, "position:y", -24f, 1.2f)
+        tween.TweenProperty(this, "position:y", -20f, 1f)
             .AsRelative()
             .SetEase(Tween.EaseType.OutIn)
             .SetTrans(Tween.TransitionType.Linear);
-
         tween.Finished += _OnFinished;
     }
 
     private void _OnFinished()
+    {
+        if (Grade != AccuracyGrade.Perfect)
+        {
+            QueueFree();
+            return;
+        }
+        maxSpeedTween = CreateTween();
+        maxSpeedTween.TweenProperty(this, "position:y", -10f, 1f)
+            .AsRelative()
+            .SetEase(Tween.EaseType.OutIn)
+            .SetTrans(Tween.TransitionType.Linear);
+        maxSpeedTween.Finished += _OnMaxSpeedTweenFinished;
+        label.Text = "+20 kph max speed!";
+    }
+
+    private void _OnMaxSpeedTweenFinished()
     {
         QueueFree();
     }
