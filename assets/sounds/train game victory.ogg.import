@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cok77wtwdo8y0"
+path="res://.godot/imported/train game victory.ogg-c61dcea84473816fce6ca0135c7941a7.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/sounds/train game victory.ogg"
+dest_files=["res://.godot/imported/train game victory.ogg-c61dcea84473816fce6ca0135c7941a7.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

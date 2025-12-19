@@ -96,6 +96,7 @@ public partial class HeadTraincar : Traincar
 
 	private void _Brake()
 	{
+		train.PlayBrakeSound();
 		if (unbrakeTween != null && unbrakeTween.IsValid())
 		{
 			unbrakeTween.Kill(); // rip
@@ -135,7 +136,7 @@ public partial class HeadTraincar : Traincar
 		{
 			train.StopChugging();
 		}
-		else if (IsMoving() && !train.IsChugging())
+		else if (IsMoving() && !train.IsChugging() && !train.IsBraking())
 		{
 			train.StartChugging();
 		}

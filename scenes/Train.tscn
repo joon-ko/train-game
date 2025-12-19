@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://b5clb7560do2o"]
+[gd_scene load_steps=22 format=3 uid="uid://b5clb7560do2o"]
 
 [ext_resource type="Script" uid="uid://bdydso85tpjdw" path="res://scripts/Train.cs" id="2_8tskr"]
 [ext_resource type="SpriteFrames" uid="uid://bgndj2mih7cdv" path="res://assets/TrainSpriteFrames.tres" id="2_426cx"]
 [ext_resource type="Script" uid="uid://5rt5wjmr4wfa" path="res://scripts/TrainLight.cs" id="2_a2mri"]
 [ext_resource type="Script" uid="uid://ybeqy1c01vn4" path="res://scripts/HeadTraincar.cs" id="2_ggsvn"]
 [ext_resource type="Script" uid="uid://ddom7ydd4x2dv" path="res://scripts/FollowTraincar.cs" id="3_8tskr"]
+[ext_resource type="AudioStream" uid="uid://bjxxchiuyib5f" path="res://assets/sounds/train_brake (2.5s).ogg" id="3_trw8i"]
 [ext_resource type="Theme" uid="uid://d0mlg6ed0r4ce" path="res://assets/CoreTheme.tres" id="4_chsmv"]
 [ext_resource type="SpriteFrames" uid="uid://b370bv3nt1vyk" path="res://assets/CargoTrainSpriteFrames.tres" id="5_d1bjs"]
 [ext_resource type="AudioStream" uid="uid://bmbtauwp7mqu2" path="res://assets/sounds/chugga chugga.ogg" id="8_vj8xc"]
@@ -53,6 +54,24 @@ Head = NodePath("HeadCar")
 Middle = NodePath("MiddleCar")
 Tail = NodePath("TailCar")
 metadata/_custom_type_script = "uid://bdydso85tpjdw"
+
+[node name="BrakePlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_trw8i")
+volume_db = -9.0
+
+[node name="ChuggingPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_vj8xc")
+volume_db = -9.0
+bus = &"Lowpass"
+parameters/looping = true
+
+[node name="CargoPickup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_gjrqp")
+volume_db = -6.0
+
+[node name="CargoDropoff" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_fxxxj")
+volume_db = -6.0
 
 [node name="HeadCar" type="Node2D" parent="."]
 light_mask = 2
@@ -238,17 +257,3 @@ theme = ExtResource("4_chsmv")
 text = "20"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="ChuggingPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("8_vj8xc")
-volume_db = -6.0
-bus = &"Lowpass"
-parameters/looping = true
-
-[node name="CargoPickup" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("9_gjrqp")
-volume_db = -6.0
-
-[node name="CargoDropoff" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("10_fxxxj")
-volume_db = -6.0

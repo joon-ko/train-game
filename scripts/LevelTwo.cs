@@ -30,11 +30,14 @@ public partial class LevelTwo : Control
 
     private AudioStreamPlayer choochooPlayerOne;
     private AudioStreamPlayer choochooPlayerTwo;
+    private AudioStreamPlayer winPlayer;
+    private AudioStreamPlayer losePlayer;
+    private AudioStreamPlayer bgmPlayer;
 
     private PanelContainer gameOverPanel;
     private PanelContainer gameWinPanel;
 
-    private const float MAX_TIME_REMAINING = 15;
+    private const float MAX_TIME_REMAINING = 123;
     private float TimeRemaining = MAX_TIME_REMAINING;
 
     private bool levelOver = false;
@@ -79,6 +82,9 @@ public partial class LevelTwo : Control
 
         choochooPlayerOne = GetNode<AudioStreamPlayer>("Sounds/Choochoo1");
         choochooPlayerTwo = GetNode<AudioStreamPlayer>("Sounds/Choochoo2");
+        winPlayer = GetNode<AudioStreamPlayer>("Sounds/Win");
+        losePlayer = GetNode<AudioStreamPlayer>("Sounds/Lose");
+        bgmPlayer = GetNode<AudioStreamPlayer>("Sounds/BGM");
 
         gameOverPanel = GetNode<PanelContainer>("UILayer/UIContainer/GameOverPanel");
         gameWinPanel = GetNode<PanelContainer>("UILayer/UIContainer/GameWinPanel");
@@ -158,11 +164,19 @@ public partial class LevelTwo : Control
 
         if (TimeRemaining <= 0 && !levelOver)
         {
+            bgmPlayer.Stop();
+            GetTree().CreateTimer(7f).Timeout += () => bgmPlayer.Play();
+
+            losePlayer.Play();
             levelOver = true;
             gameOverPanel.Visible = true;
         }
         else if (levelState.QuotaMet() && !levelOver)
         {
+            bgmPlayer.Stop();
+            GetTree().CreateTimer(8f).Timeout += () => bgmPlayer.Play();
+
+            winPlayer.Play();
             levelOver = true;
             gameWinPanel.Visible = true;
         }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://rxs4kcbrnreu"]
+[gd_scene load_steps=33 format=4 uid="uid://rxs4kcbrnreu"]
 
 [ext_resource type="Script" uid="uid://cd8hls8wvb7nx" path="res://scripts/LevelTwo.cs" id="1_bhef0"]
 [ext_resource type="AudioStream" uid="uid://ds7y84mumg2wv" path="res://assets/sounds/train game theme.mp3" id="2_pvlfk"]
@@ -7,6 +7,8 @@
 [ext_resource type="AudioStream" uid="uid://b01dyfiqcp3sp" path="res://assets/sounds/choo_choo_2.ogg" id="4_snpld"]
 [ext_resource type="PackedScene" uid="uid://j6avrk4kir85" path="res://scenes/CargoPanel.tscn" id="4_uf163"]
 [ext_resource type="Theme" uid="uid://d0mlg6ed0r4ce" path="res://assets/CoreTheme.tres" id="5_2biqm"]
+[ext_resource type="AudioStream" uid="uid://cok77wtwdo8y0" path="res://assets/sounds/train game victory.ogg" id="5_snpld"]
+[ext_resource type="AudioStream" uid="uid://m162rsqixj86" path="res://assets/sounds/train game defeat.ogg" id="6_1tjc5"]
 [ext_resource type="StyleBox" uid="uid://bly1b5r48hawk" path="res://assets/LabelStyle.tres" id="6_djvk4"]
 [ext_resource type="Script" uid="uid://jrra8pouey03" path="res://scripts/GridManager.cs" id="7_snpld"]
 [ext_resource type="TileSet" uid="uid://4n3wig1qeiv0" path="res://assets/CoreTileSet.tres" id="8_1tjc5"]
@@ -92,7 +94,7 @@ script = ExtResource("1_bhef0")
 
 [node name="BGM" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("2_pvlfk")
-volume_db = -3.0
+volume_db = -6.0
 autoplay = true
 parameters/looping = true
 
@@ -106,10 +108,18 @@ stream = ExtResource("4_snpld")
 volume_db = -9.0
 bus = &"Reverb"
 
+[node name="Win" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("5_snpld")
+volume_db = -3.0
+
+[node name="Lose" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("6_1tjc5")
+volume_db = -3.0
+
 [node name="LevelState" type="Node" parent="."]
 script = ExtResource("3_qoyn8")
-PinkCargoRequired = 50
-PurpleCargoRequired = 50
+PinkCargoRequired = 4
+PurpleCargoRequired = 4
 metadata/_custom_type_script = "uid://6g7d45x5aju0"
 
 [node name="Background" type="ColorRect" parent="."]

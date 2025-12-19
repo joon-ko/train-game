@@ -19,12 +19,14 @@ public partial class Train : Node2D
     private AudioStreamPlayer chuggingPlayer;
     private AudioStreamPlayer cargoPickupPlayer;
     private AudioStreamPlayer cargoDropoffPlayer;
+    private AudioStreamPlayer brakePlayer;
 
     public override void _Ready()
     {
         chuggingPlayer = GetNode<AudioStreamPlayer>("ChuggingPlayer");
         cargoPickupPlayer = GetNode<AudioStreamPlayer>("CargoPickup");
         cargoDropoffPlayer = GetNode<AudioStreamPlayer>("CargoDropoff");
+        brakePlayer = GetNode<AudioStreamPlayer>("BrakePlayer");
     }
 
     public void StartChugging()
@@ -50,5 +52,16 @@ public partial class Train : Node2D
     public void PlayCargoDropoffSound()
     {
         cargoDropoffPlayer.Play();
+    }
+
+    public void PlayBrakeSound()
+    {
+        brakePlayer.Play();
+        chuggingPlayer.Stop();
+    }
+
+    public bool IsBraking()
+    {
+        return brakePlayer.Playing;
     }
 }
