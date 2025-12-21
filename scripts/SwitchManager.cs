@@ -8,8 +8,11 @@ public partial class SwitchManager : Node
 
     public void AddSwitch(Vector2I coord)
     {
-        switchLocations.Add(switchLocations.Count, coord);
-        switchStates.Add(coord, SwitchOrientation.Straight);
+        if (!switchStates.ContainsKey(coord))
+        {
+            switchLocations.Add(switchLocations.Count, coord);
+            switchStates.Add(coord, SwitchOrientation.Straight);
+        }
     }
 
     public void ToggleSwitch(int switchId)

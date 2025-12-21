@@ -142,11 +142,11 @@ public partial class LevelOne : Control
         var switchCoord = switchManager.GetSwitchCoord(0);
         if (switchManager.GetSwitchOrientation(switchCoord) == SwitchOrientation.Straight)
         {
-            switchLayer.SetCell(switchCoord, 0, TileManager.GetTileAtlasCoordinate(Tile.StraightArrow));
+            switchLayer.SetCell(switchCoord, 0, TileManager.GetTileAtlasCoordinate(Tile.StraightArrowNegY));
         }
         else
         {
-            switchLayer.SetCell(switchCoord, 0, TileManager.GetTileAtlasCoordinate(Tile.BentArrow));
+            switchLayer.SetCell(switchCoord, 0, TileManager.GetTileAtlasCoordinate(Tile.BentArrowNegYToNegX));
         }
     }
 

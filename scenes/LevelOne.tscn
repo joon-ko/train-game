@@ -210,7 +210,7 @@ size_flags_vertical = 8
 [node name="GridManager" type="Node2D" parent="." node_paths=PackedStringArray("LevelPortals")]
 light_mask = 3
 script = ExtResource("13_3td10")
-StartLocation = Vector2i(26, 24)
+StartLocation = Vector2i(21, 22)
 StartDirection = 3
 LevelPortals = NodePath("../LevelPortals")
 

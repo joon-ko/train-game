@@ -119,6 +119,15 @@ public partial class Platform : Node2D
                         return path;
                     }
                 }
+                if (path.EndCoordinate.X == target.X)
+                {
+                    if ((path.EndCoordinate.Y < target.Y && path.StartCoordinate.Y > target.Y)
+                        || (path.EndCoordinate.Y > target.Y && path.StartCoordinate.Y < target.Y))
+                    {
+                        return path;
+                    }
+
+                }
             }
         }
         return null;

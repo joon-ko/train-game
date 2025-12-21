@@ -23,6 +23,8 @@ public enum Tile
     RailMergeTopX,
     RailMergeTopY,
     StraightArrow,
+    StraightArrowNegY,
+    BentArrowNegYToNegX,
     BentArrow,
     PlatformPurple,
     Invalid,
@@ -52,6 +54,8 @@ public static class TileManager
         { Tile.RailMergeTopX, new Vector2I(4, 4) },
         { Tile.RailMergeTopY,  new Vector2I(5, 4) },
         { Tile.StraightArrow, new Vector2I(2, 11) },
+        { Tile.StraightArrowNegY, new Vector2I(3, 11) },
+        { Tile.BentArrowNegYToNegX, new Vector2I(3, 10) },
         { Tile.BentArrow, new Vector2I(2, 10) },
         { Tile.PlatformPurple, new Vector2I(0, 8) },
     };
