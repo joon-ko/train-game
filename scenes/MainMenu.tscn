@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://ds110dmyas284" path="res://scenes/Lamppost.tscn" id="10_7la6k"]
 [ext_resource type="PackedScene" uid="uid://dpsthd1xp5j8s" path="res://scenes/ChristmasTree.tscn" id="11_2nypq"]
 [ext_resource type="PackedScene" uid="uid://dwsjy0c2bsn1" path="res://scenes/Snowman.tscn" id="12_bky6r"]
-[ext_resource type="Shader" uid="uid://cac1fp5lc1c65" path="res://scenes/Snowfall.gdshader" id="13_l4mxc"]
+[ext_resource type="Shader" path="res://scenes/Snowfall.gdshader" id="13_l4mxc"]
 [ext_resource type="Script" uid="uid://cht4galnghiif" path="res://scripts/LevelPortal.cs" id="14_ptake"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ucygd"]
