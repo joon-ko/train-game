@@ -13,7 +13,6 @@ public partial class LevelTwo : Control
     private RichTextLabel timeRemainingLabel;
     private RichTextLabel speedLabel;
     private RichTextLabel accuracyLabel;
-    private RichTextLabel gameEndLabel;
 
     private Control trainPathVisualizer;
 
@@ -64,9 +63,6 @@ public partial class LevelTwo : Control
 
         speedLabel = GetNode<RichTextLabel>("UILayer/UIContainer/VBoxContainer/SpeedLabel");
         speedLabel.Text = _GetSpeedLabelText();
-
-        gameEndLabel = GetNode<RichTextLabel>("GameOverScreen/ColorRect/CenterContainer/GameEndLabel");
-        gameEndLabel.Text = "Game Over";
 
         trainPathVisualizer = GetNode<Control>("TrainPathVisualizer");
 
@@ -225,6 +221,12 @@ public partial class LevelTwo : Control
         train.CargoCount = 0;
         TimeRemaining = MAX_TIME_REMAINING;
         levelOver = false;
+
+        // If the train is stopped, start the train up again so the player doesn't have to manually start it up
+        if (train.Head.IsBraked())
+        {
+            train.Head.Unbrake();
+        }
     }
 
     public void ReturnToMainMenu()

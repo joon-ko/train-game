@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://sgmgpmtbcjhb"]
+[gd_scene load_steps=5 format=3 uid="uid://sgmgpmtbcjhb"]
 
 [ext_resource type="Theme" uid="uid://d0mlg6ed0r4ce" path="res://assets/CoreTheme.tres" id="1_di641"]
+[ext_resource type="Texture2D" uid="uid://uj85qk1isapu" path="res://assets/png/title-assets.png" id="1_lk26y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_di641"]
 bg_color = Color(0, 0, 0, 0.20784314)
@@ -9,6 +10,10 @@ corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swu1w"]
+atlas = ExtResource("1_lk26y")
+region = Rect2(90, 0, 78, 64)
 
 [node name="GameOverPanel" type="PanelContainer"]
 offset_right = 94.0
@@ -25,13 +30,23 @@ theme_override_constants/margin_bottom = 12
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_constants/separation = 48
+theme_override_constants/separation = 8
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(78, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_swu1w")
+expand_mode = 2
+stretch_mode = 4
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("1_di641")
-text = "ran out of time! delivery failed :(
-you can still keep practicing!
+text = "ran out of time!
+delivery failed :(
+you can still keep
+practicing!
 
 [r]: retry level
 [q]: main menu"
