@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://rxs4kcbrnreu"]
+[gd_scene load_steps=28 format=4 uid="uid://rxs4kcbrnreu"]
 
 [ext_resource type="Script" uid="uid://cd8hls8wvb7nx" path="res://scripts/LevelTwo.cs" id="1_bhef0"]
 [ext_resource type="AudioStream" uid="uid://ds7y84mumg2wv" path="res://assets/sounds/train game theme.mp3" id="2_pvlfk"]
@@ -22,47 +22,9 @@
 [ext_resource type="PackedScene" uid="uid://daqkimvdqs6m0" path="res://scenes/PurplePlatform.tscn" id="14_0guq7"]
 [ext_resource type="PackedScene" uid="uid://dpsthd1xp5j8s" path="res://scenes/ChristmasTree.tscn" id="15_dtp8k"]
 [ext_resource type="PackedScene" uid="uid://ds110dmyas284" path="res://scenes/Lamppost.tscn" id="16_g8lf3"]
-[ext_resource type="Script" uid="uid://goj6sxfp2im2" path="res://scenes/GameOverScreen.cs" id="17_fe77m"]
-[ext_resource type="FontFile" uid="uid://df2txpf351e23" path="res://assets/KiwiSoda.ttf" id="18_hyenc"]
 [ext_resource type="Shader" uid="uid://cac1fp5lc1c65" path="res://scenes/Snowfall.gdshader" id="19_xbmkt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6k1mm"]
-
-[sub_resource type="Animation" id="Animation_nklbr"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_l8qho"]
-resource_name = "gameOver"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.78039217)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_4b7nl"]
-_data = {
-&"RESET": SubResource("Animation_nklbr"),
-&"gameOver": SubResource("Animation_l8qho")
-}
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r7xkj"]
 shader = ExtResource("19_xbmkt")
@@ -118,8 +80,7 @@ volume_db = -3.0
 
 [node name="LevelState" type="Node" parent="."]
 script = ExtResource("3_qoyn8")
-PinkCargoRequired = 50
-PurpleCargoRequired = 50
+PinkCargoRequired = 1
 metadata/_custom_type_script = "uid://6g7d45x5aju0"
 
 [node name="Background" type="ColorRect" parent="."]
@@ -300,52 +261,6 @@ position = Vector2(160, 161)
 [node name="Lamppost5" parent="Lights" instance=ExtResource("16_g8lf3")]
 position = Vector2(272, 169)
 
-[node name="GameOverScreen" type="CanvasLayer" parent="."]
-process_mode = 3
-visible = false
-script = ExtResource("17_fe77m")
-metadata/_custom_type_script = "uid://goj6sxfp2im2"
-
-[node name="ColorRect" type="ColorRect" parent="GameOverScreen"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.2901961, 0.6117647, 0.9764706, 0.5019608)
-
-[node name="CenterContainer" type="CenterContainer" parent="GameOverScreen/ColorRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="GameEndLabel" type="RichTextLabel" parent="GameOverScreen/ColorRect/CenterContainer"]
-layout_mode = 2
-theme = ExtResource("5_2biqm")
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "Game Over"
-fit_content = true
-autowrap_mode = 0
-
-[node name="RestartButton" type="Button" parent="GameOverScreen/ColorRect"]
-layout_mode = 0
-offset_left = 285.0
-offset_top = 228.0
-offset_right = 350.0
-offset_bottom = 259.0
-theme = ExtResource("5_2biqm")
-theme_override_fonts/font = ExtResource("18_hyenc")
-text = "Restart"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="GameOverScreen"]
-libraries = {
-&"": SubResource("AnimationLibrary_4b7nl")
-}
-
 [node name="SnowLayer" type="CanvasLayer" parent="."]
 layer = 2
 
@@ -359,5 +274,3 @@ grow_vertical = 2
 texture = SubResource("GradientTexture2D_nklbr")
 
 [node name="LevelPortals" type="Node2D" parent="."]
-
-[connection signal="pressed" from="GameOverScreen/ColorRect/RestartButton" to="." method="OnRestartButtonPressed"]

@@ -108,6 +108,11 @@ public partial class HeadTraincar : Traincar
 		braked = true;
 	}
 
+	public void Unbrake()
+	{
+		_Unbrake(); // I am so lazy
+	}
+
 	private void _Unbrake()
 	{
 		if (brakeTween != null && brakeTween.IsValid())
@@ -200,7 +205,6 @@ public partial class HeadTraincar : Traincar
 		{
 			var accuracy = (MAX_SCORE_DISTANCE - distance) / MAX_SCORE_DISTANCE * 100f;
 			var grade = CalculateGradeForAccuracy(accuracy);
-			GD.Print($"Raw accuracy: {accuracy}");
 
 			// If the accuracy grade is a miss, just do nothing.
 			if (grade == AccuracyGrade.Miss)
@@ -277,7 +281,7 @@ public partial class HeadTraincar : Traincar
 		foreach (Platform platform in platforms.Cast<Platform>())
 		{
 			var targetProgress = platform.ProgressRatio * currentPath.Curve.GetBakedLength();
-		if (currentPathInfo.Equals(platform.PathInfo))
+			if (currentPathInfo.Equals(platform.PathInfo))
 			{
 
 				var distance = Math.Abs(targetProgress - currentPathFollow.Progress);
@@ -300,5 +304,10 @@ public partial class HeadTraincar : Traincar
 	public bool IsStopped()
 	{
 		return Speed == 0;
+	}
+
+	public bool IsBraked()
+	{
+		return braked;
 	}
 }
