@@ -36,7 +36,7 @@ public partial class LevelTwo : Control
     private PanelContainer gameOverPanel;
     private PanelContainer gameWinPanel;
 
-    private const float MAX_TIME_REMAINING = 15;
+    private const float MAX_TIME_REMAINING = 123;
     private float TimeRemaining = MAX_TIME_REMAINING;
 
     private bool levelOver = false;
