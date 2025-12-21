@@ -80,7 +80,13 @@ public partial class Platform : Node2D
     public void Initialize()
     {
         PathInfo = GetPathFromTarget(TrainTargetLocation);
-        ProgressRatio = (float)(TrainTargetLocation.X - PathInfo.StartCoordinate.X) / (PathInfo.EndCoordinate.X - PathInfo.StartCoordinate.X);
+        if (TrainTargetLocation.Y == PathInfo.StartCoordinate.Y)
+        {
+            ProgressRatio = (float)(TrainTargetLocation.X - PathInfo.StartCoordinate.X) / (PathInfo.EndCoordinate.X - PathInfo.StartCoordinate.X);
+        } else if (TrainTargetLocation.X == PathInfo.StartCoordinate.X)
+        {
+            ProgressRatio = (float)(TrainTargetLocation.Y - PathInfo.StartCoordinate.Y) / (PathInfo.EndCoordinate.Y - PathInfo.StartCoordinate.Y);
+        }
     }
 
     public override void _Process(double delta)

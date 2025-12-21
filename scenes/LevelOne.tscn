@@ -259,6 +259,7 @@ TrainTargetLocation = Vector2i(26, 2)
 Train = NodePath("../../Train")
 
 [node name="PurplePlatform" parent="Platforms" node_paths=PackedStringArray("Train") groups=["Platforms"] instance=ExtResource("20_6m31o")]
+y_sort_enabled = true
 position = Vector2(176, 170)
 scale = Vector2(-1, 1)
 Location = Vector2i(15, 5)
