@@ -10,10 +10,15 @@ config_version=5
 
 [application]
 
-config/name="train game"
+config/name="ho ho haulin'"
+config/version="1.0"
 run/main_scene="uid://do63v86sabwoc"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="uid://1q0if1quf783"
+
+[audio]
+
+general/default_playback_type.web=0
 
 [autoload]
 
@@ -24,6 +29,8 @@ SwitchManager="*res://scripts/SwitchManager.cs"
 
 window/size/viewport_width=640
 window/size/viewport_height=360
+window/size/window_width_override=1280
+window/size/window_height_override=720
 window/stretch/mode="viewport"
 
 [dotnet]
@@ -33,3 +40,4 @@ project/assembly_name="train game"
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+textures/vram_compression/import_etc2_astc=true
