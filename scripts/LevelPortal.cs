@@ -7,7 +7,7 @@ public partial class LevelPortal : Node2D
     [Export] public Level Level { get; set; }
     [Export] public Train Train { get; set; }
 
-    private PackedScene levelTwoScene;
+    private PackedScene levelScene;
 
     private bool activated = false;
 
@@ -16,8 +16,12 @@ public partial class LevelPortal : Node2D
     public override void _Ready()
     {
         groundLayer = GetTree().CurrentScene.GetNode<TileMapLayer>("GridManager/Ground");
-
-        levelTwoScene = GD.Load<PackedScene>("res://scenes/LevelTwo.tscn");
+        // while we don't have a level three
+        if (Level == Level.LevelThree)
+        {
+            Level = Level.LevelTwo;
+        }
+        levelScene = GD.Load<PackedScene>($"res://scenes/{Level}.tscn");
     }
 
     public override void _Process(double delta)
@@ -26,7 +30,7 @@ public partial class LevelPortal : Node2D
         if (trainCoord == PortalCoordinate && !activated)
         {
             activated = true;
-            GetTree().ChangeSceneToPacked(levelTwoScene);
+            GetTree().ChangeSceneToPacked(levelScene);
         }
     }
 }

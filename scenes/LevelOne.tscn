@@ -1,6 +1,6 @@
-[gd_scene load_steps=32 format=4 uid="uid://c0rpwtiloxxx0"]
+[gd_scene load_steps=32 format=4 uid="uid://b8hvgqt5ht4v"]
 
-[ext_resource type="Script" uid="uid://cd8hls8wvb7nx" path="res://scripts/LevelTwo.cs" id="1_5erob"]
+[ext_resource type="Script" uid="uid://dascmc68fua3e" path="res://scripts/LevelOne.cs" id="1_psf0f"]
 [ext_resource type="AudioStream" uid="uid://ds7y84mumg2wv" path="res://assets/sounds/train game theme.mp3" id="2_skubl"]
 [ext_resource type="AudioStream" uid="uid://om04x3wfpjts" path="res://assets/sounds/choo_choo_1.ogg" id="3_mc3rw"]
 [ext_resource type="AudioStream" uid="uid://b01dyfiqcp3sp" path="res://assets/sounds/choo_choo_2.ogg" id="4_femeu"]
@@ -87,7 +87,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_5erob")
+script = ExtResource("1_psf0f")
 
 [node name="Sounds" type="Node" parent="."]
 
@@ -117,7 +117,6 @@ volume_db = -3.0
 
 [node name="LevelState" type="Node" parent="."]
 script = ExtResource("7_w257t")
-PinkCargoRequired = 50
 PurpleCargoRequired = 50
 metadata/_custom_type_script = "uid://6g7d45x5aju0"
 
@@ -238,7 +237,8 @@ script = ExtResource("15_x373k")
 metadata/_edit_lock_ = true
 
 [node name="Train" parent="." instance=ExtResource("16_56i5w")]
-StartCoordinate = Vector2i(26, 24)
+StartCoordinate = Vector2i(21, 22)
+StartDirection = 0
 
 [node name="Compass" type="Sprite2D" parent="."]
 visible = false

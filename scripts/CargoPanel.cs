@@ -18,6 +18,10 @@ public partial class CargoPanel : Control
     {
         purpleCargoLabel = GetNode<Label>(CONTAINER + "/PurpleCargoContainer/HBoxContainer/Label");
         pinkCargoLabel = GetNode<Label>(CONTAINER + "/PinkCargoContainer/HBoxContainer/Label");
+        if (GetTree().CurrentScene.Name == "LevelOne") 
+        {
+            GetNode<MarginContainer>(CONTAINER + "/PinkCargoContainer").Hide();
+        }
 
         UpdateLabels();
     }
@@ -30,6 +34,9 @@ public partial class CargoPanel : Control
     private void UpdateLabels()
     {
         purpleCargoLabel.Text = $"{PurpleCargoDelivered}/{PurpleCargoRequired}";
-        pinkCargoLabel.Text = $"{PinkCargoDelivered}/{PinkCargoRequired}";
+        if (GetTree().CurrentScene.Name != "LevelOne") 
+        {
+            pinkCargoLabel.Text = $"{PinkCargoDelivered}/{PinkCargoRequired}";
+        }
     }
 }
