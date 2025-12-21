@@ -49,6 +49,8 @@ public partial class MainMenu : Control
 
         choochooPlayerOne = GetNode<AudioStreamPlayer>("Sounds/Choochoo1");
         choochooPlayerTwo = GetNode<AudioStreamPlayer>("Sounds/Choochoo2");
+
+        ClearFollowTraincarPositions();
     }
 
     private void _AssignTrainPath()
@@ -82,6 +84,21 @@ public partial class MainMenu : Control
         train.Tail.AcceptPath(path);
         scheduled = true;
     }
+
+    private void ClearFollowTraincarPositions()
+    {
+        // A series of hacks, but hacks are the essence of jams
+        train.Middle.currentPath.Curve.ClearPoints();
+        train.Middle.previousPath.Curve.ClearPoints();
+        train.Tail.currentPath.Curve.ClearPoints();
+        train.Tail.previousPath.Curve.ClearPoints();
+
+        train.Middle.currentPathFollow.Position = new Vector2(-50, 50);
+        train.Middle.previousPathFollow.Position = new Vector2(-50, 50);
+        train.Tail.currentPathFollow.Position = new Vector2(-50, 50);
+        train.Tail.previousPathFollow.Position = new Vector2(-50, 50);
+    }
+
 
     private void _OnFinishedPath()
     {

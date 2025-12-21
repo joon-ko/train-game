@@ -3,7 +3,7 @@ using Godot;
 
 public partial class LevelTwo : Control
 {
-    private Train testTrain;
+    private Train train;
 
     private GridManager gridManager;
     private TileMapLayer groundLayer;
@@ -54,8 +54,10 @@ public partial class LevelTwo : Control
         envLayer = GetNode<TileMapLayer>("GridManager/Environment");
         switchLayer = GetNode<TileMapLayer>("SwitchArrowLayer/SwitchArrows");
 
-        testTrain = GetNode<Train>("Train");
-        testTrain.Head.FinishedPath += _OnFinishedPath;
+        train = GetNode<Train>("Train");
+        train.Head.FinishedPath += _OnFinishedPath;
+
+        ClearFollowTraincarPositions();
 
         timeRemainingLabel = GetNode<RichTextLabel>("UILayer/UIContainer/VBoxContainer/TimeRemainingLabel");
         timeRemainingLabel.Text = _GetTimeRemainingText();
@@ -94,7 +96,7 @@ public partial class LevelTwo : Control
 
     private void _AssignTrainPath()
     {
-        var coordinate = madeInitialAssignment ? groundLayer.LocalToMap(testTrain.Head.GetTrainPosition()) : testTrain.StartCoordinate;
+        var coordinate = madeInitialAssignment ? groundLayer.LocalToMap(train.Head.GetTrainPosition()) : train.StartCoordinate;
         if (!madeInitialAssignment)
         {
             madeInitialAssignment = true;
@@ -118,9 +120,9 @@ public partial class LevelTwo : Control
             path = paths[0];
         }
 
-        testTrain.Head.AcceptPath(path);
-        testTrain.Middle.AcceptPath(path);
-        testTrain.Tail.AcceptPath(path);
+        train.Head.AcceptPath(path);
+        train.Middle.AcceptPath(path);
+        train.Tail.AcceptPath(path);
         scheduled = true;
     }
 
@@ -136,7 +138,7 @@ public partial class LevelTwo : Control
 
     private string _GetSpeedLabelText()
     {
-        var formattedSpeed = Mathf.RoundToInt(testTrain.Head.Speed * 100f);
+        var formattedSpeed = Mathf.RoundToInt(train.Head.Speed * 100f);
         return $"train speed: {formattedSpeed} km/h";
     }
 
@@ -192,16 +194,35 @@ public partial class LevelTwo : Control
         cargoPanel.PurpleCargoDelivered = levelState.PurpleCargoDelivered;
     }
 
+    private void ClearFollowTraincarPositions()
+    {
+        // A series of hacks, but hacks are the essence of jams
+        train.Middle.currentPath.Curve.ClearPoints();
+        train.Middle.previousPath.Curve.ClearPoints();
+        train.Tail.currentPath.Curve.ClearPoints();
+        train.Tail.previousPath.Curve.ClearPoints();
+
+        train.Middle.currentPathFollow.Position = new Vector2(-50, 50);
+        train.Middle.previousPathFollow.Position = new Vector2(-50, 50);
+        train.Tail.currentPathFollow.Position = new Vector2(-50, 50);
+        train.Tail.previousPathFollow.Position = new Vector2(-50, 50);
+    }
+
     public void RestartLevel()
     {
         GD.Print("Restarting level");
+        ClearFollowTraincarPositions();
+
         cargoPanel.PurpleCargoRequired = levelState.PurpleCargoRequired;
         cargoPanel.PinkCargoRequired = levelState.PinkCargoRequired;
+        levelState.PinkCargoDelivered = 0;
+        levelState.PurpleCargoDelivered = 0;
         madeInitialAssignment = false;
         scheduled = false;
         gameOverPanel.Visible = false;
-        testTrain.CarriedCargo = CargoType.None;
-        testTrain.CargoCount = 0;
+        gameWinPanel.Visible = false;
+        train.CarriedCargo = CargoType.None;
+        train.CargoCount = 0;
         TimeRemaining = MAX_TIME_REMAINING;
         levelOver = false;
     }
@@ -209,6 +230,7 @@ public partial class LevelTwo : Control
     public void ReturnToMainMenu()
     {
         GD.Print("Returning to main menu");
+        ClearFollowTraincarPositions();
         GetTree().ChangeSceneToPacked(mainMenuScene);
     }
 
@@ -219,7 +241,7 @@ public partial class LevelTwo : Control
             var keyEvent = (InputEventKey)@event;
             if (keyEvent.Keycode == Key.Space && keyEvent.Pressed)
             {
-                testTrain.Head.ToggleBrake();
+                train.Head.ToggleBrake();
                 return;
             }
             if (keyEvent.Keycode == Key.Z && keyEvent.Pressed)
